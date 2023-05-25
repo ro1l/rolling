@@ -34,7 +34,8 @@
             <div class="btn-group">
               <button class="btn btn-outline-success"
               @click="openModal(false, article)">編輯</button>
-              <button class="btn btn-outline-danger">刪除</button>
+              <button class="btn btn-outline-danger"
+              @click="openDelModal(article)">刪除</button>
             </div>
           </td>
       </tr>
@@ -44,33 +45,53 @@
   ref="articleModal"
   :article="tempArticle"
   @update-article="updateArticle"/>
+  <Pagination
+  :pages="pagination"
+  @emit-pages="getArticles"/>
+  <Loading
+  :active="isLoading"/>
+  <DelModal
+  :item="tempArticle"
+  @del-item="delArticle"
+  ref="delModal"/>
 </template>
 
 <script>
 import ArticleModal from '@/components/backend/ArticleModal.vue';
+import Pagination from '@/components/Pagination.vue';
+import DelModal from '@/components/backend/DelModal.vue';
 
 export default {
+  inject: ['emitter', 'pushMessageState'],
   data() {
     return {
       articles: {},
       tempArticle: {
       },
       isNew: false,
+      pagination: {},
+      isLoading: false,
     };
   },
   components: {
     ArticleModal,
+    Pagination,
+    DelModal,
   },
   methods: {
-    getArticles() {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/articles`;
+    getArticles(page = 1) {
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/articles/?page=${page}`;
       this.$http.get(api)
         .then((res) => {
+          this.isLoading = false;
           this.articles = res.data.articles;
           this.pagination = res.data.pagination;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     },
     openModal(isNew, item) {
+      this.isLoading = true;
       this.isNew = isNew;
       if (isNew) {
         this.tempArticle = {
@@ -80,12 +101,14 @@ export default {
       } else {
         this.tempArticle = { ...item };
       }
+      this.isLoading = false;
       this.$refs.articleModal.showModal();
     },
     updateArticle(tempArticle) {
       this.tempArticle = tempArticle;
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article`;
       let httpMethod = 'post';
+      this.isLoading = true;
 
       if (!this.isNew) {
         api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${tempArticle.id}`;
@@ -93,10 +116,28 @@ export default {
       }
       this.$http[httpMethod](api, { data: this.tempArticle })
         .then((res) => {
-          console.log(res);
+          console.log(this.tempArticle);
+          this.isLoading = false;
+          this.getArticles();
+          this.pushMessageState(res);
         });
       this.$refs.articleModal.hideModal();
-      this.getArticles();
+    },
+    openDelModal(item) {
+      this.tempArticle = { ...item };
+      this.$refs.delModal.showModal();
+    },
+    delArticle() {
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${this.tempArticle.id}`;
+      this.$http.delete(api)
+        // eslint-disable-next-line no-unused-vars
+        .then((res) => {
+          this.$refs.delModal.hideModal();
+          this.isLoading = false;
+          this.getArticles();
+          this.pushMessageState(res);
+        });
     },
   },
   created() {

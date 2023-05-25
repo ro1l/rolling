@@ -45,7 +45,7 @@ const routes = [
         component: () => import('../views/frontend/Checkout.vue'),
       },
       {
-        path: 'order', // 之後要加上id
+        path: 'order/:orderId', // 之後要加上id
         name: '訂單確認',
         component: () => import('../views/frontend/Order.vue'),
       },

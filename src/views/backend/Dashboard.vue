@@ -23,10 +23,6 @@ export default {
     ToastList,
     Navbar,
   },
-  data() {
-    return {
-    };
-  },
   created() {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)rollingToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
     this.$http.defaults.headers.common.Authorization = token;

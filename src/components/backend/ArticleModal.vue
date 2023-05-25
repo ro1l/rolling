@@ -102,7 +102,6 @@ export default {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
       this.$http.post(api, formData)
         .then((res) => {
-          console.log(res.data);
           if (res.data.success) {
             this.tempArticle.image = res.data.imageUrl;
           }

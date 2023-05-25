@@ -47,6 +47,7 @@
 import Pagination from '@/components/Pagination.vue';
 
 export default {
+  inject: ['emitter', 'pushMessageState'],
   data() {
     return {
       products: {},
@@ -87,6 +88,7 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then((res) => {
           this.status.loadingItem = '';
+          this.pushMessageState(res);
         });
     },
   },
