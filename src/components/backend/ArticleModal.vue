@@ -114,7 +114,7 @@ export default {
       const changeDate = new Date(this.tempArticle.create_at * 1000)
         .toISOString().split('T');
       [this.create_at] = changeDate;
-      console.log(this.tempArticle);
+      // console.log(this.tempArticle);
     },
     create_at() {
       this.tempArticle.create_at = Math.floor(new Date(this.create_at) / 1000);

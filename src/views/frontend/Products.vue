@@ -45,6 +45,8 @@
 
 <script>
 import Pagination from '@/components/Pagination.vue';
+// import { mapState, mapActions } from 'pinia';
+// import productStore from '@/stores/productStore';
 
 export default {
   inject: ['emitter', 'pushMessageState'],
@@ -58,10 +60,14 @@ export default {
       },
     };
   },
+  // computed: {
+  //   ...mapState(productStore, ['products']),
+  // },
   components: {
     Pagination,
   },
   methods: {
+    // ...mapActions(productStore, ['getProducts']),
     getProducts(page = 1) {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/?page=${page}`;

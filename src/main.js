@@ -1,4 +1,6 @@
 import { createApp } from 'vue';
+// Pinia
+import { createPinia } from 'pinia';
 // axios
 import axios from 'axios';
 import VueAxios from 'vue-axios';
@@ -17,7 +19,6 @@ import { localize, setLocale } from '@vee-validate/i18n';
 // 匯入繁體中文語系檔案
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 import { currency, date } from './methods/filters';
-
 import App from './App.vue';
 import router from './router';
 
@@ -33,7 +34,9 @@ configure({
 // 設定預設語系
 setLocale('zh_TW');
 
+const pinia = createPinia();
 const app = createApp(App);
+
 app.config.globalProperties.$filters = {
   currency, date,
 };
@@ -43,5 +46,6 @@ app.use(VueAxios, axios);
 app.component('Form', Form);
 app.component('Field', Field);
 app.component('ErrorMessage', ErrorMessage);
+app.use(pinia);
 app.use(router);
 app.mount('#app');

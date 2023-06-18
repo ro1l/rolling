@@ -12,10 +12,16 @@
         <router-link class="router-link" :to="{ name: '文章總覽' }">文章總覽</router-link>
       </li>
       <li>
+        <p
+        @click="openModal">稅金試算</p>
+      </li>
+      <li>
         <router-link class="router-link" :to="{ name: '購物車' }">購物車</router-link>
       </li>
     </ul>
   </nav>
+  <TaxModal
+  ref="taxModal"/>
 </template>
 
 <style lang="scss" scoped>
@@ -50,4 +56,16 @@ nav {
 </style>
 
 <script>
+import TaxModal from './TaxModal.vue';
+
+export default {
+  components: {
+    TaxModal,
+  },
+  methods: {
+    openModal() {
+      this.$refs.taxModal.showModal();
+    },
+  },
+};
 </script>

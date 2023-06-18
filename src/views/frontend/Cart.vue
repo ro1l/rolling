@@ -116,7 +116,6 @@ export default {
         .then((res) => {
           this.isLoading = false;
           this.cartProducts = res.data.data;
-          console.log(this.cartProducts);
         });
     },
     updateCart(item) {

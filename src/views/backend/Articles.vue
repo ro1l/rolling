@@ -100,6 +100,14 @@ export default {
         };
       } else {
         this.tempArticle = { ...item };
+        this.isLoading = true;
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${item.id}`;
+        this.$http.get(api)
+          .then((res) => {
+            this.isLoading = false;
+            this.tempArticle = res.data.article;
+            // console.log('文章', this.tempArticle);
+          });
       }
       this.isLoading = false;
       this.$refs.articleModal.showModal();
@@ -131,7 +139,6 @@ export default {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${this.tempArticle.id}`;
       this.$http.delete(api)
-        // eslint-disable-next-line no-unused-vars
         .then((res) => {
           this.$refs.delModal.hideModal();
           this.isLoading = false;

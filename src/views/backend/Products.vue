@@ -71,7 +71,13 @@ export default {
     return {
       products: [],
       pagination: {},
-      tempProduct: {},
+      tempProduct: {
+        content: {
+          comparison: {
+            type: '123',
+          },
+        },
+      },
       isNew: false,
       isLoading: false,
     };
@@ -93,7 +99,24 @@ export default {
     openModal(isNew, item) {
       this.isLoading = true;
       if (isNew) {
-        this.tempProduct = {};
+        this.tempProduct = {
+          imagesUrl: [],
+          unit: '輛',
+          is_enabled: 1,
+          content: {
+            comparison: {
+              type: '', // 種類
+              engine: '', // 引擎
+              cc: '', // 排氣量
+              hp: '', // 馬力
+              torque: '', // 扭力
+              ht: '', // 座高
+              wt: '', // 車重
+              afc: '', // 年耗油量
+              tank: '', // 油箱
+            },
+          },
+        };
       } else {
         this.tempProduct = { ...item };
       }
@@ -101,6 +124,7 @@ export default {
       this.isLoading = false;
       const productComponent = this.$refs.productModal;
       productComponent.showModal();
+      console.log(this.tempProduct);
     },
     updateProduct(item) {
       this.isLoading = true;
@@ -115,7 +139,6 @@ export default {
       this.$http[httpMethod](api, { data: this.tempProduct })
         .then((res) => {
           this.isLoading = false;
-          console.log(res);
           this.$refs.productModal.hideModal();
           this.getProducts();
           this.pushMessageState(res);
@@ -132,12 +155,11 @@ export default {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`;
       this.$http.delete(url)
-        // eslint-disable-next-line no-unused-vars
         .then((res) => {
           this.isLoading = false;
-          const delComponent = this.$refs.delModal;
-          delComponent.hideModal();
+          this.$refs.delModal.hideModal();
           this.getProducts();
+          this.pushMessageState(res);
         });
     },
   },
