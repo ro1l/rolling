@@ -1,0 +1,120 @@
+.order-box {
+  header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    text-align: center;
+    z-index: 100;
+    padding-top: 1rem;
+
+    .title {
+      width: 50%;
+      height: 4rem;
+      margin: 1rem auto 0;
+      border: 1px solid;
+      border-bottom: none;
+
+      h1 {
+        padding: 1.5rem 0 1.5rem;
+        font-size: 1.2rem;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .order {
+    width: 50%;
+    border: 1px solid;
+    border-top: none;
+    margin: 8rem auto 3rem;
+    padding: 0 5rem 10rem;
+    position: relative;
+
+    table {
+      width: 100%;
+      caption-side: top;
+      text-align: center;
+
+      caption {
+        width: calc(100% / 3);
+        text-align-last: left;
+        margin: 3rem 0 0;
+        text-decoration: underline;
+        font-size: .9rem;
+      }
+
+      td {
+        padding: .5rem 0;
+      }
+
+      &.products {
+        caption {
+          padding-bottom: .5rem;
+        }
+
+        th {
+          z-index: 1;
+          position: sticky;
+          top: 9rem;
+          padding: .5rem 0;
+        }
+
+        td {
+          z-index: -4;
+          width: calc(100% / 3);
+        }
+
+        tfoot {
+          z-index: 1;
+
+          tr {
+            margin-top: 1rem;
+          }
+
+          th {
+            padding: 1rem 0;
+
+            &:last-child {
+              font-weight: 300;
+            }
+          }
+        }
+      }
+
+      &.user {
+        tr {
+
+          th {
+            width: calc(100% / 3);
+          }
+
+          td {
+            text-align: left;
+          }
+        }
+      }
+    }
+
+    .button-box {
+      position: absolute;
+      bottom: 3rem;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      background: none;
+
+      button {
+        border: none;
+
+        &.home {
+          background: none;
+          position: relative;
+
+          a {
+          }
+        }
+      }
+    }
+  }
+}

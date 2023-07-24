@@ -1,0 +1,198 @@
+.comparison-box {
+  .table-box {
+    text-align: center;
+    width: 90%;
+    display: flex;
+    margin: 0 auto;
+
+    .add-data {
+      width: 300px;
+      padding-bottom: 2rem;
+
+      a {
+        position: sticky;
+        top: 5rem;
+        display: inline-block;
+        width: 70%;
+        height: calc(300px - 4rem);
+        line-height: calc(300px - 4rem);
+        margin-top: 2rem;
+        border: 1px solid;
+      }
+    }
+
+    table {
+      .remove {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+
+        button {
+          width: 100%;
+          display: inline-block;
+          text-align: right;
+          padding: 10px;
+          border: none;
+          background: none;
+          font-weight: 300;
+          text-decoration: underline;
+          text-underline-offset: .3rem;
+          text-decoration-thickness: 1px;
+          font-size: 0.9rem;
+        }
+
+        img {
+          width: 200px;
+          height: 130px;
+          object-fit: cover;
+        }
+
+        a {
+          margin-top: 1rem;
+          width: 100%;
+        }
+      }
+
+      th {
+        width: 100px;
+        font-weight: 300;
+      }
+
+      td {
+
+        p {
+          margin: 0;
+        }
+
+        small {
+        }
+      }
+
+      tr {
+        border-bottom: 1px solid var(--dark-mode-compensation-color);
+        height: 100px;
+
+        &.car-model {
+          position: relative;
+          height: 300px;
+          position: sticky;
+          top: 3rem;
+          box-shadow: 0px 1px var(--dark-mode-compensation-color);
+        }
+
+        &.img-box {
+          height: 300px;
+          box-sizing: border-box;
+          position: sticky;
+          top: 3rem;
+          box-shadow: 0px 1px var(--dark-mode-compensation-color);
+        }
+      }
+    }
+  }
+
+  .no-data {
+    margin-top: 2rem;
+    width: 100%;
+    padding: 2rem 5rem;
+
+    a {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+
+      p {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0 3.5rem;
+      }
+
+      .methods {
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+
+        .item {
+          width: 350px;
+          height: 350px;
+          border: 1px solid;
+          display: flex;
+          flex-wrap: wrap;
+          box-sizing: border-box;
+          align-items: center;
+          align-self: center;
+          justify-content: center;
+          padding: 2rem;
+          position: relative;
+
+          .example-box {
+            width: 100%;
+            height: 80%;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            &:nth-child(2) {
+              align-content: start;
+            }
+
+            img {
+              width: 70%;
+            }
+
+            p {
+              font-size: 2rem;
+              line-height: 2rem;
+              margin: 0;
+              padding: 0;
+              display: inline-block;
+
+              &:nth-child(2) {
+                text-align-last: left;
+                padding: 0rem 3rem 5rem;
+                font-size: 1rem;
+              }
+            }
+          }
+
+          &::after {
+            content: '';
+            background-image: url(@/assets/cursor.png);
+            width: 20px;
+            height: 30px;
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            object-fit: cover;
+            right: 5rem;
+            bottom: 8rem;
+            animation: arrow 1s infinite alternate;
+          }
+
+          p {
+            height: 20%;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1rem;
+            display: inline-block;
+            padding: 0;
+            padding-top: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  @keyframes arrow {
+    0% {
+      transform: translate(0, 50%);
+    }
+
+    100% {
+      transform: translate(-40%, 30%);
+    }
+  }
+}

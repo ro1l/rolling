@@ -1,0 +1,71 @@
+// dark mode
+$dark-bg: #242424;
+$dark-text: #bdbdbd;
+$dark-toggle-bg: $dark-text;
+$dark-border-btn: 1px solid $dark-text;
+$dark-fill-btn-bg: #fff;
+$dark-fill-btn-text: #000;
+$dark-underline: 1px solid $dark-text;
+
+body {
+
+  &.dark-mode {
+    background: $dark-bg;
+    color: $dark-text;
+
+    img {
+      filter:
+          drop-shadow(.5px 0 0 $dark-text)
+          drop-shadow(0 .5px 0 $dark-text)
+          drop-shadow(-.5px 0 0 $dark-text)
+          drop-shadow(0 -.5px 0 $dark-text)
+          drop-shadow(0px 0px 3px $dark-text);
+    }
+
+    h1, h2, h5, p, h4, h3, a, span, li, ul, label, input,tr ,td ,th, textarea{
+      color: $dark-text;
+    }
+
+    .border-btn {
+      border: $dark-border-btn;
+    }
+
+    .item-underline {
+      border-bottom: $dark-underline;
+    }
+
+    .item-top-line {
+      border-top: $dark-underline;
+    }
+
+    .fill-btn {
+      background: $dark-fill-btn-bg;
+      color: $dark-fill-btn-text;
+    }
+
+    .text-deep {
+      color: $dark-text;
+    }
+
+    .table-bg {
+      background: rgba($dark-bg, .9);
+    }
+
+    .border-box {
+      border-color: $dark-text;
+      background: $dark-bg;
+    }
+
+    .invalid-feedback {
+      color: rgba(255, 0, 0, 0.871);
+    }
+
+    .order-bg {
+      background: $dark-bg;
+    }
+
+    .fill-btn-text {
+      color: $dark-bg;
+    }
+  }
+}

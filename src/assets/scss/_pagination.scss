@@ -1,0 +1,19 @@
+.pagination-box {
+  ul {
+    display: flex;
+    justify-content: center;
+    margin: 5rem auto;
+    width: 100%;
+
+    li {
+      a {
+        font-size: 1rem;
+        padding: 0 10px;
+      }
+      &.active-page {
+        font-weight: 500;
+        text-decoration: underline;
+      }
+    }
+  }
+}

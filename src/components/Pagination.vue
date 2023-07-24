@@ -1,29 +1,39 @@
 <template>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center mb-5">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous"
+  <nav class="pagination-box"
+  aria-label="Page navigation example">
+    <ul>
+
+      <!-- 上一頁 -->
+      <li class="pre"
+      v-if="pages.has_pre === true">
+        <a href="#" aria-label="Previous"
         @click.prevent="updatePage(pages.current_page - 1)"
-        :class="{ 'disabled' : pages.has_pre === false }">
-          <span aria-hidden="true">&laquo;</span>
+        :class="{ 'disabled' : pages.has_pre === false}">
+          <span aria-hidden="true">上一頁</span>
         </a>
       </li>
-      <li class="page-item"
+
+      <!-- 總頁數 -->
+      <li class="page"
       v-for="page in pages.total_pages"
       :key="page"
-      :class="{ 'active' : page === pages.current_page }">
-        <a class="page-link" href="#"
+      :class="{ 'active-page' : page === pages.current_page }">
+        <a href="#"
         @click.prevent="updatePage(page)">
           {{ page }}
         </a>
       </li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next"
+
+      <!-- 下一頁 -->
+      <li class="next"
+      v-if="pages.has_next === true">
+        <a href="#" aria-label="Next"
         @click.prevent="updatePage(pages.current_page + 1)"
         :class="{ 'disabled' : pages.has_next === false }">
-          <span aria-hidden="true">&raquo;</span>
+          <span aria-hidden="true">下一頁</span>
         </a>
       </li>
+
     </ul>
   </nav>
 </template>

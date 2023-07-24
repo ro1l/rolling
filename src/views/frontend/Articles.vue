@@ -1,32 +1,41 @@
 <template>
-  <div class="h3 bg-info">文章總覽</div>
+  <PageTitle
+  :title="'文章總覽'"/>
 
-      <div class="col-md-8 px-5 mb-5">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <!-- 單一項目 -->
-            <div class="col"
-            v-for="item in articles"
-            :key="item.id">
-              <div class="card h-100">
-                  <img style="width : 400px ; height : 200px ; object-fit : cover; flex : 1 ;"
-                  class="card-img-top p-2"
-                  :src="item.image">
-                <div class="card-body">
-                  <h5 class="card-title">{{ item.title }}</h5>
-                  <p class="card-text">{{ item.description }}</p>
-                  <button class="btn btn-danger"
-                  @click="getArticle(item.id)">查看更多</button>
-                </div>
-              </div>
-            </div>
-
+  <div class="articles-box">
+    <a href="#"
+    v-for="item in articles"
+    :key="item.id"
+    @click.prevent="getArticle(item.id)">
+      <div class="img-box"
+      v-if="item.image">
+        <img :src="item.image" alt="">
+      </div>
+      <div class="img-box"
+      v-else>
+        <div class="no-image">
+          <p>暫無照片</p>
         </div>
       </div>
+      <div class="text">
+        <h2 class="text-deep">{{ item.title }}</h2>
+        <p>tag:{{ item.tag }}</p>
+      </div>
+    </a>
+  </div>
+
+  <Pagination
+  :pages="pagination"
+  @emit-pages="getArticles"/>
+
   <Loading
   :active="isLoading"/>
 </template>
 
 <script>
+import Pagination from '@/components/Pagination.vue';
+import PageTitle from '@/components/frontend/PageTitle.vue';
+
 export default {
   data() {
     return {
@@ -34,6 +43,10 @@ export default {
       pagination: {},
       isLoading: false,
     };
+  },
+  components: {
+    Pagination,
+    PageTitle,
   },
   methods: {
     getArticles(page = 1) {

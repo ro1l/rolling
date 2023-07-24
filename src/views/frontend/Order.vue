@@ -1,64 +1,93 @@
 <template>
-  <div class="h3 bg-info">訂單確認</div>
-  <div class="container">
-    <Form
-    @submit="payOrder">
-      <table class="table">
-        <thead>
-            <th>品名</th>
-            <th>數量</th>
-            <th>單價</th>
-        </thead>
-        <tbody>
-          <tr
-          v-for="item in order.products"
-          :key="item.id">
-            <td>{{ item.product.title }}</td>
-            <td>{{ item.qty }}/{{ item.product.unit }}</td>
-            <td>NT${{ $filters.currency(item.product.price) }}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <td class="tex-end" colspan="2">總計</td>
-          <td class="tex-end">NT${{ $filters.currency(order.total) }}</td>
-        </tfoot>
-      </table>
 
-      <table class="table">
-        <tbody>
-          <tr>
-            <th>email</th>
-            <td>{{ order.user.email }}</td>
-          </tr>
-          <tr>
-            <th>姓名</th>
-            <td>{{ order.user.name }}</td>
-          </tr>
-          <tr>
-            <th>手機</th>
-            <td>{{ order.user.tel }}</td>
-          </tr>
-          <tr>
-            <th>地址</th>
-            <td>{{ order.user.address }}</td>
-          </tr>
-          <tr>
-            <th>備註</th>
-            <td>{{ order.message }}</td>
-          </tr>
-          <tr
-          v-if="order.is_paid === true">
-            <th>付款狀態</th>
-            <td class="text-success">已付款</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="text-end"
-      v-if="order.is_paid === false">
-        <button class="btn btn-danger">確認付款去</button>
+  <div class="order-box">
+    <header class="order-bg">
+      <p class="logo">Rolling</p>
+      <div class="title">
+        <h1>訂單明細</h1>
       </div>
-    </Form>
+    </header>
+
+    <div class="order">
+      <Form
+      @submit="payOrder">
+        <table class="products order-bg">
+          <caption class="text-deep">商品明細</caption>
+          <thead>
+            <tr class="order-bg">
+              <th class="order-bg">品名</th>
+              <th class="order-bg">數量</th>
+              <th class="order-bg">金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+            v-for="item in order.products"
+            :key="item.id">
+              <td class="item-underline">{{ item.product.title }}</td>
+              <td class="item-underline">{{ item.qty }}{{ item.product.unit }}</td>
+              <td class="item-underline">NT${{ $filters.currency(item.product.price) }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th></th>
+              <th>總計</th>
+              <th>NT${{ $filters.currency(order.total) }}</th>
+            </tr>
+          </tfoot>
+        </table>
+        <table class="user">
+          <caption class="text-deep">訂購人資訊</caption>
+          <tbody>
+            <tr class="item-underline">
+              <th>姓名</th>
+              <td>{{ order.user.name }}</td>
+            </tr>
+            <tr class="item-underline">
+              <th>手機</th>
+              <td>{{ order.user.tel }}</td>
+            </tr>
+            <tr class="item-underline">
+              <th>姓名</th>
+              <td>{{ order.user.name }}</td>
+            </tr>
+            <tr class="item-underline">
+              <th>電子郵件</th>
+              <td>{{ order.user.email }}</td>
+            </tr>
+            <tr class="item-underline">
+              <th>寄送地址</th>
+              <td>{{ order.user.address }}</td>
+            </tr>
+            <tr class="item-underline">
+              <th>備註</th>
+              <td
+              v-if="order.message > 0">{{ order.message }}</td>
+              <td v-else>無備註</td>
+            </tr>
+            <tr
+            v-if="order.is_paid === true" class="item-underline">
+              <th>付款狀態</th>
+              <td>付款完成</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="button-box"
+        v-if="order.is_paid === false">
+          <button class="pay fill-btn">確認付款</button>
+        </div>
+        <div class="button-box"
+        v-else>
+          <button class="home">
+            <router-link class="border-btn" :to="{ name: 'home' }">回首頁</router-link></button>
+        </div>
+      </Form>
+    </div>
   </div>
+
+  <Loading
+  :active="isLoading"/>
 </template>
 
 <script>
@@ -70,24 +99,30 @@ export default {
         },
       },
       orderId: '',
+      isLoading: false,
     };
   },
+  inject: ['pushMessageState'],
   methods: {
     getOrder() {
+      this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order/${this.orderId}`;
       this.$http.get(api)
         .then((res) => {
           this.order = res.data.order;
-          console.log(res);
+          this.isLoading = false;
         });
     },
     payOrder() {
+      this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/pay/${this.orderId}`;
       this.$http.post(api)
         .then((res) => {
           if (res.data.success) {
+            this.isLoading = false;
             this.getOrder();
           }
+          this.pushMessageState(res);
         });
     },
   },

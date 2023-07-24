@@ -9,6 +9,7 @@
     <thead>
       <tr>
         <th>分類</th>
+        <th>圖片</th>
         <th>名稱</th>
         <th>單位</th>
         <th>售價</th>
@@ -22,6 +23,7 @@
       :key="item.id"
       >
         <td>{{ item.category }}</td>
+        <td><img :src="item.imageUrl" alt=""></td>
         <td>{{ item.title }}</td>
         <td>{{ item.unit }}</td>
         <td>{{ $filters.currency(item.price) }}</td>
@@ -54,6 +56,12 @@
   <Loading
   :active="isLoading"/>
 </template>
+
+<style lang="scss" scoped>
+img{
+  width: 30px;
+}
+</style>
 
 <script>
 import ProductModal from '@/components/backend/ProductModal.vue';

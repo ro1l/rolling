@@ -1,22 +1,47 @@
 <template>
-    <div class="h3 bg-info">單一文章列表</div>
-    {{ article.title }} <br>
-    {{ article.content }} <br>
-    {{ $filters.date(article.create_at) }} <br>
-    {{ article.description }} <br>
-    {{ article.author }} <br>
-    <img style="width : 400px ; height : 200px ; object-fit : cover; flex : 1 ;"
-    class="card-img-top p-2"
-    :src="article.image">
+  <PageTitle
+  :title="article.title"/>
+
+  <div class="article-box">
+    <div class="article">
+      <p class="text-shallow">
+        {{ $filters.date(article.create_at) }} <span>By&nbsp;{{ article.author }}</span></p>
+      <p class="text-shallow article-description">“{{ article.description }}“</p>
+      <div class="img-box">
+        <img :src="article.image" alt="">
+      </div>
+      <article class="article-content" v-html="article.content"></article>
+      <div class="share">
+        <p>分享於</p>
+        <a href="">FB</a>
+        <a href="">IG</a>
+        <a href="">twitter</a>
+      </div>
+    </div>
+
+    <div class="related-articles">
+      <p>最新文章</p>
+      <RelatedArticles/>
+    </div>
+  </div>
+
 </template>
 
 <script>
+import RelatedArticles from '@/components/frontend/RelatedArticles.vue';
+import PageTitle from '@/components/frontend/PageTitle.vue';
+
 export default {
   data() {
     return {
       id: '',
       article: {},
+      router: '/articles',
     };
+  },
+  components: {
+    RelatedArticles,
+    PageTitle,
   },
   methods: {
     getArticle() {

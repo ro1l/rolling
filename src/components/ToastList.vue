@@ -1,7 +1,6 @@
 <template>
-  <div class="toast-container position-fixed top-0 end-0">
-    <Toast v-for="(msg, key) in messages" :key="key" :msg="msg"
-    />
+  <div class="toast-container">
+    <Toast v-for="(msg, key) in messages" :key="key" :msg="msg"/>
   </div>
 </template>
 

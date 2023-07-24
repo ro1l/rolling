@@ -1,0 +1,146 @@
+.cart-box {
+  .cart {
+    display: flex;
+    width: 90%;
+    margin: 3rem auto;
+
+    .cart-box {
+      width: 70%;
+      display: flex;
+      flex-wrap: wrap;
+
+      .total {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        text-align: right;
+        margin-top: 2rem;
+
+        p {
+        }
+
+        span {
+          text-align: right;
+          width: 15%;
+          display: inline-block;
+        }
+      }
+
+      .cart-item {
+        display: flex;
+        flex-wrap: nowrap;
+        border-bottom: 1px solid var(--dark-mode-text-color);
+        padding: 1rem 0 1rem 4rem;
+
+        .img-box {
+          width: 30%;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .content {
+          padding: 0 3rem;
+          width: 40%;
+          align-self: center;
+
+          p {
+
+            &:first-child {
+              font-weight: 700;
+            }
+          }
+
+          .control {
+            display: flex;
+
+            button {
+              background: none;
+              border: none;
+              font-size: 1.5rem;
+              color: var(--other-text-color);
+            }
+
+            input {
+              background: none;
+              border: none;
+              text-align: center;
+              width: 20%;
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .price {
+          width: 40%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: end;
+          padding-right: 3rem;
+
+          a {
+            font-size: 0.9rem;
+          }
+
+          p {
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+
+    .checkout {
+      width: 30%;
+      padding: 0rem 4rem;
+
+      .coupon {
+        display: flex;
+        flex-direction: column;
+        margin: 0rem 0 2rem;
+
+        label {
+        }
+
+        input {
+          background: none;
+          border: none;
+          border-bottom: 1px solid;
+          padding: 1rem;
+
+          &::placeholder {
+            font-weight: 300;
+          }
+        }
+      }
+
+      a {
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+      }
+    }
+  }
+
+  .cart-no-data {
+    text-align: center;
+    padding: 5rem;
+
+    h2 {
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    a {
+      display: inline-block;
+      padding: .5rem 5rem;
+    }
+  }
+
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

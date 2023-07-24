@@ -92,23 +92,22 @@ export default {
     },
     openModal(isNew, item) {
       this.isLoading = true;
-      this.isNew = isNew;
       if (isNew) {
         this.tempArticle = {
           create_at: new Date().getTime() / 1000,
           isPublic: true,
         };
       } else {
-        this.tempArticle = { ...item };
+        // this.tempArticle = { ...item };
         this.isLoading = true;
         const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${item.id}`;
         this.$http.get(api)
           .then((res) => {
             this.isLoading = false;
             this.tempArticle = res.data.article;
-            // console.log('文章', this.tempArticle);
           });
       }
+      this.isNew = isNew;
       this.isLoading = false;
       this.$refs.articleModal.showModal();
     },

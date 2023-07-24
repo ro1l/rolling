@@ -7,6 +7,8 @@ import VueAxios from 'vue-axios';
 // 讀取效果
 import Loading from 'vue3-loading-overlay';
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 // 匯入 vee-validate 主套件
 import {

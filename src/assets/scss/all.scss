@@ -1,0 +1,46 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/bootstrap";
+// @import "~bootstrap/scss/variables-dark";
+// @import "~bootstrap/scss/maps";
+// @import "~bootstrap/scss/root";
+@import "variables";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Castoro+Titling&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Gujarati:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap');
+
+// dark-mode
+@import "base";
+@import "dark-mode";
+@import "mode-toggle";
+
+// view
+@import "cart";
+@import "home";
+@import "products";
+@import "product";
+@import "comparison";
+@import "articles";
+@import "article";
+@import "search";
+@import "checkout";
+@import "order";
+@import "not-found";
+
+// component
+@import "footer";
+@import "logo-nav";
+@import "media-scrolled";
+@import "navbar";
+@import "page-title";
+@import "products-card";
+@import "reversed-articles";
+@import "tax-modal";
+
+@import "pagination";
+@import "toast";
+@import "toast-list";

@@ -9,6 +9,9 @@ const routes = [
         path: '',
         name: 'home',
         component: () => import('../views/frontend/Home.vue'),
+        meta: {
+          hideComponent: true,
+        },
       },
       {
         path: 'products',
@@ -35,6 +38,14 @@ const routes = [
         component: () => import('../views/frontend/Article.vue'),
       },
       {
+        path: 'search',
+        name: '搜尋',
+        component: () => import('../views/frontend/Search.vue'),
+        meta: {
+          hideComponent: true,
+        },
+      },
+      {
         path: 'cart',
         name: '購物車',
         component: () => import('../views/frontend/Cart.vue'),
@@ -43,12 +54,29 @@ const routes = [
         path: 'checkout',
         name: '訂單填寫',
         component: () => import('../views/frontend/Checkout.vue'),
+        meta: {
+          hideComponent: true,
+        },
       },
       {
         path: 'order/:orderId',
         name: '訂單確認',
         component: () => import('../views/frontend/Order.vue'),
+        meta: {
+          hideComponent: true,
+        },
       },
+      {
+        path: '/:pathMath(.*)*',
+        name: '404',
+        component: () => import('../views/frontend/NotFound.vue'),
+      },
+      // {
+      //   path: '//:pathMath(.*)*',
+      //   redirect: {
+      //     name: 'home',
+      //   },
+      // },
     ],
   },
   {
@@ -88,6 +116,11 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  next();
 });
 
 export default router;

@@ -1,135 +1,103 @@
 <template>
-  <div class="modal" tabindex="-1"
-  ref="modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">稅金試算</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"
-          aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="form-floating mb-3">
-              <input type="text" id="search" class="form-control"  placeholder="search"
-              v-model="cacheSearch">
-              <label for="search">搜尋</label>
-            </div>
+  <Transition name="modal">
+    <div v-if="show" class="tax-modal-mask modal-mask">
+      <div class="modal-container border-box">
 
-            <div class="list-group option"
-            v-if="cacheSearch"
-            >
-              <label class="list-group-item p-3"
-              v-for="(item, key) in filterSearch"
-              :key="item + key">
-              <input type="radio" :checked="cacheArea.title === item.title"
-              class="form-check-input me-1 "
+        <!-- title -->
+        <div class="title">
+          <h1>稅金試算</h1>
+          <button class="modal-default-button"
+          @click="$emit('close')"><i class="bi bi-x text-deep"></i>
+          </button>
+        </div>
+
+        <!-- search -->
+        <div class="search border-box">
+          <div class="search-bar">
+            <input class="border-box" type="text" id="search"
+            placeholder="請輸入車款" v-model="cacheSearch">
+            <button class="text-deep"
+            v-if="!cacheSearch.length < 1"
+            @click="delCacheSearch">移除</button>
+          </div>
+          <div
+          v-if="cacheSearch">
+            <label
+            v-for="(item, key) in filterSearch.splice(0,3)" :key="item + key">
+              <p>{{ item.title }}</p>
+              <input type="radio"
+              :checked="cacheArea.title === item.title"
               @click="removeFilterSearch(item)">
-              {{ item.title }}
-              </label>
-            </div>
-            <div v-if="cacheArea">
-            {{ cacheArea.title }}
-            <img style="width : 200px ; height : 150px ; object-fit : cover; flex : 1 ;"
-            class="card-img-top p-2"
-            :src="cacheArea.imageUrl">
-            <p>排氣量：
-              {{ cacheArea.content.comparison.cc }}cc</p>
-            <p>車牌顏色：
-              <span
-              v-if="cacheArea.content.comparison.cc <= 500">黃色</span>
-              <span v-else>紅色</span>
-            </p>
-            <p>牌照稅：NT$
-              {{ $filters.currency(licenseTax) }}
-            </p>
-            <p>燃料稅：NT$
-              {{ $filters.currency(fuelTax) }}
-            </p>
-            <p>總計：NT${{ $filters.currency(totalTax) }}</p>
-            </div>
-            <div v-else>請選擇車款</div>
+            </label>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+
+        <!-- product -->
+        <div class="product item-underline"
+        v-if="cacheArea">
+          <div class="img-box">
+            <img :src="cacheArea.imageUrl" alt="">
+          </div>
+          <h2 class="text-deep">{{ cacheArea.category }}</h2>
+          <p>{{ cacheArea.title }}</p>
+          <p>排氣量：{{ cacheArea.content.comparison.cc }}cc</p>
         </div>
+
+        <!-- tax -->
+        <div class="tax"
+        v-if="cacheArea">
+          <p class="text-deep">總稅金 NT${{ $filters.currency(totalTax) }}</p>
+          <small>
+            (牌照稅${{ $filters.currency(licenseTax) }} +
+            燃料稅$
+            {{ $filters.currency(fuelTax) }})</small>
+        </div>
+
       </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script>
-import modalMixin from '@/mixins/modalMixin';
+import taxMixin from '@/mixins/taxMixin';
 
 export default {
+  props: {
+    show: Boolean,
+  },
+  mixins: [taxMixin],
   data() {
     return {
-      modal: {},
       cc: '',
       products: [],
       cacheSearch: '',
       cacheArea: '',
-      isShow: false,
     };
   },
   methods: {
-    getProduct() {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products`;
+    getProducts() {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http.get(api)
         .then((res) => {
           this.products = res.data.products;
-          console.log(this.products);
         });
     },
     removeFilterSearch(item) {
       this.cacheArea = item;
       this.cacheSearch = '';
     },
+    delCacheSearch() {
+      this.cacheSearch = '';
+    },
   },
-  mixins: [modalMixin],
   computed: {
     filterSearch() {
       const regex = new RegExp(this.cacheSearch, 'i');
       return this.products.filter((item) => item.title.match(regex));
     },
-    licenseTax() {
-      const license = this.cacheArea.content.comparison.cc;
-      if (license <= 500) {
-        return 1620;
-      }
-      if (license <= 600) {
-        return 2160;
-      }
-      if (license <= 1200) {
-        return 4320;
-      }
-      if (license <= 1800) {
-        return 7120;
-      }
-      return 11230;
-    },
-    fuelTax() {
-      const fuel = this.cacheArea.content.comparison.cc;
-      if (fuel <= 500) {
-        return 900;
-      }
-      if (fuel <= 600) {
-        return 1200;
-      }
-      if (fuel <= 1200) {
-        return 1800;
-      }
-      if (fuel <= 500) {
-        return 900;
-      }
-      return 2010;
-    },
-    totalTax() {
-      const total = this.licenseTax + this.fuelTax;
-      return total;
-    },
   },
   created() {
-    this.getProduct();
+    this.getProducts();
   },
 };
 </script>

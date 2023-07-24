@@ -1,0 +1,28 @@
+.media-scrolled {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 18%;
+  gap: 3.5rem;
+  overflow-x: auto;
+  margin-bottom: 3rem;
+
+  .media-element {
+    a {
+      color: var(--secondary-text-color);
+
+      h5 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        line-height: 0;
+        font-size: .9rem;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

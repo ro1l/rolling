@@ -1,0 +1,91 @@
+<template>
+  <div class="search-box">
+
+    <!-- title -->
+    <div class="title">
+      <h1>搜尋</h1>
+      <button @click="goBack"><i class="bi bi-x text-deep"></i>
+      </button>
+    </div>
+
+    <!-- search -->
+    <div class="search border-box">
+      <div class="search-bar">
+        <input class="border-box" type="text" id="search"
+        placeholder="請輸入車款" v-model="cacheProductsSearch">
+        <button class="text-deep"
+        v-if="!cacheProductsSearch.length < 1"
+        @click="delCacheProductSearch">移除</button>
+      </div>
+      <div
+      v-if="cacheProductsSearch">
+        <!-- 產品 -->
+        <label
+        v-for="(item, key) in filterProductsSearch.splice(0, 3)" :key="item + key">
+          <p>{{ item.title }}</p>
+          <input type="radio"
+          :checked="cacheProductArea.title === item.title"
+          @click="getProduct(item.id)">
+        </label>
+        <!-- 文章 -->
+        <!-- <p>文章</p>
+        <label
+        v-for="(item, key) in filterProductSearch.splice(0, 3)" :key="item + key">
+          <p>{{ item.title }}</p>
+          <input type="radio"
+          :checked="cacheProductArea.title === item.title"
+          @click="removeFilterSearch(item)">
+        </label> -->
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<script>
+import productStore from '@/stores/productStore';
+import { mapState, mapActions } from 'pinia';
+
+export default {
+  data() {
+    return {
+      cacheProductsSearch: '',
+      // cacheArticlesSearch: '',
+      cacheProductArea: '',
+      // cacheArticleArea: '',
+    };
+  },
+  methods: {
+    ...mapActions(productStore, ['getProducts']),
+    removeFilterSearch(item) {
+      this.cacheProductArea = item;
+      // this.cacheArticleArea = item;
+      this.cacheProductsSearch = '';
+      // this.cacheArticlesSearch = '';
+    },
+    delCacheProductSearch() {
+      this.cacheProductsSearch = '';
+    },
+    getProduct(id) {
+      this.$router.push(`/product/${id}`);
+    },
+    goBack() {
+      return this.$router.go(-1);
+    },
+  },
+  computed: {
+    ...mapState(productStore, ['products']),
+    filterProductsSearch() {
+      const regex = new RegExp(this.cacheProductsSearch, 'i');
+      return this.products.filter((item) => item.title.match(regex));
+    },
+    filterArticlesSearch() {
+      const regex = new RegExp(this.cacheArticlesSearch, 'i');
+      return this.articles.filter((item) => item.title.match(regex));
+    },
+  },
+  created() {
+    this.getProducts();
+  },
+};
+</script>

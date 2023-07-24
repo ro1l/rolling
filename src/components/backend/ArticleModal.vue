@@ -50,11 +50,6 @@
                     v-model="create_at">
                   </div>
                   <div class="mb-3">
-                    <label for="content">文章內容</label>
-                    <textarea type="text" id="content" rows="5"
-                    v-model="tempArticle.content" placeholder="請輸入文章內容"></textarea>
-                  </div>
-                  <div class="mb-3">
                     <label for="isPublic">是否公開</label>
                     <input type="checkbox" id="isPublic"
                     :true-value="true"
@@ -65,6 +60,28 @@
               </div>
             </div>
           </div>
+            <!-- <CKEditor
+            :editor="editor"
+            :config="editorConfig"
+            v-model="tempArticle.content"/> -->
+            <Editor
+            api-key="v9qd6mo7pj1ij6ci3z7691b9kd3fjj2bc9km9xgru539dsyt"
+            :init="{
+              // height: 500,
+              menubar: false,
+              plugins: [
+                // 'advlist autolink lists link image charmap print preview anchor',
+                // 'searchreplace visualblocks code fullscreen',
+                // 'insertdatetime media table paste code help wordcount'
+              ],
+              toolbar_mode: 'wrap',
+              toolbar:
+                'undo redo | blocks formatselect fontsize fontfamily | \
+                bold italic backcolor underline | \
+                alignleft aligncenter alignright alignjustify | \
+                fontsizeselect bullist numlist outdent indent | removeformat'
+            }"
+            v-model="tempArticle.content"/>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
@@ -73,18 +90,43 @@
         </div>
       </div>
     </div>
+    <Loading
+    :active="isLoading"/>
   </div>
 </template>
 
 <script>
 import modalMixin from '@/mixins/modalMixin';
+// import CKEditor from '@ckeditor/ckeditor5-vue';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Editor from '@tinymce/tinymce-vue';
 
 export default {
   data() {
     return {
+      isLoading: false,
       modal: {},
       tempArticle: {},
       create_at: '',
+      // editor: ClassicEditor,
+      // editorConfig: {
+      //   toolbar: ['heading', '|', 'bold', 'italic',
+      // 'blockQuote', '|', 'link', 'insertTable', '|', 'undo', 'redo'],
+      //   heading: {
+      //     options: [
+      //       { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+      //       {
+      //         model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2',
+      //       },
+      //       {
+      //         model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3',
+      //       },
+      //       {
+      //         model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4',
+      //       },
+      //     ],
+      //   },
+      // },
     };
   },
   props: {
@@ -93,9 +135,14 @@ export default {
       default() { return {}; },
     },
   },
+  components: {
+    // CKEditor: CKEditor.component,
+    Editor,
+  },
   emits: ['update-article'],
   methods: {
     uploadFile() {
+      this.isLoading = true;
       const uploadFile = this.$refs.fileInput.files[0];
       const formData = new FormData();
       formData.append('file-to-upload', uploadFile);
@@ -104,6 +151,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.tempArticle.image = res.data.imageUrl;
+            this.isLoading = false;
           }
         });
     },
@@ -114,7 +162,6 @@ export default {
       const changeDate = new Date(this.tempArticle.create_at * 1000)
         .toISOString().split('T');
       [this.create_at] = changeDate;
-      // console.log(this.tempArticle);
     },
     create_at() {
       this.tempArticle.create_at = Math.floor(new Date(this.create_at) / 1000);

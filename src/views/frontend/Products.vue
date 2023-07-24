@@ -1,104 +1,156 @@
 <template>
-  <div class="h3 bg-info">所有產品</div>
-  <div class="container">
-  <div class="row">
-    <div class="col-12">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>圖片</th>
-            <th>商品名稱</th>
-            <th>價格</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in products" :key="item.id">
-            <td style="width: 150px">
-              <div style="height: 100px;">
-                <img :src="item.imageUrl" alt="">
-              </div>
-            </td>
-            <td>{{ item.title }}</td>
-            <td>
-              <del>原價{{ $filters.currency(item.origin_price) }}</del>
-              <div class="h5 text-danger">現在只要NT{{ $filters.currency(item.price) }}</div>
-            </td>
-            <td>
-              <div class="btn-group">
-                <button class="btn btn-outline-danger" @click="getProduct(item.id)">查看更多</button>
-                <button class="btn btn-outline-danger"
-                @click="addCart(item.id)"
-                :disabled="this.status.loadingItem === item.id">加入購物車</button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="products-box">
+
+    <!-- category -->
+    <div class="category sidebar">
+      <li>
+        <router-link  class="text-deep"
+        :to="{ name: '所有產品' }">所有商品</router-link>
+      </li>
+      <li>
+        <input type="checkbox" name="" id="collapsible-title" checked>
+        <label for="collapsible-title" class="text-shallow" >
+          <i class="bi bi-chevron-right"></i>
+          <h5>車款廠牌</h5>
+        </label>
+        <div class="collapsible-item">
+          <li
+          v-for="(item, key) in productsCategory"
+          :key="key">
+            <a class="text-deep" href="#"
+            @click.prevent="changeCategory(item)">{{ item }}</a>
+          </li>
+        </div>
+      </li>
     </div>
+
+    <!-- products -->
+    <div class="products">
+      <div class="products-box" id="infinite-list">
+        <div class="products-item"
+        v-for="item in productByCategory"
+        :key="item.id">
+          <ProductsCard
+          :product="item"
+          @click="getProduct(item.id)"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- filter -->
+    <div class="filter sidebar">
+      <li class="text-deep">篩選</li>
+      <li>
+        <input type="checkbox" name="" id="cc" checked>
+        <label for="cc" class="text-shallow">
+          <i class="bi bi-chevron-right"></i>
+          <h5>排氣量</h5>
+        </label>
+        <div class="collapsible-item">
+          <div class="box">
+            <input class="text-shallow"
+            type="checkbox" id="black">
+            <label for="black">251~500cc</label>
+          </div>
+          <div class="box">
+            <input class="text-shallow"
+            type="checkbox" id="red">
+            <label for="red">501~600cc</label>
+          </div>
+        </div>
+      </li>
+    </div>
+
   </div>
-  </div>
-  <Pagination :pages="pagination" @emit-pages="getProducts" />
-  <Loading :active="isLoading">
-  </Loading>
+
+  <Loading
+  :active="isLoading"/>
+
+  <Pagination
+  :pages="pagination"
+  @emit-pages="showCategory"/>
 </template>
 
 <script>
+import ProductsCard from '@/components/frontend/ProductsCard.vue';
 import Pagination from '@/components/Pagination.vue';
-// import { mapState, mapActions } from 'pinia';
-// import productStore from '@/stores/productStore';
 
 export default {
+  components: {
+    ProductsCard,
+    Pagination,
+  },
   inject: ['emitter', 'pushMessageState'],
   data() {
     return {
-      products: {},
-      pagination: {},
-      isLoading: false,
-      status: {
-        loadingItem: '',
+      products: [],
+      productsCategory: [],
+      productByCategory: [],
+      nowCategory: '',
+      selectCategory: '',
+      pagination: {
+        current_page: 1,
+        has_next: true,
+        has_pre: false,
+        total_pages: 1,
       },
+      isLoadingMore: false,
+      isLoading: false,
     };
   },
-  // computed: {
-  //   ...mapState(productStore, ['products']),
-  // },
-  components: {
-    Pagination,
-  },
   methods: {
-    // ...mapActions(productStore, ['getProducts']),
-    getProducts(page = 1) {
+    getProducts() {
       this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/?page=${page}`;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http.get(api)
         .then((res) => {
-          this.isLoading = false;
-          if (res.data.success) {
-            this.products = res.data.products;
-            this.pagination = res.data.pagination;
-          }
+          this.products = res.data.products;
+          this.products.forEach((item) => {
+            if (!this.productsCategory.includes(item.category)) {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              this.isLoading = false;
+              this.productsCategory.push(item.category);
+            }
+          });
         });
     },
     getProduct(id) {
       this.$router.push(`/product/${id}`);
     },
-    addCart(id) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
-      this.status.loadingItem = id;
-      const cart = {
-        product_id: id,
-        qty: 1,
+    changeCategory(category) {
+      this.$router.push({ name: '所有產品', query: { category } });
+      this.nowCategory = category;
+    },
+    showCategory(page = 1) {
+      const tempProductCategory = [...this.categoryProduct];
+      const allPage = Math.ceil(tempProductCategory.length / 9);
+      this.nowCategory = this.selectCategory === '' ? '所有產品' : this.selectCategory;
+      this.pagination = {
+        current_page: page,
+        total_pages: allPage,
+        has_pre: page > 1,
+        has_next: page < allPage,
       };
-      this.$http.post(api, { data: cart })
-        // eslint-disable-next-line no-unused-vars
-        .then((res) => {
-          this.status.loadingItem = '';
-          this.pushMessageState(res);
-        });
+      this.productByCategory = tempProductCategory.splice((page - 1) * 9, page * 9);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
-  created() {
+  watch: {
+    $route() {
+      this.selectCategory = this.$route.query.category || '';
+    },
+    categoryProduct() {
+      this.showCategory();
+    },
+  },
+  computed: {
+    categoryProduct() {
+      let categoryProduct = [];
+      categoryProduct = this.products.filter((item) => item.category?.match(this.selectCategory));
+      return categoryProduct;
+    },
+  },
+  mounted() {
     this.getProducts();
   },
 };
