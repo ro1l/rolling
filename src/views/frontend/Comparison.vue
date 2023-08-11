@@ -2,13 +2,20 @@
   <PageTitle
   :title="'車款比較'"/>
 
+  <PageTitleSm
+  :title="'車款比較'"
+  :content="'$NT'"/>
+
   <!-- comparison -->
   <div class="comparison-box">
-    <div class="table-box" v-if="product.length > 0">
+    <div class="table-box" v-if="displayedArray.length > 0">
       <!-- comparison-title -->
       <table>
         <tr class="car-model table-bg">
           <th>車款</th>
+        </tr>
+        <tr>
+          <th>售價</th>
         </tr>
         <tr>
           <th>種類</th>
@@ -32,7 +39,7 @@
           <th>重量</th>
         </tr>
         <tr>
-          <th>年耗油量</th>
+          <th>平均油耗</th>
         </tr>
         <tr>
           <th>油箱容量</th>
@@ -42,7 +49,7 @@
         </tr>
       </table>
       <!-- comparison-car -->
-      <table v-for="item in product" :key="item.id" class="text-deep">
+      <table v-for="item in displayedArray" :key="item.id" class="text-deep">
         <tr class="img-box table-bg">
           <td>
             <div class="remove">
@@ -53,6 +60,10 @@
                 <br> {{ item.title }}
               </a>
             </div>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ $filters.currency(item.price) }}
           </td>
         </tr>
         <tr>
@@ -93,36 +104,37 @@
         </tr>
       </table>
       <!-- add-data -->
-      <div class="add-data" v-if="product.length < 4">
+      <div class="add-data" v-if="(isSmallSize === true
+      ? resizeProduct.length < 2 : product.length < 4)">
         <router-link class="text-deep" :to="{ name: '所有產品' }">+ 加入車款</router-link>
       </div>
     </div>
     <!-- no-data -->
     <div class="no-data" v-else>
-      <router-link :to="{ name: '所有產品' }">
-        <p>暫無車款比較資料，新增方式：</p>
+      <a>
+        <h5>暫無車款比較資料，新增方式：</h5>
         <div class="methods">
           <div class="item">
             <div class="example-box">
               <p>車款總覽</p>
             </div>
-            <p>1. 點擊導覽列“車款總覽”</p>
+            <p><strong>1.</strong>點擊導覽列 “車款總覽”</p>
           </div>
           <div class="item">
             <div class="example-box">
               <img src="@/assets/methods-2.png" alt="">
-              <p><strong>YAMAHA</strong><br>MT-07</p>
+              <p><b>YAMAHA</b><br>MT-07</p>
               </div>
-            <p>2. 選擇要比較的車款</p>
+            <p><strong>2.</strong> 選擇要比較的車款</p>
           </div>
           <div class="item">
             <div class="example-box">
               <p> ＋ 加入比較</p>
             </div>
-            <p>3. <ins>商品頁右側</ins>點擊  <strong> ＋加入比較 </strong></p>
+            <p><strong>3.</strong>在所選商品頁點擊  <b> ＋加入比較 </b></p>
           </div>
         </div>
-      </router-link>
+      </a>
     </div>
   </div>
 </template>
@@ -131,25 +143,31 @@
 import { mapState } from 'pinia';
 import productStore from '@/stores/productStore';
 import PageTitle from '@/components/frontend/PageTitle.vue';
+import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
 
 export default {
   data() {
     return {
       tempProduct: {},
+      isSmallSize: false,
+      comparisonState: true,
     };
   },
   components: {
     PageTitle,
+    PageTitleSm,
   },
-  inject: ['emitter'],
   computed: {
     ...mapState(productStore, ['product']),
-  },
-  created() {
+    ...mapState(productStore, ['resizeProduct']),
+    displayedArray() {
+      return this.isSmallSize ? this.resizeProduct : this.product;
+    },
   },
   methods: {
     delProduct(id) {
       this.product.splice(this.product.indexOf(id), 1);
+      this.resizeProduct.splice(this.resizeProduct.indexOf(id), 1);
     },
     getProduct(id) {
       this.$router.push(`/product/${id}`);
@@ -190,6 +208,11 @@ export default {
       const total = this.licenseTax(item) + this.fuelTax(item);
       return total;
     },
+  },
+  mounted() {
+    if (window.innerWidth <= 768) {
+      this.isSmallSize = true;
+    }
   },
 };
 </script>

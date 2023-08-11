@@ -4,6 +4,7 @@ import { defineStore } from 'pinia';
 export default defineStore('product', {
   state: () => ({
     product: [],
+    resizeProduct: [],
     products: [],
   }),
   actions: {
@@ -24,7 +25,18 @@ export default defineStore('product', {
         // 刪除第一個產品並添加新產品到末尾
         this.product.shift();
         this.product.push(product);
-        console.log(this.product);
+      }
+    },
+    setProductRWD(product) {
+      if (this.resizeProduct.length < 2) {
+        // 檢查新產品是否已存在於 product 陣列中
+        if (!this.resizeProduct.some((p) => p.id === product.id)) {
+          this.resizeProduct.push(product);
+        }
+      } else if (!this.resizeProduct.some((p) => p.id === product.id)) {
+        // 刪除第一個產品並添加新產品到末尾
+        this.resizeProduct.shift();
+        this.resizeProduct.push(product);
       }
     },
   },
