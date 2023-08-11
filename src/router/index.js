@@ -17,9 +17,11 @@ const routes = [
         path: 'products',
         name: '所有產品',
         component: () => import('../views/frontend/Products.vue'),
+
       },
       {
         path: 'product/:productId',
+        name: '單一產品',
         component: () => import('../views/frontend/Product.vue'),
       },
       {
@@ -71,12 +73,6 @@ const routes = [
         name: '404',
         component: () => import('../views/frontend/NotFound.vue'),
       },
-      // {
-      //   path: '//:pathMath(.*)*',
-      //   redirect: {
-      //     name: 'home',
-      //   },
-      // },
     ],
   },
   {
@@ -119,6 +115,14 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (to.path.startsWith('/dashboard')) {
+    document.body.style.backgroundColor = 'black';
+    router.options.linkActiveClass = 'active-nav-item';
+  } else if (to.path === '/r') {
+    document.body.style.backgroundColor = 'black';
+  } else {
+    document.body.style.backgroundColor = '';
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
   next();
 });
