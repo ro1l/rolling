@@ -1,4 +1,5 @@
 <template>
+  <div class="h-80"></div>
   <Navbar
   v-if="!$route.meta.hideComponent"/>
   <routerView/>
@@ -8,8 +9,9 @@
 </template>
 
 <style lang="scss">
-body{
+.h-80{
   margin-top: 80px;
+  background: #fff;
 }
 </style>
 

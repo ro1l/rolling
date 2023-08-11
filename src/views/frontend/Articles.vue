@@ -2,6 +2,10 @@
   <PageTitle
   :title="'文章總覽'"/>
 
+  <PageTitleSm
+  :title="'文章總覽'"
+  :content="'文章數量'"/>
+
   <div class="articles-box">
     <a href="#"
     v-for="item in articles"
@@ -35,6 +39,7 @@
 <script>
 import Pagination from '@/components/Pagination.vue';
 import PageTitle from '@/components/frontend/PageTitle.vue';
+import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
 
 export default {
   data() {
@@ -47,6 +52,7 @@ export default {
   components: {
     Pagination,
     PageTitle,
+    PageTitleSm,
   },
   methods: {
     getArticles(page = 1) {

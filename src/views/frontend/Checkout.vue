@@ -4,6 +4,9 @@
   <PageTitle
   :title="'結帳頁面'"/>
 
+  <PageTitleSm
+  :title="'結帳頁面'"/>
+
   <div class="checkbox-box">
     <div class="order-information">
       <p>訂購人資訊</p>
@@ -130,6 +133,7 @@
 <script>
 import LogoNavVue from '@/components/frontend/LogoNav.vue';
 import PageTitle from '@/components/frontend/PageTitle.vue';
+import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
 
 export default {
   data() {
@@ -150,6 +154,7 @@ export default {
   components: {
     LogoNavVue,
     PageTitle,
+    PageTitleSm,
   },
   methods: {
     getCartProducts() {

@@ -2,13 +2,28 @@
   <PageTitle
   :title="'購物車'"/>
 
+  <!-- <PageTitleSm
+  :title="'購物車'"/> -->
+
   <div class="cart-box">
     <div class="cart"
     v-if="cartProducts.total !== 0">
       <div class="cart-box">
+        <div class="coupon">
+          <label for="coupon" class="text-deep">優惠代碼</label>
+          <input type="text" name="" id="coupon"
+          placeholder="請輸入優惠券代碼"
+          v-model="coupon_code"
+          @change="addCouponCode">
+        </div>
         <div class="cart-item"
         v-for="item in cartProducts.carts"
         :key="item.id">
+          <div class="price-sm text-deep">
+            <a href="" class="text-deep"
+            @click.prevent="delProduct(item.id)"
+            :disabled="item.id === this.status.loadingItem">移除購物車</a>
+          </div>
           <div class="img-box">
             <img :src="item.product.imageUrl" alt="  ">
           </div>
@@ -17,7 +32,8 @@
             <p>{{ item.product.title }}</p>
             <div class="control">
               <button
-              @click.prevent="updateCart(item, item.qty - 1)"><i class="bi bi-dash"></i></button>
+              @click.prevent="updateCart(item, item.qty - 1)"
+              :disabled="item.qty === 1"><i class="bi bi-dash"></i></button>
               <input type="number" name="" id="qty"
               min="1"
               v-model.number="item.qty"
@@ -59,8 +75,12 @@
 
     <div class="cart-no-data"
     v-else>
-      <h2>暫無商品</h2>
+      <h2>購物車暫無商品</h2>
       <router-link class="border-btn text-deep" :to="{ name: '所有產品' }">前往選購</router-link>
+    </div>
+
+    <div class="check-box">
+      <router-link class="border-btn text-deep" :to="{ name: '訂單填寫' }">訪客結帳</router-link>
     </div>
   </div>
 
@@ -71,6 +91,7 @@
 <script>
 import emitter from '@/methods/emitter';
 import PageTitle from '@/components/frontend/PageTitle.vue';
+// import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
 
 export default {
   inject: ['emitter', 'pushMessageState'],
@@ -88,6 +109,7 @@ export default {
   },
   components: {
     PageTitle,
+    // PageTitleSm,
   },
   methods: {
     getCartProducts() {

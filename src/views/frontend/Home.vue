@@ -1,6 +1,7 @@
 <template>
-  <Navbar
-  :isHomePage="isHomePage"/>
+  <!-- <Navbar
+  :isHomePage="isHomePage"/> -->
+  <Navbar/>
 
   <div class="scroll-container" id="scroll-container">
     <!-- banner -->
@@ -21,7 +22,7 @@
     </div>
 
     <!-- introduce -->
-    <div class="scroll-area">
+    <!-- <div class="scroll-area">
       <div class="home-introduce">
         <div class="img-box"></div>
         <div class="text">
@@ -33,10 +34,10 @@
           </p>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- activity -->
-    <div class="scroll-area"
+    <!-- <div class="scroll-area"
     id="activity">
       <div class="home-activity">
         <div class="text">
@@ -45,7 +46,7 @@
           <a href="#">瞭解更多</a>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- look -->
     <!-- <div class="scroll-area">
@@ -63,7 +64,7 @@
     </div> -->
 
     <!-- product -->
-    <div class="scroll-area">
+    <!-- <div class="scroll-area">
       <div class="home-product">
         <div class="img-box">
           <div class="img"></div>
@@ -77,10 +78,10 @@
           <a href="#" class="border-btn">了解更多</a>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- hot -->
-    <div class="scroll-area">
+    <!-- <div class="scroll-area">
       <div class="home-hot">
         <h5>熱門車款</h5>
         <div class="hot-products">
@@ -91,7 +92,7 @@
         <MediaScroll
         :products="products"/>
       </div>
-    </div>
+    </div> -->
 
     <!-- footer -->
     <div class="scroll-area">
@@ -102,7 +103,7 @@
 </template>
 
 <script>
-import MediaScroll from '@/components/frontend/MediaScroll.vue';
+// import MediaScroll from '@/components/frontend/MediaScroll.vue';
 import Navbar from '@/components/frontend/Navbar.vue';
 import Footer from '@/components/frontend/Footer.vue';
 
@@ -114,7 +115,7 @@ export default {
     };
   },
   components: {
-    MediaScroll,
+    // MediaScroll,
     Navbar,
     Footer,
   },

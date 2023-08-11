@@ -10,6 +10,13 @@
     </div>
     <!-- product -->
     <div class="product">
+      <h1 class="text-deep">{{ product.title }}</h1>
+      <div class="img-boz-sm">
+        <Swiper
+        :mergedImagesUrl="mergedImagesUrl"/>
+        <button class="add-comparison text-deep" @click.prevent="addComparison">
+        加入比較</button>
+      </div>
       <!-- information -->
       <div class="sidebar information" v-if="product.content">
         <h1 class="text-deep">{{ product.title }}</h1>
@@ -60,7 +67,7 @@
                 <td>{{ product.content.comparison.wt }}kg</td>
               </tr>
               <tr>
-                <th class="text-deep">年耗油量</th>
+                <th class="text-deep">平均油耗</th>
               </tr>
               <tr>
                 <td>{{ product.content.comparison.afc }}公升</td>
@@ -118,7 +125,7 @@
                 燃料稅${{ $filters.currency(fuelTax) }})</small></td>
             </tr>
             <tr>
-              <td>
+              <td class="display-td">
                 <button class="add-cart fill-btn" @click="addCart(product.id)"
                   :disabled="this.status.loadingItem === product.id">
                   <span class="fill-btn-text" v-if="this.status.loadingItem !== product.id">
@@ -128,7 +135,7 @@
               </td>
             </tr>
             <tr>
-              <td>
+              <td class="display-td">
                 <button class="add-comparison text-deep" @click.prevent="addComparison">
                   加入比較</button>
               </td>
@@ -148,6 +155,16 @@
       <MediaScroll :products="products" />
     </div>
 
+    <div class="buy-control">
+      <button class="pre-page"
+      @click="goBack">上一頁</button>
+      <button class="add-cart fill-btn" @click="addCart(product.id)"
+        :disabled="this.status.loadingItem === product.id">
+        <span class="fill-btn-text" v-if="this.status.loadingItem !== product.id">
+          加入購物車 </span>
+        <span class="fill-btn-text" v-if="this.status.loadingItem === product.id">
+          加入中。。。</span></button>    </div>
+
   </div>
   <Loading :active="isLoading" />
 </template>
@@ -158,6 +175,7 @@ import productStore from '@/stores/productStore';
 import { mapState, mapActions } from 'pinia';
 import MediaScroll from '@/components/frontend/MediaScroll.vue';
 import RelatedArticles from '@/components/frontend/RelatedArticles.vue';
+import Swiper from '@/components/frontend/Swiper.vue';
 
 export default {
   data() {
@@ -171,11 +189,14 @@ export default {
       route: '所有產品',
       isFirstLoad: true,
       cc: 0,
+      imageUrl: '',
+      imagesUrl: [],
     };
   },
   components: {
     MediaScroll,
     RelatedArticles,
+    Swiper,
   },
   inject: ['emitter', 'pushMessageState'],
   methods: {
@@ -187,6 +208,8 @@ export default {
         .then((res) => {
           this.isLoading = false;
           this.product = res.data.product;
+          this.imageUrl = res.data.product.imageUrl;
+          this.imagesUrl = res.data.product.imagesUrl;
           this.cc = res.data.product.content.comparison.cc;
         });
     },
@@ -199,7 +222,6 @@ export default {
         qty: 1,
       };
       this.$http.post(api, { data: cart })
-        // eslint-disable-next-line no-unused-vars
         .then((res) => {
           this.isLoading = false;
           this.status.loadingItem = '';
@@ -210,11 +232,21 @@ export default {
     addComparison() {
       const product = productStore();
       product.setProduct(this.product);
-      this.$router.push('/comparison');
+      product.setProductRWD(this.product);
+      setTimeout(() => {
+        this.$router.push('/comparison');
+      });
+    },
+    goBack() {
+      return this.$router.go(-1);
     },
   },
   computed: {
     ...mapState(productStore, ['products']),
+    mergedImagesUrl() {
+      return this.imagesUrl
+      && this.imagesUrl.length > 0 ? [this.imageUrl, ...this.imagesUrl] : [this.imageUrl];
+    },
     licenseTax() {
       const license = this.cc;
       if (license <= 500) {

@@ -3,6 +3,7 @@
   :title="article.title"/>
 
   <div class="article-box">
+    <h1 class="article-title">{{ article.title }}</h1>
     <div class="article">
       <p class="text-shallow">
         {{ $filters.date(article.create_at) }} <span>By&nbsp;{{ article.author }}</span></p>
