@@ -1,25 +1,30 @@
 <template>
-  <div class="container mt-5">
-    <form class="row justify-content-center" @submit.prevent="LogIn()">
-      <div class="col-md-6">
-        <h1 class="h3 mb-3 font-weight-normal">請先登入</h1>
-        <div class="mb-2">
-          <label class="sr-only" for="inputEmail">email</label>
-          <input class="form-control" type="email" id="inputEmail"
-          required autofocus placeholder="請輸入email" autocomplete="current-password"
-            v-model="user.username" />
-        </div>
-        <div class="mb-2">
-          <label class="sr-only" for="inputPassword">密碼</label>
-          <input type="password" class="form-control" id="inputPassword" required
-          autocomplete="current-password" placeholder="請輸入密碼"
-            v-model="user.password" />
-        </div>
-        <div class="text-end mt-4">
-          <button class="btn btn-primary btn-block">登入</button>
-        </div>
+  <div class="vh-100 w-100 bg-black m-0 p-0">
+    <div class="base-blob blob position-absolute bg-base d-none d-lg-block"></div>
+    <div class="green-blob blob position-absolute  bg-green d-none d-lg-block"></div>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+    <form class="form-card text-black px-4 py-4"
+    @submit.prevent="LogIn()">
+      <div class="mb-5 text-center">
+        <div class="logo text-white border-white  opacity-50">Rolling</div>
       </div>
+      <div class="mb-4">
+        <input type="email" class="form-control p-3
+        bg-transparent"
+        placeholder="email"
+        v-model="user.username"
+        autocomplete="email">
+      </div>
+      <div class="mb-5">
+        <input type="password" class="form-control p-3
+        bg-transparent"
+        placeholder="password"
+        v-model="user.password"
+        autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-dark w-100 py-2 text-xxs">登入</button>
     </form>
+    </div>
   </div>
   <Loading :active="isLoading" />
 </template>

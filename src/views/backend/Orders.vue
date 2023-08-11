@@ -1,61 +1,81 @@
 <template>
-  <div class="h3 bg-info">訂單</div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>購買時間</th>
-          <th>EMAIL</th>
-          <th>購買款項</th>
-          <th>應付金額</th>
-          <th>是否付款</th>
-          <th>狀態</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-        v-for="order in orders"
-        :key="order.id">
-          <td>{{ $filters.date(order.create_at) }}</td>
-          <td>{{ order.user.email }}</td>
-          <td>
-            <ul class="list-unstyled">
-              <li
-              v-for="(products, i) in order.products"
-              :key="i">
-              {{ products.product.title }} 數量：{{ products.qty }}
-              {{ products.product.unit }}
-              </li>
-            </ul>
-          </td>
-          <td>NT${{ $filters.currency(order.total) }}元</td>
-          <td>
-            <span class="text-success"
-            v-if="order.is_paid === true">已付款</span>
-            <span v-else>未付款</span>
-          </td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-outline-success"
-              @click="openOrderModal(order)">檢視</button>
-              <button class="btn btn-outline-danger"
-              @click="openDelModal(order)">刪除</button>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <div class="card mb-4  bg-dark-gray text-white">
+          <div class="card-header pe-4 ps-4 pt-4 pb-2  mb-0">
+            <h6 class="mb-0 fs-5">訂單數量</h6>
+          </div>
+          <div class="card-body ps-4 pe-5">
+            <h2 class="fs-1 fw-bold text-end ">{{ orders.length }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card mb-4  bg-green text-white">
+          <div class="card-header pe-4 ps-4 pt-4 pb-2   mb-0">
+            <h6 class="mb-0 fs-5">訂單金額</h6>
+          </div>
+          <div class="card-body ps-4 pe-5">
+            <h2 class="fs-1 fw-bold text-end ">金額</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card mb-4 bg-gray-white  ">
+          <div class="card-header px-lg-4 pt-4 pb-lg-2 mb-0">
+            <div class="row d-flex align-items-start">
+              <h6 class="mb-0 fs-5">/Orders</h6>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <Loading
-    :active="isLoading"/>
-    <OrderModal
-    ref="orderModal"
-    :order="tempOrder"/>
-    <DelModal
-    ref="delModal"
-    :item="tempOrder"
-    @del-item="delOrder"/>
-    <Pagination
-    :pages="pagination"
-    @emit-pages="getOrders"/>
+          </div>
+          <div class="card-body mt-lg-3 py-0 px-lg-5">
+            <div class="table-responsive p-0 d-flex">
+              <table class="table lh-lg mb-0 table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">購買時間</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">Email</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">應付金額</th>
+                    <th class="text-secondary text-xxs
+                    fw-normal pb-lg-4 pt-sm-0 text-center">付款</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr @click.prevent="openOrderModal(order)" class="cursor-pointer"
+                  v-for="order in orders"
+                  :key="order.id">
+                    <td>{{ $filters.date(order.create_at) }}</td>
+                    <td>{{ order.user.email }}</td>
+                    <td>NT${{ $filters.currency(order.total) }}元</td>
+                    <td class="text-center">
+                      <span
+                      v-if="order.is_paid === true"><i class="bi bi-check-lg fs-5"></i></span>
+                      <span v-else></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <Pagination
+          :pages="pagination"
+          @emit-pages="getOrders"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Loading
+  :active="isLoading"/>
+  <OrderModal
+  ref="orderModal"
+  :order="tempOrder"
+  @del-order="openDelModal(tempOrder)"/>
+  <DelModal
+  ref="delModal"
+  :item="tempOrder"
+  @del-item="delOrder"/>
 </template>
 
 <script>
@@ -66,7 +86,7 @@ import Pagination from '@/components/Pagination.vue';
 export default {
   data() {
     return {
-      orders: {},
+      orders: [],
       pagination: {},
       isLoading: false,
       tempOrder: {},
@@ -104,6 +124,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.$refs.delModal.hideModal();
+            this.$refs.orderModal.hideModal();
             this.isLoading = false;
             this.getOrders();
             this.pushMessageState(res);

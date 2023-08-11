@@ -1,72 +1,106 @@
 <template>
-  <div class="h3 bg-info">產品列表</div>
-  <div class="text-end">
-    <button class="btn btn-info"
-    @click="openModal(true)">新增商品</button>
-  </div>
-  <!-- <div class="container-fluid"> -->
-  <table class="table mt-4">
-    <thead>
-      <tr>
-        <th>分類</th>
-        <th>圖片</th>
-        <th>名稱</th>
-        <th>單位</th>
-        <th>售價</th>
-        <th>是否啟用</th>
-        <th>狀態</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-      v-for="item in products"
-      :key="item.id"
-      >
-        <td>{{ item.category }}</td>
-        <td><img :src="item.imageUrl" alt=""></td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.unit }}</td>
-        <td>{{ $filters.currency(item.price) }}</td>
-        <td>
-          <span v-if="item.is_enabled">是</span>
-          <span v-else>否</span>
-        </td>
-        <td>
-          <div class="btn-group">
-            <button class="btn btn-outline-success"
-            @click="openModal(false, item)">編輯</button>
-            <button class="btn btn-outline-danger"
-            @click="openDelProductModal(item)">刪除</button>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <div class="card mb-4 bg-dark-gray text-white">
+          <div class="card-header pe-4 ps-4 pt-4 pb-2 mb-0">
+            <h6 class="mb-0 fs-5">商品數量</h6>
           </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <Pagination
-  :pages="pagination"
-  @emit-pages="getProducts"/>
+          <div class="card-body ps-4 pe-5">
+            <h2 class="fs-1 fw-bold text-end ">{{ productsAll.length }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card mb-4 bg-green text-white">
+          <div class="card-header pe-4 ps-4 pt-4 pb-2 mb-0">
+            <h6 class="mb-0 fs-5">已上架</h6>
+          </div>
+          <div class="card-body ps-4 pe-5">
+            <h2 class="fs-1 fw-bold text-end ">{{ products.length }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card mb-4 bg-gray-white">
+          <div class="card-header px-lg-4 pt-4 pb-lg-2 mb-0">
+            <div class="row d-flex align-items-center">
+              <div class="col-6">
+                <h6 class="mb-0 fs-5">/Product</h6>
+              </div>
+              <div class="col-6 text-end">
+                <button class="btn btn-outline-dark border-2 rounded-5
+                me-lg-3 mb-0 px-lg-5 py-lg-3"
+                @click="openModal(true)">新增商品</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body mt-lg-3 py-0 px-lg-5">
+            <div class="table-responsive p-0 d-flex">
+              <table class="table lh-lg mb-0 table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
+                    ">分類</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
+                    ">名稱</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
+                    ">售價</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
+                    text-center">圖片</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
+                    text-center">啟用</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr href="#" @click.prevent="openModal(false, item)" class="cursor-pointer"
+                  v-for="item in products"
+                  :key="item.id"
+                  >
+                    <td class="">{{ item.category }}</td>
+                    <td class="">{{ item.title }}</td>
+                    <td>NT${{ $filters.currency(item.price) }}</td>
+                    <td class="text-center"><img class="img-30" :src="item.imageUrl" alt=""></td>
+                    <td class="text-center">
+                      <span v-if="item.is_enabled === 1"><i class="bi bi-check-lg fs-5"></i></span>
+                      <span v-else></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <Pagination
+          :pages="pagination"
+          @emit-pages="getProducts"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <ProductModal
   ref="productModal"
   :product="tempProduct"
-  @update-product="updateProduct"/>
+  :isNew="isNew"
+  @update-product="updateProduct"
+  @del-product="openDelProductModal(tempProduct)"/>
+
   <DelModal
   :item="tempProduct"
   ref="delModal"
   @del-item="delProduct"/>
-  <Loading
-  :active="isLoading"/>
-</template>
 
-<style lang="scss" scoped>
-img{
-  width: 30px;
-}
-</style>
+  <Loading
+  :active="isLoading"
+  :zIndex ="10000"/>
+</template>
 
 <script>
 import ProductModal from '@/components/backend/ProductModal.vue';
 import DelModal from '@/components/backend/DelModal.vue';
 import Pagination from '@/components/Pagination.vue';
+// import PageTitle from '@/components/backend/PageTitle.vue';
 
 export default {
   inject: ['emitter', 'pushMessageState'],
@@ -74,23 +108,26 @@ export default {
     ProductModal,
     DelModal,
     Pagination,
+    // PageTitle,
   },
   data() {
     return {
       products: [],
       pagination: {},
-      tempProduct: {
-        content: {
-          comparison: {
-            type: '123',
-          },
-        },
-      },
+      tempProduct: {},
       isNew: false,
       isLoading: false,
+      productsAll: [],
     };
   },
   methods: {
+    getProductsAll() {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/all`;
+      this.$http.get(api)
+        .then((res) => {
+          this.productsAll = Object.values(res.data.products);
+        });
+    },
     getProducts(page = 1) {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
@@ -130,15 +167,15 @@ export default {
       }
       this.isNew = isNew;
       this.isLoading = false;
-      const productComponent = this.$refs.productModal;
-      productComponent.showModal();
-      console.log(this.tempProduct);
+      this.$refs.productModal.showModal();
     },
     updateProduct(item) {
       this.isLoading = true;
       this.tempProduct = item;
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
       let httpMethod = 'post';
+      this.$refs.productModal.hideModal();
+      this.getProducts();
 
       if (!this.isNew) {
         api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
@@ -146,18 +183,17 @@ export default {
       }
       this.$http[httpMethod](api, { data: this.tempProduct })
         .then((res) => {
-          this.isLoading = false;
-          this.$refs.productModal.hideModal();
-          this.getProducts();
           this.pushMessageState(res);
         });
+      this.isLoading = false;
+      this.$refs.productModal.hideModal();
+      this.getProducts();
     },
     openDelProductModal(item) {
       this.isLoading = true;
       this.tempProduct = { ...item };
       this.isLoading = false;
-      const delComponent = this.$refs.delModal;
-      delComponent.showModal();
+      this.$refs.delModal.showModal();
     },
     delProduct() {
       this.isLoading = true;
@@ -168,11 +204,13 @@ export default {
           this.$refs.delModal.hideModal();
           this.getProducts();
           this.pushMessageState(res);
+          this.$refs.productModal.hideModal();
         });
     },
   },
   created() {
     this.getProducts();
+    this.getProductsAll();
   },
 };
 </script>

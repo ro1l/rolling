@@ -3,19 +3,20 @@
   aria-labelledby="exampleModalLabel" aria-hidden="true"
   ref="modal">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-danger">
-          <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">刪除</h1>
+      <div class="modal-content rounded-5 bg-black border-5 border-danger pt-3 ps-4 pe-4 pb-4">
+        <div class="modal-header border-0">
           <button type="button"
-          class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          刪除後無法恢復，請問確定刪除嗎
+        <div class="modal-body mb-5">
+          <p class="text-white fs-5">刪除後無法恢復，請問確定刪除嗎?</p>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-outline-danger"
-          @click="$emit('del-item')">確定</button>
+        <div class="modal-footer border-0 d-flex justify-content-end p-2">
+          <button type="button" class="btn  btn-danger rounded-5
+          me-3 mb-0 ps-5 pe-5 pt-3 pb-3"
+          @click="$emit('del-item')">非常確定</button>
+          <!-- <button type="button" class="btn  btn-outline-light border-2 rounded-5
+          me-3 mb-0 ps-5 pe-5 pt-3 pb-3"  data-bs-dismiss="modal">先不要</button> -->
         </div>
       </div>
     </div>

@@ -1,53 +1,63 @@
 <template>
-  <div class="h3 bg-info">文章</div>
-  <div class="text-end">
-    <button class="btn bg-info"
-    @click="openModal(true)">
-      新增文章
-    </button>
-  </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>標題</th>
-        <th>描述</th>
-        <th>建立時間</th>
-        <th>作者</th>
-        <th>是否公開</th>
-        <th>狀態</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-      v-for="article in articles"
-      :key=article.id>
-          <td>{{ article.title }}</td>
-          <td>{{ article.description }}</td>
-          <td>{{ $filters.date(article.create_at) }}</td>
-          <td>{{ article.author }}</td>
-          <td>
-            <span class="text-success"
-            v-if="article.isPublic === true">公開</span>
-            <span v-else>不公開</span>
-          </td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-outline-success"
-              @click="openModal(false, article)">編輯</button>
-              <button class="btn btn-outline-danger"
-              @click="openDelModal(article)">刪除</button>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4 bg-gray-white  ">
+          <div class="card-header px-lg-4 pt-4 pb-lg-2 mb-0">
+            <div class="row d-flex align-items-center">
+              <div class="col-6">
+                <h6 class="mb-0 fs-5">/Articles</h6>
+              </div>
+              <div class="col-6 text-end">
+                <button class="btn btn-outline-dark border-2 rounded-5
+                me-lg-3 mb-0 px-lg-5 py-lg-3"
+                @click="openModal(true)">新增文章</button>
+              </div>
             </div>
-          </td>
-      </tr>
-    </tbody>
-  </table>
+          </div>
+          <div class="card-body mt-lg-3 py-0 px-lg-5">
+            <div class="table-responsive p-0 d-flex">
+              <table class="table lh-lg mb-0 table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">標題</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">建立時間</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">作者</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
+                    text-center">啟用</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr @click="openModal(false, article)" class="cursor-pointer"
+                  v-for="article in articles"
+                  :key=article.id>
+                    <td>{{ article.title }}</td>
+                    <td>{{ $filters.date(article.create_at) }}</td>
+                    <td>{{ article.author }}</td>
+                    <td class="text-center">
+                      <span
+                      v-if="article.isPublic === true"><i class="bi bi-check-lg fs-5"></i></span>
+                      <span v-else></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <Pagination
+          :pages="pagination"
+          @emit-pages="getArticles"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <ArticleModal
   ref="articleModal"
   :article="tempArticle"
-  @update-article="updateArticle"/>
-  <Pagination
-  :pages="pagination"
-  @emit-pages="getArticles"/>
+  @del-article="openDelModal(tempArticle)"
+  @update-article="updateArticle"
+  :isNew="isNew"/>
   <Loading
   :active="isLoading"/>
   <DelModal
@@ -55,6 +65,14 @@
   @del-item="delArticle"
   ref="delModal"/>
 </template>
+
+<style lang="scss" scoped>
+#true:checked~.true,
+#false:checked~.false {
+  border: 1px solid black;
+  border-radius: 20px;
+}
+</style>
 
 <script>
 import ArticleModal from '@/components/backend/ArticleModal.vue';
@@ -143,6 +161,7 @@ export default {
           this.isLoading = false;
           this.getArticles();
           this.pushMessageState(res);
+          this.$refs.articleModal.hideModal();
         });
     },
   },

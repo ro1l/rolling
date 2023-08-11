@@ -1,61 +1,80 @@
 <template>
-  <div class="h3 bg-info">優惠券</div>
-  <div class="text-end">
-    <button class="btn btn-info"
-    @click="openModal(true)">
-      新增優惠券
-    </button>
-  </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>名稱</th>
-        <th>code</th>
-        <th>百分比</th>
-        <th>期限</th>
-        <th>啟用狀態</th>
-        <th>狀態</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-      v-for="coupon in coupons"
-      :key="coupon.id">
-        <td>{{ coupon.title }}</td>
-        <td>{{ coupon.code }}</td>
-        <td>{{ coupon.percent }}</td>
-        <td>{{ $filters.date(coupon.due_date) }}</td>
-        <td>
-          <span
-          v-if="coupon.is_enabled === 1"
-          class="text-success">啟用</span>
-          <span v-else>未啟用</span>
-        </td>
-        <td>
-          <div class="btn-group">
-            <button class="btn btn-outline-success"
-            @click="openModal(false, coupon)">編輯</button>
-            <button class="btn btn-outline-danger"
-            @click="openDelModal(coupon)">刪除</button>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4 bg-gray-white  ">
+          <div class="card-header px-lg-4 pt-4 pb-lg-2 mb-0">
+            <div class="row d-flex align-items-center">
+              <div class="col-6">
+                <h6 class="mb-0 fs-5">/Coupons</h6>
+              </div>
+              <div class="col-6 text-end">
+                <button class="btn btn-outline-dark border-2 rounded-5
+                me-lg-3 mb-0 px-lg-5 py-lg-3"
+                @click="openModal(true)">新增優惠券</button>
+              </div>
+            </div>
           </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <div class="card-body mt-lg-3 py-0 px-lg-5">
+            <div class="table-responsive p-0 d-flex">
+              <table class="table lh-lg mb-0 table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">名稱</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">code</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">百分比</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">期限</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
+                    text-center">啟用</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr @click="openModal(false, coupon)" class="cursor-pointer"
+                  v-for="coupon in coupons"
+                  :key="coupon.id">
+                    <td>{{ coupon.title }}</td>
+                    <td>{{ coupon.code }}</td>
+                    <td>{{ coupon.percent }}</td>
+                    <td>{{ $filters.date(coupon.due_date) }}</td>
+                    <td class="text-center">
+                      <span
+                      v-if="coupon.is_enabled === 1"><i class="bi bi-check-lg fs-5"></i></span>
+                      <span v-else></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <Pagination
+          :pages="pagination"
+          @emit-pages="getCoupons"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <CouponModal
   ref="couponModal"
   :coupon="tempCoupon"
-  @update-coupon="updateCoupon"/>
+  :isNew="isNew"
+  @update-coupon="updateCoupon"
+  @del-coupon="openDelModal(tempCoupon)"/>
   <DelModal
   ref="delModal"
   :item="tempCoupon"
   @del-item="delCoupon"/>
-  <Pagination
-  :pages="pagination"
-  @emit-pages="getCoupons"/>
   <Loading
   :active="isLoading"/>
 </template>
+
+<style lang="scss" scoped>
+#true:checked~.true,
+#false:checked~.false {
+  border: 1px solid black;
+  border-radius: 20px;
+}
+</style>
 
 <script>
 import CouponModal from '@/components/backend/CouponModal.vue';
@@ -67,12 +86,7 @@ export default {
   data() {
     return {
       coupons: {},
-      tempCoupon: {
-        title: '',
-        is_enabled: 0,
-        percent: 100,
-        code: '',
-      },
+      tempCoupon: {},
       isNew: false,
       pagination: {},
       isLoading: false,
@@ -92,56 +106,59 @@ export default {
           this.isLoading = false;
           this.coupons = res.data.coupons;
           this.pagination = res.data.pagination;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     },
     openModal(isNew, item) {
       this.isLoading = true;
-      this.isNew = isNew;
-      if (this.isNew) {
+      if (isNew) {
         this.tempCoupon = {
           due_date: new Date().getTime() / 1000,
-          is_enabled: 0,
+          is_enabled: 1,
         };
       } else {
         this.tempCoupon = { ...item };
       }
+      this.isNew = isNew;
       this.isLoading = false;
       this.$refs.couponModal.showModal();
     },
-    updateCoupon(tempCoupon) {
+    updateCoupon(item) {
       this.isLoading = true;
-      if (this.isNew) {
-        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`;
-        this.$http.post(api, { data: tempCoupon })
-          .then((res) => {
-            this.pushMessageState(res);
-          });
-      } else {
-        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`;
-        this.$http.put(api, { data: this.tempCoupon })
-          .then((res) => {
-            this.pushMessageState(res);
-          });
+      this.tempCoupon = item;
+      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`;
+      let httpMethod = 'post';
+      this.$refs.couponModal.hideModal();
+      this.getCoupons();
+
+      if (!this.isNew) {
+        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${item.id}`;
+        httpMethod = 'put';
       }
+      this.$http[httpMethod](api, { data: this.tempCoupon })
+        .then((res) => {
+          this.pushMessageState(res);
+        });
       this.isLoading = false;
       this.$refs.couponModal.hideModal();
       this.getCoupons();
     },
     openDelModal(item) {
+      this.isLoading = true;
       this.tempCoupon = { ...item };
+      this.isLoading = false;
       this.$refs.delModal.showModal();
     },
     delCoupon() {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`;
       this.$http.delete(api)
-        // eslint-disable-next-line no-unused-vars
         .then((res) => {
           this.isLoading = false;
           this.$refs.delModal.hideModal();
           this.getCoupons();
           this.pushMessageState(res);
-          console.log(res);
+          this.$refs.couponModal.hideModal();
         });
     },
   },

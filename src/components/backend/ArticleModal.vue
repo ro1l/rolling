@@ -1,104 +1,182 @@
 <template>
-  <div class="modal" tabindex="-1"
+  <div class="modal fade " id="exampleModal"
+  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
   ref="modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">新增/修改文章</h5>
-          <button type="button" class="btn-close"
-          data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog modal-xl  modal-dialog-centered modal-fullscreen-md-down">
+      <div class="modal-content bg-black rounded-5 pt-3 ps-4 pe-4 pb-4" >
+        <div class="modal-header ">
+          <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">新增/編輯文章</h1>
+          <button type="button"
+          class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="container">
+          <div class="container-fluid">
+              <!-- 文章內容 -->
             <div class="row">
-              <div class="col-6">
-                <label for="customFile">上傳圖片</label>
-                <input type="file" id="customFile"
-                ref="fileInput"
-                @change="uploadFile">
-                <div class="mb-2">
-                  <img
-                  :src="tempArticle.image" alt=""
-                  v-if="tempArticle.image">
-                  <span v-else>沒有圖片</span>
+              <div class="col-12 mb-4">
+                <div class="card mb-4 bg-dark-gray pb-4">
+                  <div class="card-header px-4 pt-4 pb-2 mb-0">
+                    <h6 class="mb-0 fs-5 text-white">文章內容
+                    <small class="text-white text-opacity-50 fw-normal fs-6">(必填)</small></h6>
+                  </div>
+                  <div class="card-body px-lg-4
+                  d-flex justify-content-center align-items-center">
+                    <Editor
+                    api-key="v9qd6mo7pj1ij6ci3z7691b9kd3fjj2bc9km9xgru539dsyt"
+                    :init="{
+                      skin: 'oxide-dark',
+                      content_css: 'dark',
+                      menubar: false,
+                      plugins: [
+                      ],
+                      toolbar_mode: 'wrap',
+                      toolbar:
+                        'undo redo | blocks formatselect fontsize | \
+                        bold italic backcolor underline | \
+                        alignleft aligncenter alignright alignjustify | \
+                        fontsizeselect bullist numlist outdent indent | removeformat'
+                    }"
+                    v-model="tempArticle.content"/>
+                  </div>
+              </div>
+              </div>
+            </div>
+            <div class="row">
+              <!-- 左側 -->
+              <div class="col-lg-6 col-sm-12">
+                <!-- / 文章圖片 -->
+                <div class="card mb-4  bg-base pb-4">
+                  <div class="card-header pe-4 ps-4 pt-4 pb-2   mb-0">
+                    <h6 class="mb-0 fs-5">文章圖片</h6>
+                  </div>
+                  <div class="card-body ps-4 pe-4
+                d-flex justify-content-center align-items-center">
+                    <label class="cursor-pointer" for="customFile">
+                      <input class="d-none" type="file" id="customFile" @change="uploadFile"
+                      ref="fileInput">
+                      <div class="preview border border-2 border-black p-3
+                    rounded-4 d-flex justify-content-center
+                    align-items-center position-relative"
+                      v-if="tempArticle.image !== undefined">
+                        <img class="w-100"
+                        :src="tempArticle.image" alt="">
+                        <div class="position-absolute
+                        bg-opacity-50 bg-white p-2 rounded-4 rounded-top-0
+                        w-100 bottom-0 start-0 text-center">編輯</div>
+                      </div>
+                      <div v-else class="preview bg-black rounded-4 d-flex justify-content-center
+                    align-items-center">
+                        <p class="m-0 p-0 text-white ">請選擇圖片</p>
+                    </div>
+
+                    </label>
+                  </div>
+                </div>
+                <!-- / 是否公開 -->
+                <div class="card mb-4  bg-green">
+                  <div class="card-header pe-4 ps-4 pt-4 pb-2 mb-0">
+                    <h6 class="mb-0 fs-5">是否公開</h6>
+                  </div>
+                  <div class="card-body px-lg-4 pb-4 px-2">
+                    <div class="d-flex
+                    justify-content-between
+                    align-items-center
+                    ps-5 pe-5">
+                      <input class="d-none input-true" type="radio" name="select" id="true" checked
+                      :value="true"
+                      v-model="tempArticle.isPublic">
+                      <label for="true" class="true px-lg-5 py-lg-2 px-4 py-1 cursor-pointer
+                      border-2 rounded-5 fs-4">
+                        <span>是</span>
+                      </label>
+                      <input class="d-none input-false" type="radio" name="select" id="false"
+                      :value="false"
+                      v-model="tempArticle.isPublic">
+                      <label for="false" class="false px-lg-5 py-lg-2 px-4 py-1 cursor-pointer
+                      border-2 rounded-5 fs-4">
+                        <span>否</span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-6">
-                <div class="mb-3">
-                  <label for="title">標題</label>
-                  <input type="text" id="title"
-                  v-model="tempArticle.title" placeholder="請輸入標題">
-                </div>
-                <div class="mb-2">
-                  <label for="description">描述</label>
-                  <input type="text" id="description"
-                  placeholder="請輸入描述"
-                  v-model="tempArticle.description">
-                  <div class="mb-3">
-                    <label for="author">作者</label>
-                    <input type="text" id="author"
-                    v-model="tempArticle.author" placeholder="請輸入作者">
+
+              <!-- 右側 -->
+              <div class="col-lg-6 col-sm-12">
+                <div class="card mb-4  bg-gray-white pb-4">
+                  <div class="card-header pe-4 ps-4 pt-4 pb-2   mb-0">
+                    <h6 class="mb-0 fs-5">文章資訊</h6>
                   </div>
-                  <div class="mb-3">
-                    <label for="tag">標籤</label>
-                    <input type="text" id="tag"
-                    v-model="tempArticle.tag" placeholder="請輸入標籤">
-                  </div>
-                  <div class="mb-3">
-                    <label for="create_at">創建時間</label>
-                    <input type="date" id="create_at"
-                    v-model="create_at">
-                  </div>
-                  <div class="mb-3">
-                    <label for="isPublic">是否公開</label>
-                    <input type="checkbox" id="isPublic"
-                    :true-value="true"
-                    :false-value="false"
-                    v-model="tempArticle.isPublic">
+                  <div class="card-body ps-4 pe-4">
+                    <div class="mb-4">
+                      <p class="mb-2 text-black">標題</p>
+                      <input class="form-control form-control-l
+                    bg-dark bg-opacity-10 border-dark
+                    border-2 rounded-4 p-3"
+                      type="text" placeholder="請輸入標題(必填)" aria-label="example"
+                      v-model="tempArticle.title">
+                    </div>
+                    <div class="mb-4">
+                      <p class="mb-2 text-black">描述</p>
+                      <input class="form-control form-control-l
+                    bg-dark bg-opacity-10 border-dark
+                    border-2 rounded-4 p-3"
+                      type="text" placeholder="請輸入描述" aria-label="example"
+                      v-model="tempArticle.description">
+                    </div>
+                    <div class="mb-4">
+                      <p class="mb-2 text-black">作者</p>
+                      <input class="form-control form-control-l
+                    bg-dark bg-opacity-10 border-dark
+                    border-2 rounded-4 p-3"
+                      type="text" placeholder="請輸入作者" aria-label="example"
+                      v-model="tempArticle.author">
+                    </div>
+                    <div class="mb-4">
+                      <p class="mb-2 text-black">標籤</p>
+                      <input class="form-control form-control-l
+                    bg-dark bg-opacity-10 border-dark
+                    border-2 rounded-4 p-3"
+                      type="text" placeholder="請輸入標籤" aria-label="example"
+                      v-model="tempArticle.tag">
+                    </div>
+                    <div class="mb-4">
+                      <p class="mb-2 text-black">創建時間</p>
+                      <input class="form-control form-control-l
+                    bg-dark bg-opacity-10 border-dark
+                    border-2 rounded-4 p-3"
+                      type="date" aria-label="example"
+                      v-model="create_at">
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-            <!-- <CKEditor
-            :editor="editor"
-            :config="editorConfig"
-            v-model="tempArticle.content"/> -->
-            <Editor
-            api-key="v9qd6mo7pj1ij6ci3z7691b9kd3fjj2bc9km9xgru539dsyt"
-            :init="{
-              // height: 500,
-              menubar: false,
-              plugins: [
-                // 'advlist autolink lists link image charmap print preview anchor',
-                // 'searchreplace visualblocks code fullscreen',
-                // 'insertdatetime media table paste code help wordcount'
-              ],
-              toolbar_mode: 'wrap',
-              toolbar:
-                'undo redo | blocks formatselect fontsize fontfamily | \
-                bold italic backcolor underline | \
-                alignleft aligncenter alignright alignjustify | \
-                fontsizeselect bullist numlist outdent indent | removeformat'
-            }"
-            v-model="tempArticle.content"/>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-primary"
-          @click="$emit('update-article', tempArticle)">確定</button>
+
+        <div class="modal-footer  d-flex justify-content-between p-lg-4">
+          <button type="button" class="btn  btn-outline-light border-2 rounded-5
+          me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
+          v-if="isNew === false"
+          @click="$emit('del-article', tempArticle)">刪除</button>
+          <p></p>
+          <button type="button" class="btn  btn-base border-2 rounded-5
+          me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
+          @click="$emit('update-article', tempArticle)">確認</button>
         </div>
       </div>
     </div>
     <Loading
     :active="isLoading"/>
   </div>
+
+  <Loading
+  :active="isLoading"/>
 </template>
 
 <script>
 import modalMixin from '@/mixins/modalMixin';
-// import CKEditor from '@ckeditor/ckeditor5-vue';
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Editor from '@tinymce/tinymce-vue';
 
 export default {
@@ -108,25 +186,6 @@ export default {
       modal: {},
       tempArticle: {},
       create_at: '',
-      // editor: ClassicEditor,
-      // editorConfig: {
-      //   toolbar: ['heading', '|', 'bold', 'italic',
-      // 'blockQuote', '|', 'link', 'insertTable', '|', 'undo', 'redo'],
-      //   heading: {
-      //     options: [
-      //       { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-      //       {
-      //         model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2',
-      //       },
-      //       {
-      //         model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3',
-      //       },
-      //       {
-      //         model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4',
-      //       },
-      //     ],
-      //   },
-      // },
     };
   },
   props: {
@@ -134,12 +193,15 @@ export default {
       type: Object,
       default() { return {}; },
     },
+    isNew: {
+      type: Boolean,
+      required: true,
+    },
   },
   components: {
-    // CKEditor: CKEditor.component,
     Editor,
   },
-  emits: ['update-article'],
+  emits: ['update-article', 'del-article'],
   methods: {
     uploadFile() {
       this.isLoading = true;
