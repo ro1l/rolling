@@ -12,17 +12,17 @@
 ## 使用技術
 - 基礎技術：`HTML5``CSS3``JavaScript`  
 - 前端框架：`Vue3.js``Vue Cli`  
-編碼風格：`Eslint Airbnb`  
-版面設計：`Figma`  
-網頁切版：`SCSS``後台Bootstrap5``前台手刻RWD`  
+- 編碼風格：`Eslint Airbnb`  
+- 版面設計：`Figma`  
+- 網頁切版：`SCSS``後台Bootstrap5``前台手刻RWD`  
 
 
 ## 使用套件/工具
-串接遠端API：API `axios`  
-表單驗證：`VeeValidate`  
-跨元件傳遞：`Mitt`  
-狀態管理工具：`pinia`  
-文本編輯器：`TinyMCE`  
+- 串接遠端API：API `axios`  
+- 表單驗證：`VeeValidate`  
+- 跨元件傳遞：`Mitt`  
+- 狀態管理工具：`pinia`  
+- 文本編輯器：`TinyMCE`  
 
 ## 專案介紹
 
