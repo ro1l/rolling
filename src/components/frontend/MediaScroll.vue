@@ -4,7 +4,7 @@
     v-for="product in reversedProducts"
     :key="product.id">
       <a href="#"
-      @click.prevent="getProduct(product.id)">
+      @click="getProduct(product.id)">
         <img :src="product.imageUrl" alt="">
         <h5>{{ product.category }}</h5>
         <p>{{ product.title }}</p>
@@ -20,7 +20,9 @@ export default {
   },
   methods: {
     getProduct(id) {
-      this.$router.push(`/product/${id}`);
+      setTimeout(() => {
+        this.$router.push(`/product/${id}`);
+      });
     },
   },
   computed: {
