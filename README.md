@@ -10,8 +10,8 @@
 ### 後台
 
 ## 使用技術
-基礎技術：`HTML5``CSS3``JavaScript`  
-前端框架：`Vue3.js``Vue Cli`  
+- 基礎技術：`HTML5``CSS3``JavaScript`  
+- 前端框架：`Vue3.js``Vue Cli`  
 編碼風格：`Eslint Airbnb`  
 版面設計：`Figma`  
 網頁切版：`SCSS``後台Bootstrap5``前台手刻RWD`  
