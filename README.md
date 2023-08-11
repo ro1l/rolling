@@ -31,7 +31,7 @@ https://www.google.com
 ## 素材
 
 
-## Project setup
+## 專案設置
 ```
 npm install
 ```
