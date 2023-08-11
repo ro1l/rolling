@@ -1,4 +1,5 @@
 .scroll-container {
+  margin-top: 80px;
   overflow: auto;
   scroll-snap-type: y mandatory;
   margin-top: -80px;
@@ -303,5 +304,17 @@
   100% {
     transform: translate(-50%, 150%);
     opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+.home-banner {
+  .box {
+    padding-bottom: 10rem;
+
+    .scroll-icon {
+      margin: 60px auto 0;
+      }
+    }
   }
 }

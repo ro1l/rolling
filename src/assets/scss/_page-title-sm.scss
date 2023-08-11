@@ -1,0 +1,18 @@
+.page-title-sm {
+  display: none;
+}
+
+@media (max-width: 768px) {
+.page-title-sm {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 2rem .5rem;
+
+  h3 {
+    font-weight: 300;
+    font-size: 1rem;
+  }
+}
+}

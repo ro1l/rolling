@@ -26,3 +26,10 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .media-scrolled {
+    grid-auto-columns: 60%;
+    gap: 2rem;
+  }
+}

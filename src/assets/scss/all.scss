@@ -1,10 +1,15 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/mixins";
+@import "variables";
 @import "~bootstrap/scss/bootstrap";
+@import "card";
+@import "modal";
 // @import "~bootstrap/scss/variables-dark";
 // @import "~bootstrap/scss/maps";
 // @import "~bootstrap/scss/root";
-@import "variables";
+
+//dashboard
+@import "dashboard";
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
@@ -37,6 +42,8 @@
 @import "media-scrolled";
 @import "navbar";
 @import "page-title";
+@import "_page-title-sm";
+@import "_breadcrumb";
 @import "products-card";
 @import "reversed-articles";
 @import "tax-modal";

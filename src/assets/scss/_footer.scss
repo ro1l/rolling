@@ -53,3 +53,42 @@ footer {
     }
   }
 }
+
+@media (max-width: 768px) {
+  footer {
+    padding-bottom: 0;
+
+    .box {
+      width: 100%;
+      padding: 2rem 1.5rem 10rem;
+
+      .item {
+
+        h4 {
+        }
+
+        a {
+        }
+
+        .icon {
+
+          a {
+          }
+        }
+      }
+    }
+
+    .copy-right {
+      text-align-last: left;
+      flex-wrap: wrap;
+      padding: 0 1rem;
+
+      p {
+        font-size: .1rem;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+}
