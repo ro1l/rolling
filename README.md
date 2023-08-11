@@ -18,7 +18,7 @@
 
 
 ## 使用套件/工具
-- 串接遠端API：API `axios`  
+- 串接遠端API： `axios`  
 - 表單驗證：`VeeValidate`  
 - 跨元件傳遞：`Mitt`  
 - 狀態管理工具：`pinia`  
