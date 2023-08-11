@@ -1,7 +1,7 @@
 # Rolling 
 
 ## DEMO
-[Rolling](https://www.google.com)
+https://www.google.com
 
 ## 專案簡介
 以Vue3 Cli架構的重機SPA動態網站
