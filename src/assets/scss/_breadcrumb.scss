@@ -1,0 +1,18 @@
+.breadcrumb {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  margin: 0 auto;
+  padding: .5rem 2rem 0rem;
+
+  p, a{
+    padding-right: 0.2rem;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .breadcrumb {
+      display: none;
+    }
+}
