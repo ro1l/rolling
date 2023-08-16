@@ -37,7 +37,7 @@
         justify-content: end;
   
         li {
-          margin-left: 1rem;
+          // margin-left: 1rem;
   
           &:first-child {
             border-right: 1px solid;
@@ -46,6 +46,7 @@
 
             a {
               padding: 1px 20px;
+              
             }
           }
 
@@ -66,29 +67,26 @@
     }
   }
 
-  &.onScroll {
+  &.isHome {
+    background: none !important;
     .nav-list {
       .logo {
         transition: .8s;
-        color: var(--dark-mode-text-color);
-        border-color: var(--dark-mode-text-color);
+        color: $dark-text;
+        border-color: $dark-text;
       }
 
       ul {
         li {
-          color: var(--dark-mode-text-color);
+          color: $dark-text;
 
           a {
-            color: var(--dark-mode-text-color);
+          color: $dark-text;
           }
         }
       }
     }
   }
-}
-
-.nav-bar-sm {
-  display: none;
 }
 
 .nav-button {
@@ -104,28 +102,115 @@
 }
 
 @media (max-width: 768px) {
-  .nav-bar-lg {
-    display: none;
-  }
-  .nav-bar-sm {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1rem 0 2rem;
+  .nav-bar {
+    // width: 100%;
+    // height: 80px;
+    // box-sizing: border-box;
+    // display: flex;
+    // justify-content: space-around;
+    // align-items: center;
+    // position: fixed;
+    // top: 0;
+    // left: 0;
+    // z-index: 1000;
+
     .nav-list {
-      .cart {
-        text-decoration: underline;
+      // text-align: center;
+      // width: 30%;
+      width: 50%;
+
+      ul {
+        // display: flex;
+        // justify-content: space-evenly;
+        // align-items: center;
+
+        li {
+
+          a {
+            // padding: 20px;
+            // display: inline-block;
+            // cursor: pointer;
+            // transition: .8s;
+          }
+        }
+      }
+
+      &.nav-left {
+        display: none;
+      }
+
+      &.nav-right {
+        // padding: 2rem 0;
+        padding-right: 1rem;
+
+        ul {
+          // justify-content: end;
+
+          li {
+
+            .mode-toggle {
+              display: none;
+            }
+
+            &:first-child {
+              // border-right: 1px solid;
+              // padding-right: .5rem;
+              // margin-right: .5rem;
+              display: none;
+
+              a {
+                // padding: 1px 20px;
+
+              }
+            }
+
+            &:last-child {
+
+              a {
+
+                span {
+
+                  &:first-child {
+                    // text-decoration: underline;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.isHome {
+      background: none;
+
+      .nav-list {
+        .logo {
+          transition: .8s;
+          color: $dark-text;
+          border-color: $dark-text;
+        }
+
+        ul {
+          li {
+            color: $dark-text;
+
+            a {
+              color: $dark-text;
+            }
+          }
+        }
       }
     }
   }
+
   .nav-button {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    border: 1px solid rgb(0, 0, 0);
-    background: white;
+    border: 1px solid;
     z-index: 100;
     padding: .3rem 0rem;
-    color: rgb(0, 0, 0);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -136,9 +221,9 @@
       font-size: 1.5rem;
     }
   }
+
   .nav-page {
     height: calc(100vh - 0px);
-    background: white;
     width: 100%;
     display: flex;
     font-size: 1.2rem;
@@ -171,7 +256,7 @@
               padding: 1rem;
               display: flex;
               align-items: center;
-              border-bottom: 1px solid black;
+              border-bottom: 1px solid;
               justify-content: space-between;
 
               &::after {
@@ -184,36 +269,37 @@
       }
     }
   }
+
   .button-ground{
-    background: rgb(255, 255, 255);
     position: fixed;
     bottom: 2rem;
     left: 5%;
     width: 90%;
-    border: 1px solid rgb(0, 0, 0);
-    z-index: 100;
+    border: 1px solid;
+    z-index: 1001;
     display: flex;
     justify-content: space-between;
 
     button {
-        padding: .3rem 0rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100px;
-        box-sizing: border-box;
+      padding: .3rem 0rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      box-sizing: border-box;
 
-        &:first-child {
-        justify-content: start;
-        padding-left: 1rem;
-        }
-    
-        i {
-          padding-right: 0.5rem;
-          font-size: 1.5rem;
-        }
+      &:first-child {
+      justify-content: start;
+      padding-left: 1rem;
       }
+  
+      i {
+        padding-right: 0.5rem;
+        font-size: 1.5rem;
+      }
+    }
   }
+
   .filter-page {
 
     .nav-list {

@@ -317,4 +317,55 @@
       }
     }
   }
+.home-activity {
+  position: relative;
+  height: 100vh;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(@/assets/activity.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: brightness(.4);
+    z-index: -100;
+  }
+
+  .text {
+    // height: 100%;
+    // display: flex;
+    // flex-wrap: wrap;
+    // text-align: center;
+    // align-content: end;
+    // z-index: 1;
+    // color: $light;
+    padding: 2rem 2rem 7rem;
+
+    h3 {
+      // width: 100%;
+      // font-size: 2rem;
+      font-size: 1.8rem;
+    }
+
+    p {
+      // width: 100%;
+      // line-height: 3rem;
+      line-height: 1.8rem;
+      margin-top: 1rem;
+    }
+
+    a {
+      margin-top: 1rem;
+      font-size: 1rem;
+      text-decoration: underline;
+      width: 100%;
+      display: inline-block;
+      color: $light;
+    }
+  }
+}
 }

@@ -129,3 +129,8 @@ input[type=number]::-webkit-inner-spin-button {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.bg-color {
+  background: $light-bg;
+  transition: background-color .2s ease;
+}

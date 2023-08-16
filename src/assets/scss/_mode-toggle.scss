@@ -1,4 +1,5 @@
 .mode-toggle {
+  margin-left: 1rem;
   position: relative;
   padding: 0;
   width: 50px;
@@ -37,6 +38,7 @@
     &::after {
       content: '\F5A2';
       font-family: 'bootstrap-icons';
+      color: $light-text-middle;
     }
 
     #dark-mode {
@@ -47,6 +49,10 @@
       border-radius: 50%;
     }
   }
+}
+
+.home-toggle {
+  display: none;
 }
 
 body.dark-mode {

@@ -423,7 +423,6 @@
 
     .buy-control {
       border-top: 1px solid;
-      background: white;
       display: flex;
       position: fixed;
       bottom: 0;
@@ -432,10 +431,12 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
+
       .pre-page {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
+
         &::before {
           content: '\F284';
           font-family: 'bootstrap-icons';
@@ -444,8 +445,10 @@
           padding-top: 0.1rem;
           }
       }
+
       .add-cart {
         padding: .8rem 2rem;
+
         span {
           width: 100px;
           display: inline-block;

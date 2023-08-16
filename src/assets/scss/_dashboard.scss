@@ -1,13 +1,36 @@
+.row > * {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.page-title {
+  font-family: 'Space Grotesk', sans-serif;
+  // font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -2px;
+  font-size: 4rem;
+}
+
+.router-link {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+}
+
+.font-family-taipei{
+  font-family: 'TaipeiSansTC';
+  font-weight: 200;
+}
+
+.fw-200 {
+  font-weight: 200;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
 
 .text-xxs {
   font-size: 0.9rem;
-}
-
-.card {
-  box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15) !important;
 }
 
 .img-30 {
@@ -54,7 +77,9 @@
 .input-true:checked~.true,
 .input-false:checked~.false {
   border: 1px solid black;
+  background: black;
   border-radius: 20px;
+  color: white;
 }
 
 .blob{
@@ -127,14 +152,18 @@
 
 .form-card{
   z-index: 100;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1.5px solid rgba(255, 255, 255, 0.3);  border-radius: 1.5rem;
+  border-radius: 0rem;
   backdrop-filter: blur(20px);
+  border: 1px solid black;
+  padding: 2rem 4rem 3rem;
   input{
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid black;
+  border-radius: 0;
   width: 300px;
   &::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.3);
+  // font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   }
   }
 }
@@ -145,7 +174,7 @@
   outline: 2px solid rgba(0, 0, 0, 0.3);
 }
 
-input:-webkit-autofill {
-  // box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.733) inset;
-  // -webkit-text-fill-color: #ffffff;
-}
+// input:-webkit-autofill {
+//   box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.733) inset;
+//   // -webkit-text-fill-color: #ec0606;
+// }

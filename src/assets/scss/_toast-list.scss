@@ -3,3 +3,12 @@
   bottom: 4rem;
   left: 3rem;
 }
+
+@media (max-width: 768px) {
+
+  .toast-container {
+    width: 100%;
+    bottom: 6rem;
+    left: 1rem;
+  }
+}

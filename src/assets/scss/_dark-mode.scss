@@ -67,5 +67,14 @@ body {
     .fill-btn-text {
       color: $dark-bg;
     }
+
+    .bg-color {
+      background: $dark-bg;
+    }
+
+    .carousel-dark .carousel-indicators [data-bs-target] {
+      // background: white !important;
+      background-color: rgb(255, 255, 255) !important;
+    }
   }
 }

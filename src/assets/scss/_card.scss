@@ -10,9 +10,9 @@
   --#{$prefix}card-title-color: #{$card-title-color};
   --#{$prefix}card-subtitle-color: #{$card-subtitle-color};
   --#{$prefix}card-border-width: #{$card-border-width};
-  --#{$prefix}card-border-color: #{$card-border-color};
-  --#{$prefix}card-border-radius: 1rem;
-  --#{$prefix}card-box-shadow: #{$card-box-shadow};
+  --#{$prefix}card-border-color: none;
+  --#{$prefix}card-border-radius: 0rem;
+  --#{$prefix}card-box-shadow: none;
   --#{$prefix}card-inner-border-radius: #{$card-inner-border-radius};
   --#{$prefix}card-cap-padding-y: #{$card-cap-padding-y};
   --#{$prefix}card-cap-padding-x: #{$card-cap-padding-x};
@@ -32,7 +32,7 @@
   height: var(--#{$prefix}card-height);
   color: var(--#{$prefix}body-color);
   word-wrap: break-word;
-  background-color: var(--#{$prefix}card-bg);
+  background-color: transparent;
   background-clip: border-box;
   // border: var(--#{$prefix}card-border-width) solid var(--#{$prefix}card-border-color);
   @include border-radius(var(--#{$prefix}card-border-radius));
@@ -49,12 +49,12 @@
 
     &:first-child {
       border-top-width: 0;
-      @include border-top-radius(var(--#{$prefix}card-inner-border-radius));
+      // @include border-top-radius(var(--#{$prefix}card-inner-border-radius));
     }
 
     &:last-child  {
       border-bottom-width: 0;
-      @include border-bottom-radius(var(--#{$prefix}card-inner-border-radius));
+      // @include border-bottom-radius(var(--#{$prefix}card-inner-border-radius));
     }
   }
 
@@ -110,10 +110,11 @@
   background-color: transparent;
   border-bottom: var(--#{$prefix}card-border-width) solid var(--#{$prefix}card-border-color);
   border-bottom: none;
+  border: none;
 
   &:first-child {
     // @include border-radius(var(--#{$prefix}card-inner-border-radius) var(--#{$prefix}card-inner-border-radius) 0 0);
-    border-radius: 1rem;
+    border-radius: 0rem;
   }
 }
 
@@ -124,7 +125,7 @@
   border-top: var(--#{$prefix}card-border-width) solid var(--#{$prefix}card-border-color);
 
   &:last-child {
-    @include border-radius(0 0 var(--#{$prefix}card-inner-border-radius) var(--#{$prefix}card-inner-border-radius));
+    // @include border-radius(0 0 var(--#{$prefix}card-inner-border-radius) var(--#{$prefix}card-inner-border-radius));
   }
 }
 
