@@ -1,8 +1,8 @@
 <template>
-  <!-- nav-bar-lg -->
+  <!-- 導覽列 -->
   <nav
-  class="nav-bar-lg nav-bar"
-  :class="{ 'onScroll': isScroll }"
+  class="nav-bar bg-color"
+  :class="{ 'isHome': isHome }"
   id="nav">
     <!-- left -->
     <div class="nav-list nav-left">
@@ -39,8 +39,8 @@
         <li>
           <div class="mode-toggle"
           @click="modeToggle"
-          :class="darkDark">
-            <div class="toggle">
+          :class="{ 'darkDark': true, }">
+                <div class="toggle">
               <div class="dark-mode" type="checkbox"></div>
             </div>
           </div>
@@ -55,22 +55,8 @@
     </div>
   </nav>
 
-  <!-- nav-bar-sm -->
-  <nav
-  class="nav-bar-sm nav-bar">
-    <div class="nav-list">
-      <router-link class="logo" :to="{ name: 'home' }">Rolling</router-link>
-    </div>
-    <div class="nav-list">
-      <router-link class="cart" :to="{ name: '購物車' }">
-        <span>購物車</span>
-        <span v-if="cartProducts.length > 0">({{ cartsNum }})</span>
-      </router-link>
-    </div>
-  </nav>
-
-  <!-- nav-button -->
-  <button class="nav-button"
+  <!-- 手機版導覽列按鈕 -->
+  <button class="nav-button bg-color text-deep"
   @click="toggleOffcanvas"
   v-if="showNav">
     <i class="bi bi-list"
@@ -83,8 +69,8 @@
     v-if="isMenuOpen === true">關  閉</span>
   </button>
 
-  <!-- button-ground -->
-  <div class="button-ground"
+  <!-- 手機版導覽列以及篩選按鈕 -->
+  <div class="button-ground bg-color text-deep"
   v-if="productsNavbar">
     <button
     @click="toggleFilter">
@@ -93,7 +79,7 @@
       <span
       v-if="isFilterOpen === true">關  閉</span>
     </button>
-    <button
+    <button class="text-deep"
     @click="toggleOffcanvas">
       <i class="bi bi-list"
       v-if="isMenuOpen === false"></i>
@@ -106,15 +92,15 @@
     </button>
   </div>
 
-  <!-- nav-page -->
-  <div class="nav-page"
+  <!-- 手機導覽列頁面 -->
+  <div class="nav-page bg-color"
   v-if="isMenuOpen">
     <div class="nav-list">
       <ul>
         <li>
           <div class="mode-toggle"
           @click="modeToggle"
-          :class="darkDark">
+          :class="{ 'darkDark': true,}">
             <div class="toggle">
               <div class="dark-mode" type="checkbox"></div>
             </div>
@@ -143,56 +129,6 @@
     </div>
   </div>
 
-  <!-- filter-page -->
-  <div class="filter-page nav-page"
-  v-if="isFilterOpen">
-    <div class="nav-list">
-      <ul>
-        <li><h3>篩選</h3></li>
-        <li>分類</li>
-        <li>
-          <div class="category-box">
-          <router-link  class="text-deep"
-          @click="changeFilter"
-          :to="{ name: '所有產品' }"
-          >所有商品</router-link>
-          <template v-for="(item, key) in productsCategory"
-            :key="key">
-            <a class="text-deep" href="#"
-            @click.prevent="changeCategory(item)">{{ item }}</a>
-          </template>
-          </div>
-        </li>
-            <!-- cc -->
-        <li>
-          <h5>排氣量</h5>
-          <div class="collapsible-item">
-            <div class="box" v-for="(item, key) in selectCc" :key="'item' + key">
-              <input class="text-shallow" type="checkbox"
-              :id="'cc_' + item.min + '_' + item.max" v-model="selectedCc" :value="item">
-              <label :for="'cc_' + item.min + '_' + item.max">{{ formatRange(item) }}</label>
-            </div>
-          </div>
-        </li>
-
-        <!-- 種類 -->
-        <li>
-          <input type="checkbox" name="" id="type" checked>
-          <label for="type" class="text-shallow">
-            <i class="bi bi-chevron-right"></i>
-            <h5>種類</h5>
-          </label>
-        <div class="collapsible-item">
-          <div class="box" v-for="(item, key) in productsType" :key="'item' + key">
-            <input class="text-shallow" type="checkbox"
-            :id="item" v-model="selectedProductsType" :value="item">
-            <label :for="item">{{ item }}</label>
-          </div>
-        </div>
-        </li>
-      </ul>
-    </div>
-</div>
 </template>
 
 <script>
@@ -202,7 +138,7 @@ import TaxModal from './TaxModal.vue';
 export default {
   data() {
     return {
-      isScroll: false,
+      isHome: false,
       showTaxModal: false,
       showSearchModal: false,
       darkMode: false,
@@ -219,7 +155,6 @@ export default {
   components: {
     TaxModal,
   },
-  props: ['isHomePage'],
   methods: {
     getCartProducts() {
       this.isLoading = true;
@@ -229,20 +164,6 @@ export default {
           this.isLoading = false;
           this.cartProducts = res.data.data.carts;
         });
-    },
-    changeNavbar() {
-      const scrollContainer = document.getElementById('scroll-container');
-      const scrollPosition = scrollContainer.scrollTop;
-
-      const { offsetTop: activityOffsetTop, offsetHeight: activityOffsetHeight } = document.getElementById('activity');
-      const { offsetTop: bannerOffsetTop, offsetHeight: bannerOffsetHeight } = document.getElementById('banner');
-
-      const isActivityScroll = scrollPosition >= activityOffsetTop
-      && scrollPosition < activityOffsetTop + activityOffsetHeight;
-      const isBannerScroll = scrollPosition >= bannerOffsetTop
-      && scrollPosition < bannerOffsetTop + bannerOffsetHeight;
-
-      this.isScroll = isActivityScroll || isBannerScroll;
     },
     dark() {
       document.querySelector('body').classList.add('dark-mode');
@@ -272,11 +193,13 @@ export default {
     },
     toggleFilter() {
       this.isFilterOpen = !this.isFilterOpen;
+      emitter.emit('sendToggleFilter', this.isFilterOpen);
       if (this.isFilterOpen) {
         document.body.style.overflow = 'hidden';
       } else {
         document.body.style.overflow = 'auto';
       }
+      document.body.style.overflow = 'auto';
       this.isMenuOpen = false;
     },
     changeCategory(category) {
@@ -297,6 +220,11 @@ export default {
       } else {
         this.productsNavbar = false;
       }
+      if (to.name === 'home') {
+        this.isHome = true;
+      } else {
+        this.isHome = false;
+      }
     },
     closeModal() {
       this.showTaxModal = false;
@@ -310,30 +238,13 @@ export default {
     },
   },
   mounted() {
-    if (this.isHomePage === true) {
-      const scrollContainer = document.getElementById('scroll-container');
-      scrollContainer.addEventListener('scroll', this.changeNavbar);
-
-      const banner = document.getElementById('banner');
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.target.id === 'banner') {
-              this.isScroll = entry.isIntersecting;
-            }
-          });
-        },
-        {
-          root: null,
-          threshold: 0,
-        },
-      );
-
-      observer.observe(banner);
-    }
     this.getCartProducts();
     this.checkRoute();
+    if (window.innerWidth >= 768) {
+      this.isFilterOpen = true;
+    } else {
+      this.isFilterOpen = false;
+    }
   },
   computed: {
     darkDark() {
