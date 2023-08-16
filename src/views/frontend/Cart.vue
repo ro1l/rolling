@@ -91,7 +91,9 @@ import emitter from '@/methods/emitter';
 import PageTitle from '@/components/frontend/PageTitle.vue';
 
 export default {
-  inject: ['emitter', 'pushMessageState'],
+  components: {
+    PageTitle,
+  },
   data() {
     return {
       cartProducts: {},
@@ -103,9 +105,6 @@ export default {
       min: 1,
       max: 10,
     };
-  },
-  components: {
-    PageTitle,
   },
   methods: {
     getCartProducts() {
@@ -162,5 +161,6 @@ export default {
   created() {
     this.getCartProducts();
   },
+  inject: ['emitter', 'pushMessageState'],
 };
 </script>

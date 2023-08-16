@@ -65,7 +65,6 @@ export default {
   props: {
     show: Boolean,
   },
-  mixins: [taxMixin],
   data() {
     return {
       cc: '',
@@ -73,6 +72,12 @@ export default {
       cacheSearch: '',
       cacheArea: '',
     };
+  },
+  computed: {
+    filterSearch() {
+      const regex = new RegExp(this.cacheSearch, 'i');
+      return this.products.filter((item) => item.title.match(regex));
+    },
   },
   methods: {
     getProducts() {
@@ -90,14 +95,10 @@ export default {
       this.cacheSearch = '';
     },
   },
-  computed: {
-    filterSearch() {
-      const regex = new RegExp(this.cacheSearch, 'i');
-      return this.products.filter((item) => item.title.match(regex));
-    },
-  },
   created() {
     this.getProducts();
   },
+  mixins: [taxMixin],
+
 };
 </script>

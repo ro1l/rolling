@@ -67,21 +67,17 @@
   :active="isLoading"/>
 </template>
 
-<style lang="scss" scoped>
-#true:checked~.true,
-#false:checked~.false {
-  border: 1px solid black;
-  border-radius: 20px;
-}
-</style>
-
 <script>
 import CouponModal from '@/components/backend/CouponModal.vue';
 import DelModal from '@/components/backend/DelModal.vue';
 import Pagination from '@/components/Pagination.vue';
 
 export default {
-  inject: ['emitter', 'pushMessageState'],
+  components: {
+    CouponModal,
+    DelModal,
+    Pagination,
+  },
   data() {
     return {
       coupons: {},
@@ -90,11 +86,6 @@ export default {
       pagination: {},
       isLoading: false,
     };
-  },
-  components: {
-    CouponModal,
-    DelModal,
-    Pagination,
   },
   methods: {
     getCoupons(page = 1) {
@@ -164,5 +155,6 @@ export default {
   created() {
     this.getCoupons();
   },
+  inject: ['emitter', 'pushMessageState'],
 };
 </script>

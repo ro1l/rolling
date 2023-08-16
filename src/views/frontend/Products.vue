@@ -123,9 +123,9 @@
 </template>
 
 <script>
+import emitter from '@/methods/emitter';
 import ProductsCard from '@/components/frontend/ProductsCard.vue';
 import Pagination from '@/components/Pagination.vue';
-import emitter from '@/methods/emitter';
 import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
 import Breadcrumb from '@/components/frontend/Breadcrumb.vue';
 import ProductsSkeleton from '@/components/frontend/ProductsSkeleton.vue';
@@ -138,7 +138,6 @@ export default {
     Breadcrumb,
     ProductsSkeleton,
   },
-  inject: ['emitter', 'pushMessageState'],
   data() {
     return {
       products: [],
@@ -172,6 +171,44 @@ export default {
       isFilterOpen: false,
       skeletonNum: 9,
     };
+  },
+  computed: {
+    categoryProduct() {
+      let categoryProduct = this.products.filter(
+        (item) => item.category?.match(this.selectCategory),
+      );
+
+      if (this.selectedCc.length > 0) {
+        categoryProduct = categoryProduct.filter((item) => {
+          const productCc = parseInt(item.content.comparison.cc, 10);
+          return this.selectedCc.some((range) => productCc >= range.min && productCc <= range.max);
+        });
+      }
+
+      if (this.selectedProductsType.length > 0) {
+        categoryProduct = categoryProduct.filter(
+          (item) => item.content.comparison.type?.match(this.selectedProductsType),
+        );
+      }
+
+      // if (this.selectedLicensePlateColor.length > 0) {
+      //   categoryProduct = categoryProduct.filter((item) => {
+      //     const productCc = parseInt(item.content.comparison.cc, 10);
+      //     if (this.selectedLicensePlateColor.includes('黃牌')) {
+      //       return productCc >= 250 && productCc <= 550;
+      //     }
+      //     if (this.selectedLicensePlateColor.includes('紅牌')) {
+      //       return productCc >= 550 && productCc <= 10000;
+      //     }
+      //     return false;
+      //   });
+      // }
+
+      return categoryProduct;
+    },
+    filteredProductsLength() {
+      return this.categoryProduct.length;
+    },
   },
   methods: {
     getProducts() {
@@ -251,48 +288,6 @@ export default {
       this.showCategory();
     },
   },
-  computed: {
-    categoryProduct() {
-      let categoryProduct = this.products.filter(
-        (item) => item.category?.match(this.selectCategory),
-      );
-
-      if (this.selectedCc.length > 0) {
-        categoryProduct = categoryProduct.filter((item) => {
-          const productCc = parseInt(item.content.comparison.cc, 10);
-          return this.selectedCc.some((range) => productCc >= range.min && productCc <= range.max);
-        });
-      }
-
-      if (this.selectedProductsType.length > 0) {
-        categoryProduct = categoryProduct.filter(
-          (item) => item.content.comparison.type?.match(this.selectedProductsType),
-        );
-      }
-
-      // if (this.selectedLicensePlateColor.length > 0) {
-      //   categoryProduct = categoryProduct.filter((item) => {
-      //     const productCc = parseInt(item.content.comparison.cc, 10);
-      //     if (this.selectedLicensePlateColor.includes('黃牌')) {
-      //       return productCc >= 250 && productCc <= 550;
-      //     }
-      //     if (this.selectedLicensePlateColor.includes('紅牌')) {
-      //       return productCc >= 550 && productCc <= 10000;
-      //     }
-      //     return false;
-      //   });
-      // }
-
-      return categoryProduct;
-    },
-    filteredProductsLength() {
-      return this.categoryProduct.length;
-    },
-  },
-  mounted() {
-    this.getProducts();
-    this.checkRoute();
-  },
   created() {
     emitter.emit('sendCategory', this.productsCategory);
     emitter.on('sendToggleFilter', (data) => {
@@ -300,5 +295,10 @@ export default {
     });
     this.getProducts();
   },
+  mounted() {
+    this.getProducts();
+    this.checkRoute();
+  },
+  inject: ['emitter', 'pushMessageState'],
 };
 </script>

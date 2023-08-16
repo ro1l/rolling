@@ -14,6 +14,11 @@ export default {
       articles: [],
     };
   },
+  computed: {
+    reversedArticles() {
+      return this.articles.slice(5).reverse();
+    },
+  },
   methods: {
     getArticles(page = 1) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/articles/?page=${page}`;
@@ -30,11 +35,6 @@ export default {
   },
   created() {
     this.getArticles();
-  },
-  computed: {
-    reversedArticles() {
-      return this.articles.slice(5).reverse();
-    },
   },
 };
 </script>

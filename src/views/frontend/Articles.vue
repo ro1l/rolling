@@ -54,6 +54,11 @@ import PageTitle from '@/components/frontend/PageTitle.vue';
 import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
 
 export default {
+  components: {
+    Pagination,
+    PageTitle,
+    PageTitleSm,
+  },
   data() {
     return {
       articles: {},
@@ -61,11 +66,6 @@ export default {
       isLoading: false,
       skeletonNum: 4,
     };
-  },
-  components: {
-    Pagination,
-    PageTitle,
-    PageTitleSm,
   },
   methods: {
     getArticles(page = 1) {

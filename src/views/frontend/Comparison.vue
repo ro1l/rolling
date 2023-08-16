@@ -146,16 +146,16 @@ import PageTitle from '@/components/frontend/PageTitle.vue';
 import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
 
 export default {
+  components: {
+    PageTitle,
+    PageTitleSm,
+  },
   data() {
     return {
       tempProduct: {},
       isSmallSize: false,
       comparisonState: true,
     };
-  },
-  components: {
-    PageTitle,
-    PageTitleSm,
   },
   computed: {
     ...mapState(productStore, ['product']),

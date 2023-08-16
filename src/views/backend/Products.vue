@@ -79,15 +79,12 @@
 import ProductModal from '@/components/backend/ProductModal.vue';
 import DelModal from '@/components/backend/DelModal.vue';
 import Pagination from '@/components/Pagination.vue';
-// import PageTitle from '@/components/backend/PageTitle.vue';
 
 export default {
-  inject: ['emitter', 'pushMessageState'],
   components: {
     ProductModal,
     DelModal,
     Pagination,
-    // PageTitle,
   },
   data() {
     return {
@@ -191,5 +188,6 @@ export default {
     this.getProducts();
     this.getProductsAll();
   },
+  inject: ['emitter', 'pushMessageState'],
 };
 </script>

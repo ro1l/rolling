@@ -107,13 +107,6 @@
 import modalMixin from '@/mixins/modalMixin';
 
 export default {
-  data() {
-    return {
-      modal: {},
-      tempCoupon: {},
-      due_date: '',
-    };
-  },
   props: {
     coupon: {
       type: Object,
@@ -124,7 +117,13 @@ export default {
       required: true,
     },
   },
-  emits: ['update-coupon', 'del-coupon'],
+  data() {
+    return {
+      modal: {},
+      tempCoupon: {},
+      due_date: '',
+    };
+  },
   watch: {
     coupon() {
       this.tempCoupon = this.coupon;
@@ -136,6 +135,7 @@ export default {
       this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000);
     },
   },
+  emits: ['update-coupon', 'del-coupon'],
   mixins: [modalMixin],
 };
 </script>

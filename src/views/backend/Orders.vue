@@ -1,27 +1,6 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <!-- <div class="col-6">
-        <div class="card mb-4  bg-dark-gray text-white">
-          <div class="card-header pe-4 ps-4 pt-4 pb-2  mb-0">
-            <h6 class="mb-0 fs-5">訂單數量</h6>
-          </div>
-          <div class="card-body ps-4 pe-5">
-            <h2 class="fs-1 fw-bold text-end ">{{ orders.length }}</h2>
-          </div>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="card mb-4  bg-green text-white">
-          <div class="card-header pe-4 ps-4 pt-4 pb-2   mb-0">
-            <h6 class="mb-0 fs-5">訂單金額</h6>
-          </div>
-          <div class="card-body ps-4 pe-5">
-            <h2 class="fs-1 fw-bold text-end ">金額</h2>
-          </div>
-        </div>
-      </div> -->
-
       <div class="col-12 border-bottom border-black">
         <div class="container-fluid d-flex justify-content-between
       align-items-center p-4">
@@ -85,6 +64,11 @@ import DelModal from '@/components/backend/DelModal.vue';
 import Pagination from '@/components/Pagination.vue';
 
 export default {
+  components: {
+    OrderModal,
+    DelModal,
+    Pagination,
+  },
   data() {
     return {
       orders: [],
@@ -92,12 +76,6 @@ export default {
       isLoading: false,
       tempOrder: {},
     };
-  },
-  inject: ['emitter', 'pushMessageState'],
-  components: {
-    OrderModal,
-    DelModal,
-    Pagination,
   },
   methods: {
     getOrders(page = 1) {
@@ -136,5 +114,6 @@ export default {
   created() {
     this.getOrders();
   },
+  inject: ['emitter', 'pushMessageState'],
 };
 </script>

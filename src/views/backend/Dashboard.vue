@@ -114,23 +114,17 @@
 
 <script>
 import emitter from '@/methods/emitter';
-import ToastList from '@/components/ToastList.vue';
 import pushMessageState from '@/methods/pushMessageState';
+import ToastList from '@/components/ToastList.vue';
 
 export default {
+  components: {
+    ToastList,
+  },
   data() {
     return {
       isMenuOpen: false,
     };
-  },
-  provide() {
-    return {
-      emitter,
-      pushMessageState,
-    };
-  },
-  components: {
-    ToastList,
   },
   methods: {
     LogOut() {
@@ -171,6 +165,12 @@ export default {
           this.$router.push('/r');
         }
       });
+  },
+  provide() {
+    return {
+      emitter,
+      pushMessageState,
+    };
   },
 };
 </script>

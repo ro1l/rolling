@@ -55,6 +55,17 @@ export default {
       // cacheArticleArea: '',
     };
   },
+  computed: {
+    ...mapState(productStore, ['products']),
+    filterProductsSearch() {
+      const regex = new RegExp(this.cacheProductsSearch, 'i');
+      return this.products.filter((item) => item.title.match(regex));
+    },
+    filterArticlesSearch() {
+      const regex = new RegExp(this.cacheArticlesSearch, 'i');
+      return this.articles.filter((item) => item.title.match(regex));
+    },
+  },
   methods: {
     ...mapActions(productStore, ['getProducts']),
     removeFilterSearch(item) {
@@ -71,17 +82,6 @@ export default {
     },
     goBack() {
       return this.$router.go(-1);
-    },
-  },
-  computed: {
-    ...mapState(productStore, ['products']),
-    filterProductsSearch() {
-      const regex = new RegExp(this.cacheProductsSearch, 'i');
-      return this.products.filter((item) => item.title.match(regex));
-    },
-    filterArticlesSearch() {
-      const regex = new RegExp(this.cacheArticlesSearch, 'i');
-      return this.articles.filter((item) => item.title.match(regex));
     },
   },
   created() {

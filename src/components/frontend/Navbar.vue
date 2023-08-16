@@ -136,6 +136,9 @@ import emitter from '@/methods/emitter';
 import TaxModal from './TaxModal.vue';
 
 export default {
+  components: {
+    TaxModal,
+  },
   data() {
     return {
       isHome: false,
@@ -152,8 +155,17 @@ export default {
       taxStatus: false,
     };
   },
-  components: {
-    TaxModal,
+  computed: {
+    darkDark() {
+      return this.darkMode && 'darkmode-toggled';
+    },
+    cartsNum() {
+      let cartNum = 0;
+      this.cartProducts.forEach((e) => {
+        cartNum += e.qty;
+      });
+      return cartNum;
+    },
   },
   methods: {
     getCartProducts() {
@@ -237,25 +249,12 @@ export default {
       this.isFilterOpen = false;
     },
   },
-  mounted() {
-    this.getCartProducts();
-    this.checkRoute();
-    if (window.innerWidth >= 768) {
-      this.isFilterOpen = true;
-    } else {
+  watch: {
+    $route() {
+      this.checkRoute();
+      this.isMenuOpen = false;
       this.isFilterOpen = false;
-    }
-  },
-  computed: {
-    darkDark() {
-      return this.darkMode && 'darkmode-toggled';
-    },
-    cartsNum() {
-      let cartNum = 0;
-      this.cartProducts.forEach((e) => {
-        cartNum += e.qty;
-      });
-      return cartNum;
+      document.body.style.overflow = 'auto';
     },
   },
   created() {
@@ -266,13 +265,14 @@ export default {
       this.productsCategory = data;
     });
   },
-  watch: {
-    $route() {
-      this.checkRoute();
-      this.isMenuOpen = false;
+  mounted() {
+    this.getCartProducts();
+    this.checkRoute();
+    if (window.innerWidth >= 768) {
+      this.isFilterOpen = true;
+    } else {
       this.isFilterOpen = false;
-      document.body.style.overflow = 'auto';
-    },
+    }
   },
 };
 </script>

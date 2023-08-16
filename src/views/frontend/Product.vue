@@ -178,6 +178,11 @@ import RelatedArticles from '@/components/frontend/RelatedArticles.vue';
 import Swiper from '@/components/frontend/Swiper.vue';
 
 export default {
+  components: {
+    MediaScroll,
+    RelatedArticles,
+    Swiper,
+  },
   data() {
     return {
       product: {},
@@ -193,12 +198,46 @@ export default {
       imagesUrl: [],
     };
   },
-  components: {
-    MediaScroll,
-    RelatedArticles,
-    Swiper,
+  computed: {
+    ...mapState(productStore, ['products']),
+    mergedImagesUrl() {
+      return this.imagesUrl
+        && this.imagesUrl.length > 0 ? [this.imageUrl, ...this.imagesUrl] : [this.imageUrl];
+    },
+    licenseTax() {
+      const license = this.cc;
+      if (license <= 500) {
+        return 1620;
+      }
+      if (license <= 600) {
+        return 2160;
+      }
+      if (license <= 1200) {
+        return 4320;
+      }
+      if (license <= 1800) {
+        return 7120;
+      }
+      return 11230;
+    },
+    fuelTax() {
+      const fuel = this.cc;
+      if (fuel <= 500) {
+        return 900;
+      }
+      if (fuel <= 600) {
+        return 1200;
+      }
+      if (fuel <= 1200) {
+        return 1800;
+      }
+      return 2010;
+    },
+    totalTax() {
+      const total = this.licenseTax + this.fuelTax;
+      return total;
+    },
   },
-  inject: ['emitter', 'pushMessageState'],
   methods: {
     ...mapActions(productStore, ['getProducts']),
     getProduct() {
@@ -241,50 +280,11 @@ export default {
       return this.$router.go(-1);
     },
   },
-  computed: {
-    ...mapState(productStore, ['products']),
-    mergedImagesUrl() {
-      return this.imagesUrl
-      && this.imagesUrl.length > 0 ? [this.imageUrl, ...this.imagesUrl] : [this.imageUrl];
-    },
-    licenseTax() {
-      const license = this.cc;
-      if (license <= 500) {
-        return 1620;
-      }
-      if (license <= 600) {
-        return 2160;
-      }
-      if (license <= 1200) {
-        return 4320;
-      }
-      if (license <= 1800) {
-        return 7120;
-      }
-      return 11230;
-    },
-    fuelTax() {
-      const fuel = this.cc;
-      if (fuel <= 500) {
-        return 900;
-      }
-      if (fuel <= 600) {
-        return 1200;
-      }
-      if (fuel <= 1200) {
-        return 1800;
-      }
-      return 2010;
-    },
-    totalTax() {
-      const total = this.licenseTax + this.fuelTax;
-      return total;
-    },
-  },
   created() {
     this.id = this.$route.params.productId;
     this.getProduct();
     this.getProducts();
   },
+  inject: ['emitter', 'pushMessageState'],
 };
 </script>

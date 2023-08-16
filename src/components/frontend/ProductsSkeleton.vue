@@ -15,9 +15,5 @@ export default {
   props: {
     skeleton: Number,
   },
-  data() {
-    return {
-    };
-  },
 };
 </script>

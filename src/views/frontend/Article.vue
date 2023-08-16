@@ -33,16 +33,16 @@ import RelatedArticles from '@/components/frontend/RelatedArticles.vue';
 import PageTitle from '@/components/frontend/PageTitle.vue';
 
 export default {
+  components: {
+    RelatedArticles,
+    PageTitle,
+  },
   data() {
     return {
       id: '',
       article: {},
       router: '/articles',
     };
-  },
-  components: {
-    RelatedArticles,
-    PageTitle,
   },
   methods: {
     getArticle() {

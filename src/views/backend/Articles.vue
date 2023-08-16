@@ -66,21 +66,17 @@
   ref="delModal"/>
 </template>
 
-<style lang="scss" scoped>
-#true:checked~.true,
-#false:checked~.false {
-  border: 1px solid black;
-  border-radius: 20px;
-}
-</style>
-
 <script>
 import ArticleModal from '@/components/backend/ArticleModal.vue';
 import Pagination from '@/components/Pagination.vue';
 import DelModal from '@/components/backend/DelModal.vue';
 
 export default {
-  inject: ['emitter', 'pushMessageState'],
+  components: {
+    ArticleModal,
+    Pagination,
+    DelModal,
+  },
   data() {
     return {
       articles: {},
@@ -90,11 +86,6 @@ export default {
       pagination: {},
       isLoading: false,
     };
-  },
-  components: {
-    ArticleModal,
-    Pagination,
-    DelModal,
   },
   methods: {
     getArticles(page = 1) {
@@ -168,5 +159,6 @@ export default {
   created() {
     this.getArticles();
   },
+  inject: ['emitter', 'pushMessageState'],
 };
 </script>

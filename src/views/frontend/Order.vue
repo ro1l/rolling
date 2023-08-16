@@ -102,7 +102,6 @@ export default {
       isLoading: false,
     };
   },
-  inject: ['pushMessageState'],
   methods: {
     getOrder() {
       this.isLoading = true;
@@ -130,5 +129,6 @@ export default {
     this.orderId = this.$route.params.orderId;
     this.getOrder();
   },
+  inject: ['pushMessageState'],
 };
 </script>

@@ -1,7 +1,5 @@
 <template>
   <div class="vh-100 w-100 m-0 p-0">
-    <!-- <div class="base-blob blob position-absolute bg-base d-none d-lg-block"></div>
-    <div class="green-blob blob position-absolute  bg-green d-none d-lg-block"></div> -->
     <div class="container d-flex justify-content-center align-items-center vh-100">
     <form class="form-card"
     @submit.prevent="LogIn()">

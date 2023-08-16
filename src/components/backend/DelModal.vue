@@ -25,7 +25,6 @@
 import modalMixin from '@/mixins/modalMixin';
 
 export default {
-  mixins: [modalMixin],
   props: {
     item: {},
   },
@@ -34,5 +33,6 @@ export default {
       modal: '',
     };
   },
+  mixins: [modalMixin],
 };
 </script>

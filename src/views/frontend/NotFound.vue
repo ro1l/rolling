@@ -15,9 +15,6 @@ export default {
       timer: null,
     };
   },
-  mounted() {
-    this.startCountdown();
-  },
   methods: {
     startCountdown() {
       this.timer = setInterval(() => {
@@ -29,6 +26,9 @@ export default {
         }
       }, 1000);
     },
+  },
+  mounted() {
+    this.startCountdown();
   },
   beforeUnmount() {
     clearInterval(this.timer);

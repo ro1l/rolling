@@ -268,7 +268,9 @@ import modalMixin from '@/mixins/modalMixin';
 import DelModal from './DelModal.vue';
 
 export default {
-  mixins: [modalMixin],
+  components: {
+    DelModal,
+  },
   props: {
     product: {
       type: Object,
@@ -278,9 +280,6 @@ export default {
       type: Boolean,
       required: true,
     },
-  },
-  components: {
-    DelModal,
   },
   data() {
     return {
@@ -362,5 +361,6 @@ export default {
       }
     },
   },
+  mixins: [modalMixin],
 };
 </script>

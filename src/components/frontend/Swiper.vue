@@ -52,18 +52,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.carousel {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .carousel {
-    display: block;
-    .carousel-indicators {
-      margin-bottom: -20px !important;
-    }
-  }
-}
-</style>

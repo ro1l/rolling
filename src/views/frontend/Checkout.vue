@@ -136,6 +136,11 @@ import PageTitle from '@/components/frontend/PageTitle.vue';
 import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
 
 export default {
+  components: {
+    LogoNavVue,
+    PageTitle,
+    PageTitleSm,
+  },
   data() {
     return {
       cartProducts: {},
@@ -150,11 +155,6 @@ export default {
         isLoading: false,
       },
     };
-  },
-  components: {
-    LogoNavVue,
-    PageTitle,
-    PageTitleSm,
   },
   methods: {
     getCartProducts() {

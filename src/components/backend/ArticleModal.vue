@@ -173,13 +173,8 @@ import modalMixin from '@/mixins/modalMixin';
 import Editor from '@tinymce/tinymce-vue';
 
 export default {
-  data() {
-    return {
-      isLoading: false,
-      modal: {},
-      tempArticle: {},
-      create_at: '',
-    };
+  components: {
+    Editor,
   },
   props: {
     article: {
@@ -191,10 +186,14 @@ export default {
       required: true,
     },
   },
-  components: {
-    Editor,
+  data() {
+    return {
+      isLoading: false,
+      modal: {},
+      tempArticle: {},
+      create_at: '',
+    };
   },
-  emits: ['update-article', 'del-article'],
   methods: {
     uploadFile() {
       this.isLoading = true;
@@ -222,6 +221,7 @@ export default {
       this.tempArticle.create_at = Math.floor(new Date(this.create_at) / 1000);
     },
   },
+  emits: ['update-article', 'del-article'],
   mixins: [modalMixin],
 };
 </script>

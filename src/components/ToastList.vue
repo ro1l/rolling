@@ -8,20 +8,20 @@
 import Toast from './Toast.vue';
 
 export default {
+  components: {
+    Toast,
+  },
   data() {
     return {
       messages: [],
     };
   },
-  components: {
-    Toast,
-  },
-  inject: ['emitter'],
   mounted() {
     this.emitter.on('push-message', (message) => {
       const { style = 'success', title, content } = message;
       this.messages.push({ style, title, content });
     });
   },
+  inject: ['emitter'],
 };
 </script>

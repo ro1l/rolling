@@ -16,16 +16,16 @@ import Navbar from '@/components/frontend/Navbar.vue';
 import Footer from '@/components/frontend/Footer.vue';
 
 export default {
+  components: {
+    Navbar,
+    ToastList,
+    Footer,
+  },
   provide() {
     return {
       emitter,
       pushMessageState,
     };
-  },
-  components: {
-    Navbar,
-    ToastList,
-    Footer,
   },
 };
 </script>

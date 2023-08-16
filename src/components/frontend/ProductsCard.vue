@@ -15,9 +15,5 @@ export default {
   props: {
     product: Object,
   },
-  data() {
-    return {
-    };
-  },
 };
 </script>

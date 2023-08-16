@@ -155,27 +155,23 @@
 import modalMixin from '@/mixins/modalMixin';
 
 export default {
-  data() {
-    return {
-      modal: {},
-      tempOrder: {},
-    };
-  },
   props: {
     order: {
       type: Object,
       default() { return {}; },
     },
   },
-  mixins: [modalMixin],
-  components: {
+  data() {
+    return {
+      modal: {},
+      tempOrder: {},
+    };
   },
   watch: {
     order() {
       this.tempOrder = this.order;
     },
   },
-  methods: {
-  },
+  mixins: [modalMixin],
 };
 </script>
