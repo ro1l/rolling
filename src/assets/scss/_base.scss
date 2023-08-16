@@ -55,6 +55,11 @@ input[type=number]::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.h-80 {
+  margin-top: 80px;
+  background: #fff;
+}
+
 .border-btn {
   text-align: center;
   border: $light-border-btn;
@@ -133,4 +138,20 @@ input[type=number]::-webkit-inner-spin-button {
 .bg-color {
   background: $light-bg;
   transition: background-color .2s ease;
+}
+
+@keyframes loading {
+  to {
+    background-position-x: -20%;
+  }
+}
+
+.load {
+  background: linear-gradient(100deg,
+      rgba(256, 256, 256, 0) 30%,
+      rgba(256, 256, 256, 0.5) 50%,
+      rgba(256, 256, 256, 0) 30%) #ededed;
+  background-size: 200% 100%;
+  background-position-x: 180%;
+  animation: 2s loading ease-in-out infinite;
 }

@@ -24,7 +24,15 @@
 
     <!-- products -->
     <div class="products">
-      <Breadcrumb :title="title" :content="`${filteredProductsLength}項商品`" />
+      <Breadcrumb :title="title" :content="`${filteredProductsLength}項商品`"
+      v-if="!isLoading"/>
+      <div class="products-box"
+      v-if="isLoading">
+        <div class="products-item"
+        v-for="(item, index) in skeletonNum" :key="index">
+          <ProductsSkeleton :skeleton="item"/>
+        </div>
+      </div>
       <div class="products-box" id="infinite-list"
       v-if="productByCategory.length > 0">
         <div class="products-item" v-for="item in productByCategory" :key="item.id">
@@ -109,7 +117,7 @@
 
   </div>
 
-  <Loading :active="isLoading" />
+  <!-- <Loading :active="isLoading" /> -->
 
   <Pagination :pages="pagination" @emit-pages="showCategory" />
 </template>
@@ -120,6 +128,7 @@ import Pagination from '@/components/Pagination.vue';
 import emitter from '@/methods/emitter';
 import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
 import Breadcrumb from '@/components/frontend/Breadcrumb.vue';
+import ProductsSkeleton from '@/components/frontend/ProductsSkeleton.vue';
 
 export default {
   components: {
@@ -127,6 +136,7 @@ export default {
     Pagination,
     PageTitleSm,
     Breadcrumb,
+    ProductsSkeleton,
   },
   inject: ['emitter', 'pushMessageState'],
   data() {
@@ -160,6 +170,7 @@ export default {
       productsType: [],
       selectedProductsType: [],
       isFilterOpen: false,
+      skeletonNum: 9,
     };
   },
   methods: {

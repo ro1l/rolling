@@ -55,7 +55,27 @@
         font-size: 1rem;
       }
     }
+
+    &.skeleton-item {
+      
+      .img-box {
+      }
+
+      .text {
+
+        h2,p {
+          width: 70%;
+          height: 1.5rem;
+        }
+
+        p {
+          width: 30%;
+        }
+      }
+    } 
   }
+
+
 }
 
 @media (max-width: 768px) {

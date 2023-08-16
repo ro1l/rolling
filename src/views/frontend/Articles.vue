@@ -6,6 +6,19 @@
   :title="'文章總覽'"/>
 
   <div class="articles-box">
+    <template
+    v-if="isLoading">
+      <a href="" class="skeleton-item"
+      v-for="(item, index) in skeletonNum"
+      :key="index">
+        <div class="img-box load"></div>
+        <div class="text">
+          <h2 class="load"></h2>
+          <p class="load"></p>
+        </div>
+      </a>
+    </template>
+
     <a href="#"
     v-for="item in articles"
     :key="item.id"
@@ -31,8 +44,8 @@
   :pages="pagination"
   @emit-pages="getArticles"/>
 
-  <Loading
-  :active="isLoading"/>
+  <!-- <Loading
+  :active="isLoading"/> -->
 </template>
 
 <script>
@@ -46,6 +59,7 @@ export default {
       articles: {},
       pagination: {},
       isLoading: false,
+      skeletonNum: 4,
     };
   },
   components: {
