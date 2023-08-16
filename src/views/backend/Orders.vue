@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-6">
+      <!-- <div class="col-6">
         <div class="card mb-4  bg-dark-gray text-white">
           <div class="card-header pe-4 ps-4 pt-4 pb-2  mb-0">
             <h6 class="mb-0 fs-5">訂單數量</h6>
@@ -20,16 +20,17 @@
             <h2 class="fs-1 fw-bold text-end ">金額</h2>
           </div>
         </div>
-      </div>
+      </div> -->
 
+      <div class="col-12 border-bottom border-black">
+        <div class="container-fluid d-flex justify-content-between
+      align-items-center p-4">
+          <h1 class="page-title">Orders</h1>
+        </div>
+      </div>
       <div class="col-12">
-        <div class="card mb-4 bg-gray-white  ">
-          <div class="card-header px-lg-4 pt-4 pb-lg-2 mb-0">
-            <div class="row d-flex align-items-start">
-              <h6 class="mb-0 fs-5">/Orders</h6>
-            </div>
-          </div>
-          <div class="card-body mt-lg-3 py-0 px-lg-5">
+        <div class="card mb-4">
+          <div class="card-body pt-4 mt-lg-3 py-0 px-lg-5">
             <div class="table-responsive p-0 d-flex">
               <table class="table lh-lg mb-0 table-hover">
                 <thead>

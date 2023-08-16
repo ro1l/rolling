@@ -1,21 +1,20 @@
 <template>
   <div class="container-fluid">
     <div class="row">
+      <div class="col-12 border-bottom border-black">
+        <div class="container-fluid d-flex justify-content-between
+      align-items-center p-4">
+          <h1 class="page-title">Coupons</h1>
+          <button class="btn btn-outline-dark border-1 rounded-0
+        me-lg-3 mb-0 px-lg-5 py-lg-2"
+          @click="openModal(true)">
+          <i class="bi bi-plus-lg"></i>
+          新增優惠券</button>
+        </div>
+      </div>
       <div class="col-12">
-        <div class="card mb-4 bg-gray-white  ">
-          <div class="card-header px-lg-4 pt-4 pb-lg-2 mb-0">
-            <div class="row d-flex align-items-center">
-              <div class="col-6">
-                <h6 class="mb-0 fs-5">/Coupons</h6>
-              </div>
-              <div class="col-6 text-end">
-                <button class="btn btn-outline-dark border-2 rounded-5
-                me-lg-3 mb-0 px-lg-5 py-lg-3"
-                @click="openModal(true)">新增優惠券</button>
-              </div>
-            </div>
-          </div>
-          <div class="card-body mt-lg-3 py-0 px-lg-5">
+        <div class="card mb-4 bg-gray-white">
+          <div class="card-body pt-4 mt-lg-3 py-0 px-lg-5">
             <div class="table-responsive p-0 d-flex">
               <table class="table lh-lg mb-0 table-hover">
                 <thead>

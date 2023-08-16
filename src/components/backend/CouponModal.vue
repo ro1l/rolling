@@ -2,77 +2,79 @@
   <div class="modal fade " id="exampleModal"
   tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
   ref="modal">
-    <div class="modal-dialog modal-xl  modal-dialog-centered modal-fullscreen-md-down">
-      <div class="modal-content bg-black rounded-5 pt-3 ps-4 pe-4 pb-4" >
-        <div class="modal-header ">
-          <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">新增/編輯優惠券</h1>
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-md-down">
+      <div class="modal-content bg-gray-white rounded-0 p-0 border-0" >
+        <div class="modal-header border-bottom border-black p-4">
+          <h1 class="modal-title fs-5 font-family-taipei fw-normal"
+          id="exampleModalLabel">新增/編輯優惠券</h1>
           <button type="button"
-          class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body p-0">
           <div class="container-fluid">
-            <div class="row">
+            <div class="row p-0">
+              <!-- 優惠券編輯 -->
               <div class="col-lg-6 col-sm-12">
-                <div class="card mb-4  bg-green pb-4">
-                  <div class="card-header pe-4 ps-4 pt-4 pb-2   mb-0">
-                    <h6 class="mb-0 fs-5">/Coupon</h6>
+                <div class="card border-end border-black px-2 py-4">
+                  <div class="card-header pb-2 mb-0">
+                    <h6 class="mb-0 fs-5 font-family-taipei">Coupon</h6>
                   </div>
-                  <div class="card-body ps-4 pe-4">
+                  <div class="card-body">
                     <div class="mb-4">
                       <p class="mb-2 text-black">名稱</p>
-                      <input class="form-control form-control-l bg-white bg-opacity-25
-                      border-dark
-                      border-2 rounded-4 p-3"
+                      <input class="form-control border-dark rounded-0
+                      border-1 bg-transparent p-3"
                       type="text" placeholder="請輸入名稱" aria-label="example"
                       v-model="tempCoupon.title">
                     </div>
                     <div class="mb-4">
                       <p class="mb-2 text-black">code</p>
-                      <input class="form-control form-control-l bg-white bg-opacity-25 border-dark
-                    border-2 rounded-4 p-3"
+                      <input class="form-control border-dark rounded-0
+                      border-1 bg-transparent p-3"
                       type="text" placeholder="請輸入code" aria-label="example"
                       v-model="tempCoupon.code">
                     </div>
                     <div class="mb-4">
                       <p class="mb-2 text-black">百分比</p>
-                      <input class="form-control form-control-l bg-white bg-opacity-25 border-dark
-                    border-2 rounded-4 p-3"
+                      <input class="form-control border-dark rounded-0
+                      border-1 bg-transparent p-3"
                       type="number" placeholder="請輸入百分比" aria-label="example"
                       v-model="tempCoupon.percent">
                     </div>
                     <div class="mb-4">
                       <p class="mb-2 text-black">期限</p>
-                      <input class="form-control form-control-l bg-white bg-opacity-25 border-dark
-                    border-2 rounded-4 p-3"
+                      <input class="form-control border-dark rounded-0
+                      border-1 bg-transparent p-3"
                       type="date" placeholder="請輸入期限" aria-label="example"
                       v-model="due_date">
                     </div>
                   </div>
                 </div>
               </div>
+              <!-- 啟用 -->
               <div class="col-lg-6 col-sm-12">
-                <div class="card mb-4 bg-base">
-                  <div class="card-header pe-4 ps-4 pt-4 pb-2 mb-0">
-                    <h6 class="mb-0 fs-5">是否啟用</h6>
+                <div class="card px-2 py-4">
+                  <div class="card-header pb-2 mb-0">
+                    <h6 class="mb-0 fs-5 font-family-taipei">是否啟用</h6>
                   </div>
-                  <div class="card-body px-lg-4 pb-4 px-2">
+                  <div class="card-body">
                     <div class="d-flex
-                  justify-content-between
-                  align-items-center
-                  ps-5 pe-5">
+                    justify-content-between
+                    align-items-center
+                    px-5 pt-5">
                       <input class="d-none input-true" type="radio" name="select" id="true"
                       :value="1"
                       v-model="tempCoupon.is_enabled"
                       checked>
                       <label for="true" class="true px-lg-5 py-lg-2 px-4 py-1 cursor-pointer
-                      border-2 rounded-5 fs-4">
+                      border-2 rounded-5 fs-5">
                         <span>是</span>
                       </label>
                       <input class="d-none input-false" type="radio" name="select" id="false"
                       :value="0"
                       v-model="tempCoupon.is_enabled">
                       <label for="false" class="false px-lg-5 py-lg-2 px-4 py-1 cursor-pointer
-                      border-2 rounded-5 fs-4">
+                      border-2 rounded-5 fs-5">
                         <span>否</span>
                       </label>
                     </div>
@@ -83,14 +85,14 @@
           </div>
         </div>
 
-        <div class="modal-footer  d-flex justify-content-between p-lg-4">
-          <button type="button" class="btn  btn-outline-light border-2 rounded-5
+        <div class="modal-footer d-flex justify-content-between p-lg-5 border-top border-black">
+          <button type="button" class="btn btn-outline-dark rounded-5
           me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
           v-if="isNew === false"
           @click="$emit('del-coupon', tempCoupon)"
           >刪除</button>
           <p></p>
-          <button type="button" class="btn  btn-base border-2 rounded-5
+          <button type="button" class="btn btn-dark rounded-5
           me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
           @click="$emit('update-coupon', tempCoupon)">確認</button>
         </div>

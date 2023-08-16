@@ -1,42 +1,21 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-6">
-        <div class="card mb-4 bg-dark-gray text-white">
-          <div class="card-header pe-4 ps-4 pt-4 pb-2 mb-0">
-            <h6 class="mb-0 fs-5">商品數量</h6>
-          </div>
-          <div class="card-body ps-4 pe-5">
-            <h2 class="fs-1 fw-bold text-end ">{{ productsAll.length }}</h2>
-          </div>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="card mb-4 bg-green text-white">
-          <div class="card-header pe-4 ps-4 pt-4 pb-2 mb-0">
-            <h6 class="mb-0 fs-5">已上架</h6>
-          </div>
-          <div class="card-body ps-4 pe-5">
-            <h2 class="fs-1 fw-bold text-end ">{{ products.length }}</h2>
-          </div>
+      <div class="col-12 border-bottom border-black">
+        <div class="container-fluid d-flex justify-content-between
+        align-items-center p-4">
+          <h1 class="page-title">Products</h1>
+          <button class="btn btn-outline-dark border-1 rounded-0
+          me-lg-3 mb-0 px-lg-5 py-lg-2"
+          @click="openModal(true)">
+          <i class="bi bi-plus-lg"></i>
+          新增商品</button>
         </div>
       </div>
 
-      <div class="col">
+      <div class="col-12">
         <div class="card mb-4 bg-gray-white">
-          <div class="card-header px-lg-4 pt-4 pb-lg-2 mb-0">
-            <div class="row d-flex align-items-center">
-              <div class="col-6">
-                <h6 class="mb-0 fs-5">/Product</h6>
-              </div>
-              <div class="col-6 text-end">
-                <button class="btn btn-outline-dark border-2 rounded-5
-                me-lg-3 mb-0 px-lg-5 py-lg-3"
-                @click="openModal(true)">新增商品</button>
-              </div>
-            </div>
-          </div>
-          <div class="card-body mt-lg-3 py-0 px-lg-5">
+          <div class="card-body pt-4 mt-lg-3 py-0 px-lg-5">
             <div class="table-responsive p-0 d-flex">
               <table class="table lh-lg mb-0 table-hover">
                 <thead>

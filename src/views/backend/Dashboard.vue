@@ -1,6 +1,6 @@
 <template>
 
-  <div class="d-lg-none ">
+  <div class="d-lg-none">
     <div class="row">
       <div class="col-12 px-4 py-2 fixed-bottom d-flex justify-content-end z-4">
         <button class="btn btn-base rounded-3
@@ -14,7 +14,7 @@
         </button>
       </div>
     </div>
-    <div class="collapse bg-base z-1 fixed-top" id="collapseExample"
+    <div class="collapse z-1 fixed-top" id="collapseExample"
     :class="{ show: isMenuOpen }">
       <div class="container vh-100 w-100 p-5">
         <ul class="navbar-nav text-black">
@@ -24,29 +24,29 @@
           </li>
           <li class="nav-item nav-item-das mb-4">
             <router-link class="nav-link d-flex align-items-center
-          fs-5 p-0 m-0"
+          fs-5 p-0 m-0 font-family-taipei"
             :to="{ name: '產品' }"
             >
             產品</router-link>
           </li>
           <li class="nav-item nav-item-das mb-4">
             <router-link class="nav-link d-flex align-items-center
-          fs-5 p-0 m-0" :to="{ name: '訂單' }">
+          fs-5 p-0 m-0 font-family-taipei" :to="{ name: '訂單' }">
             訂單</router-link>
           </li>
           <li class="nav-item nav-item-das mb-4">
             <router-link class="nav-link d-flex align-items-center
-          fs-5 p-0 m-0" :to="{ name: '優惠券' }">
+          fs-5 p-0 m-0 font-family-taipei" :to="{ name: '優惠券' }">
             優惠券</router-link>
           </li>
           <li class="nav-item nav-item-das mb-4">
             <router-link class="nav-link d-flex align-items-center
-          fs-5 p-0 m-0" :to="{ name: '文章' }">
+          fs-5 p-0 m-0 font-family-taipei" :to="{ name: '文章' }">
             文章</router-link>
           </li>
           <li class="nav-item nav-item-das mb-4">
             <a class="nav-link d-flex align-items-center
-          fs-5 p-0 m-0" href="#" @click.prevent="LogOut">
+          fs-5 p-0 m-0 font-family-taipei" href="#" @click.prevent="LogOut">
             登出</a>
           </li>
         </ul>
@@ -54,12 +54,12 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="row">
+  <div class="container-fluid text-black">
+    <div class="row p-0">
       <div class="col-lg-3 d-none d-lg-block m-0 p-0">
-        <div class="container w-100 sticky-top py-4 vh-100 m-0 px-0">
-          <div class="card bg-base border-0 h-100 px-3">
-            <div class="card-header pe-4 ps-4 pt-4 pb-2 bg-transparent border-0 mb-0">
+        <div class="container w-100 sticky-top vh-100 m-0 px-0">
+          <div class="card border-0 border-end border-black h-75 ps-2">
+            <div class="card-header px-4 pt-4 pb-2 bg-transparent border-0 mb-0">
               <h5 class="offcanvas-title" id="offcanvasExampleLabel">
               <router-link :to="{ name: 'home' }" class="logo text-deep
               border-dark">Rolling</router-link></h5>
@@ -68,37 +68,43 @@
               <ul class="navbar-nav mt-1">
                 <li class="nav-item mb-4">
                   <router-link class="nav-link d-flex align-items-center
-                fs-5 p-0 m-0"
+                fs-5 p-0 m-0 font-family-taipei"
                   :to="{ name: '產品' }"
                   >
                   產品</router-link>
                 </li>
                 <li class="nav-item mb-4">
                   <router-link class="nav-link d-flex align-items-center
-                fs-5 p-0 m-0" :to="{ name: '訂單' }">
+                fs-5 p-0 m-0 font-family-taipei" :to="{ name: '訂單' }">
                   訂單</router-link>
                 </li>
                 <li class="nav-item mb-4">
                   <router-link class="nav-link d-flex align-items-center
-                fs-5 p-0 m-0" :to="{ name: '優惠券' }">
+                fs-5 p-0 m-0 font-family-taipei" :to="{ name: '優惠券' }">
                   優惠券</router-link>
                 </li>
                 <li class="nav-item mb-4">
                   <router-link class="nav-link d-flex align-items-center
-                fs-5 p-0 m-0" :to="{ name: '文章' }">
+                fs-5 p-0 m-0 font-family-taipei" :to="{ name: '文章' }">
                   文章</router-link>
                 </li>
+              </ul>
+            </div>
+          </div>
+          <div class="card border-0 border-end border-black h-25 ps-2">
+            <div class="card-body ps-4 pe-5 align-items-end d-flex">
+              <ul class="navbar-nav mt-1">
                 <li class="nav-item mb-4">
                   <a class="nav-link d-flex align-items-center
-                fs-5 p-0 m-0" href="#" @click.prevent="LogOut">
-                  登出</a>
+              fs-5 p-0 m-0 router-link" href="#" @click.prevent="LogOut">
+                  Log out</a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-9 pt-4">
+      <div class="col-lg-9">
         <ToastList />
         <router-view />
       </div>

@@ -1,12 +1,12 @@
 <template>
-  <div class="vh-100 w-100 bg-black m-0 p-0">
-    <div class="base-blob blob position-absolute bg-base d-none d-lg-block"></div>
-    <div class="green-blob blob position-absolute  bg-green d-none d-lg-block"></div>
+  <div class="vh-100 w-100 m-0 p-0">
+    <!-- <div class="base-blob blob position-absolute bg-base d-none d-lg-block"></div>
+    <div class="green-blob blob position-absolute  bg-green d-none d-lg-block"></div> -->
     <div class="container d-flex justify-content-center align-items-center vh-100">
-    <form class="form-card text-black px-4 py-4"
+    <form class="form-card"
     @submit.prevent="LogIn()">
       <div class="mb-5 text-center">
-        <div class="logo text-white border-white  opacity-50">Rolling</div>
+        <div class="logo">Rolling</div>
       </div>
       <div class="mb-4">
         <input type="email" class="form-control p-3
@@ -22,7 +22,7 @@
         v-model="user.password"
         autocomplete="current-password">
       </div>
-      <button type="submit" class="btn btn-dark w-100 py-2 text-xxs">登入</button>
+      <button type="submit" class="btn btn-dark w-100 mt-5 py-2 rounded-0">登入</button>
     </form>
     </div>
   </div>
