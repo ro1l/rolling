@@ -1,5 +1,5 @@
 <template>
-  <PageTitleSm :title="title" :content="`${productsLength}項商品`" />
+  <PageTitleSm :title="title" :content="`${filteredProductsLength}項商品`" />
 
   <div class="products-box">
 
@@ -15,77 +15,97 @@
           <h5>車款廠牌</h5>
         </label>
         <div class="collapsible-item">
-      <li v-for="(item, key) in productsCategory" :key="key">
-        <a class="text-deep" href="#" @click.prevent="changeCategory(item)">{{ item }}</a>
+          <li v-for="(item, key) in productsCategory" :key="key">
+            <a class="text-deep" href="#" @click.prevent="changeCategory(item)">{{ item }}</a>
+          </li>
+        </div>
       </li>
     </div>
-    </li>
-  </div>
 
-  <!-- products -->
-  <div class="products">
-    <Breadcrumb
-    :title="title"
-    :content="`${productsLength}項商品`"/>
-    <div class="products-box" id="infinite-list">
-      <div class="products-item" v-for="item in productByCategory" :key="item.id">
-        <ProductsCard :product="item" @click="getProduct(item.id)" />
+    <!-- products -->
+    <div class="products">
+      <Breadcrumb :title="title" :content="`${filteredProductsLength}項商品`" />
+      <div class="products-box" id="infinite-list"
+      v-if="productByCategory.length > 0">
+        <div class="products-item" v-for="item in productByCategory" :key="item.id">
+          <ProductsCard :product="item" @click="getProduct(item.id)" />
+        </div>
       </div>
+      <h4 v-else>暫無商品</h4>
     </div>
-  </div>
 
-  <!-- filter -->
-  <div class="filter sidebar">
-    <li class="text-deep">篩選</li>
-
-    <!-- cc -->
-    <li>
-      <input type="checkbox" name="" id="cc" checked>
-      <label for="cc" class="text-shallow">
-        <i class="bi bi-chevron-right"></i>
-        <h5>排氣量</h5>
-      </label>
-    <div class="collapsible-item">
-      <div class="box" v-for="(item, key) in selectCc" :key="'item' + key">
-        <input class="text-shallow" type="checkbox"
-        :id="'cc_' + item.min + '_' + item.max" v-model="selectedCc" :value="item">
-        <label :for="'cc_' + item.min + '_' + item.max">{{ formatRange(item) }}</label>
+    <!-- filter -->
+    <div class="filter sidebar bg-color"
+    v-if="isFilterOpen">
+      <h4 class="text-deep">篩選</h4>
+      <div class="category">
+        <li>
+          <router-link class="text-deep" :to="{ name: '所有產品' }">所有商品</router-link>
+        </li>
+        <li>
+          <input type="checkbox" name="" id="collapsible-title2" checked>
+          <label for="collapsible-title2" class="text-shallow title">
+            <i class="bi bi-chevron-right"></i>
+            <h5>車款廠牌</h5>
+          </label>
+          <div class="collapsible-item">
+            <li v-for="(item, key) in productsCategory" :key="key">
+              <a class="text-deep" href="#" @click.prevent="changeCategory(item)">{{ item }}</a>
+            </li>
+          </div>
+        </li>
       </div>
-    </div>
-    </li>
+      <li class="text-deep filter-title">篩選</li>
 
-    <!-- 種類 -->
-    <li>
-      <input type="checkbox" name="" id="type" checked>
-      <label for="type" class="text-shallow">
-        <i class="bi bi-chevron-right"></i>
-        <h5>種類</h5>
-      </label>
-    <div class="collapsible-item">
-      <div class="box" v-for="(item, key) in productsType" :key="'item' + key">
-        <input class="text-shallow" type="checkbox"
-        :id="item" v-model="selectedProductsType" :value="item">
-        <label :for="item">{{ item }}</label>
-      </div>
-    </div>
-    </li>
+      <!-- 排氣量 -->
+      <li>
+        <input type="checkbox" name="" id="cc" checked>
+        <label for="cc" class="text-shallow title">
+          <i class="bi bi-chevron-right"></i>
+          <h5>排氣量</h5>
+        </label>
+        <div class="collapsible-item">
+          <div class="box" v-for="(item, key) in selectCc" :key="'item' + key">
+            <input class="text-shallow" type="checkbox"
+            :id="'cc_' + item.min + '_' + item.max" v-model="selectedCc"
+              :value="item">
+            <label :for="'cc_' + item.min + '_' + item.max">{{ formatRange(item) }}</label>
+          </div>
+        </div>
+      </li>
 
-    <!-- 車牌 -->
-    <!-- <li>
-      <input type="checkbox" name="" id="licensePlateColor" checked>
-      <label for="licensePlateColor" class="text-shallow">
-        <i class="bi bi-chevron-right"></i>
-        <h5>車牌</h5>
-      </label>
-    <div class="collapsible-item">
-      <div class="box" v-for="(item, key) in selectLicensePlateColor" :key="'item' + key">
-        <input class="text-shallow" type="checkbox"
-        :id="item" v-model="selectedLicensePlateColor" :value="item">
-        <label :for="item">{{ item }}</label>
+      <!-- 種類 -->
+      <li>
+        <input type="checkbox" name="" id="type" checked>
+        <label for="type" class="text-shallow title">
+          <i class="bi bi-chevron-right"></i>
+          <h5>種類</h5>
+        </label>
+        <div class="collapsible-item">
+          <div class="box" v-for="(item, key) in productsType" :key="'item' + key">
+            <input class="text-shallow" type="checkbox"
+            :id="item" v-model="selectedProductsType" :value="item">
+            <label :for="item">{{ item }}</label>
+          </div>
+        </div>
+      </li>
+
+      <!-- 車牌 -->
+      <!-- <li>
+        <input type="checkbox" name="" id="licensePlateColor" checked>
+        <label for="licensePlateColor" class="text-shallow">
+          <i class="bi bi-chevron-right"></i>
+          <h5>車牌</h5>
+        </label>
+        <div class="collapsible-item">
+          <div class="box" v-for="(item, key) in selectLicensePlateColor" :key="'item' + key">
+            <input class="text-shallow" type="checkbox"
+            :id="item" v-model="selectedLicensePlateColor" :value="item">
+            <label :for="item">{{ item }}</label>
+          </div>
       </div>
+      </li> -->
     </div>
-    </li> -->
-  </div>
 
   </div>
 
@@ -125,7 +145,6 @@ export default {
       isLoadingMore: false,
       isLoading: false,
       title: '',
-      productsLength: 0,
       selectCc: [
         { min: 251, max: 550 },
         { min: 501, max: 600 },
@@ -140,6 +159,7 @@ export default {
       // selectedLicensePlateColor: [],
       productsType: [],
       selectedProductsType: [],
+      isFilterOpen: false,
     };
   },
   methods: {
@@ -161,7 +181,6 @@ export default {
             if (!this.productsType.includes(item.content.comparison.type)) {
               this.isLoading = false;
               this.productsType.push(item.content.comparison.type);
-              console.log(this.productsType);
             }
           });
         });
@@ -194,11 +213,18 @@ export default {
       const to = this.$route;
       if (to.name === '所有產品') {
         this.title = '所有產品';
-        this.productsLength = this.products.length;
+        this.productsLength = this.filteredProductsLength;
+        this.isFilterOpen = false;
       }
       if (to.query.category) {
         this.title = to.query.category;
-        this.productsLength = this.categoryProduct.length;
+        this.productsLength = this.filteredProductsLength;
+        this.isFilterOpen = false;
+      }
+      if (window.innerWidth >= 768) {
+        this.isFilterOpen = true;
+      } else {
+        this.isFilterOpen = false;
       }
     },
     formatRange(range) {
@@ -248,6 +274,9 @@ export default {
 
       return categoryProduct;
     },
+    filteredProductsLength() {
+      return this.categoryProduct.length;
+    },
   },
   mounted() {
     this.getProducts();
@@ -255,6 +284,9 @@ export default {
   },
   created() {
     emitter.emit('sendCategory', this.productsCategory);
+    emitter.on('sendToggleFilter', (data) => {
+      this.isFilterOpen = data;
+    });
     this.getProducts();
   },
 };
