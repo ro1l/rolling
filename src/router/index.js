@@ -10,7 +10,8 @@ const routes = [
         name: 'home',
         component: () => import('../views/frontend/Home.vue'),
         meta: {
-          hideComponent: true,
+          // hideComponent: true,
+          hideFooter: true,
         },
       },
       {
@@ -116,10 +117,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.path.startsWith('/dashboard')) {
-    document.body.style.backgroundColor = 'black';
+    document.body.style.backgroundColor = '#e7e6e6';
     router.options.linkActiveClass = 'active-nav-item';
   } else if (to.path === '/r') {
-    document.body.style.backgroundColor = 'black';
+    document.body.style.backgroundColor = '#e7e6e6';
   } else {
     document.body.style.backgroundColor = '';
   }
