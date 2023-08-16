@@ -79,7 +79,7 @@
     min-width: 450px;
     height: 100%;
     display: inline-block;
-    background-image: url(@/assets/introduce.jpg);
+    background-image: url(@/assets/media/introduce.jpg);
     background-position: center;
     background-size: cover;
   }
@@ -114,7 +114,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(@/assets/activity.jpg);
+    background-image: url(@/assets/media/activity.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     filter: brightness(.4);
@@ -186,15 +186,15 @@
     height: 80%;
 
     .img-item1 {
-      background: url(@/assets/look1-1.png);
+      background: url(@/assets/media/look1-1.png);
     }
 
     .img-item2 {
-      background: url(@/assets/look1-2.png);
+      background: url(@/assets/media/look1-2.png);
     }
 
     .img-item3 {
-      background: url(@/assets/look1-3.png);
+      background: url(@/assets/media/look1-3.png);
     }
 
     .img-item {
@@ -209,7 +209,7 @@
   .img-look {
     width: 60%;
     height: 100%;
-    background: url(@/assets/look.jpg);
+    background: url(@/assets/media/look.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     object-fit: cover;
@@ -234,7 +234,7 @@
       min-width: 90%;
       height: 100%;
       display: inline-block;
-      background-image: url(@/assets/MT-07.png);
+      background-image: url(@/assets/media/MT-07.png);
       background-position: center;
       background-size: cover;
       object-fit: cover;
@@ -328,7 +328,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(@/assets/activity.jpg);
+    background-image: url(@/assets/media/activity.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     filter: brightness(.4);

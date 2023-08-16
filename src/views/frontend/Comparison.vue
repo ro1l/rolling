@@ -122,7 +122,7 @@
           </div>
           <div class="item">
             <div class="example-box">
-              <img src="@/assets/methods-2.png" alt="">
+              <img src="@/assets/media/methods-2.png" alt="">
               <p><b>YAMAHA</b><br>MT-07</p>
               </div>
             <p><strong>2.</strong> 選擇要比較的車款</p>

@@ -4,7 +4,7 @@
     <div class="scroll-area special-div" id="banner">
       <div class="home-banner">
         <video autoplay loop muted plays-inline class="black-video">
-          <source src="@/assets/moto.mp4" type="video/mp4">
+          <source src="@/assets/media/moto.mp4" type="video/mp4">
         </video>
         <div class="box">
           <router-link :to="{ name: '所有產品' }">
