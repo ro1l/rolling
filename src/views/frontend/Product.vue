@@ -155,8 +155,8 @@
       <MediaScroll :products="products" />
     </div>
 
-    <div class="buy-control">
-      <button class="pre-page"
+    <div class="buy-control bg-color text-deep">
+      <button class="pre-page text-deep"
       @click="goBack">上一頁</button>
       <button class="add-cart fill-btn" @click="addCart(product.id)"
         :disabled="this.status.loadingItem === product.id">

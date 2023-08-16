@@ -91,7 +91,7 @@
           ></textarea>
         </div>
 
-        <div class="step">
+        <div class="step bg-color">
           <router-link class="border-btn text-deep" :to="{ name: '購物車' }">上一步</router-link>
           <button class="fill-btn">結帳去</button>
         </div>

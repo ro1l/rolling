@@ -62,7 +62,7 @@ export default {
   .carousel {
     display: block;
     .carousel-indicators {
-      margin-bottom: -2px !important;
+      margin-bottom: -20px !important;
     }
   }
 }

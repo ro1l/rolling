@@ -2,9 +2,6 @@
   <PageTitle
   :title="'購物車'"/>
 
-  <!-- <PageTitleSm
-  :title="'購物車'"/> -->
-
   <div class="cart-box">
     <div class="cart"
     v-if="cartProducts.total !== 0">
@@ -79,7 +76,8 @@
       <router-link class="border-btn text-deep" :to="{ name: '所有產品' }">前往選購</router-link>
     </div>
 
-    <div class="check-box">
+    <div class="check-box bg-color"
+    v-if="cartProducts.total !== 0">
       <router-link class="border-btn text-deep" :to="{ name: '訂單填寫' }">訪客結帳</router-link>
     </div>
   </div>
@@ -91,7 +89,6 @@
 <script>
 import emitter from '@/methods/emitter';
 import PageTitle from '@/components/frontend/PageTitle.vue';
-// import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
 
 export default {
   inject: ['emitter', 'pushMessageState'],
@@ -109,7 +106,6 @@ export default {
   },
   components: {
     PageTitle,
-    // PageTitleSm,
   },
   methods: {
     getCartProducts() {

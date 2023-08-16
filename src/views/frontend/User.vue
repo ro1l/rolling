@@ -4,7 +4,7 @@
   v-if="!$route.meta.hideComponent"/>
   <routerView/>
   <Footer
-  v-if="!$route.meta.hideComponent"/>
+  v-if="!$route.meta.hideComponent && !$route.meta.hideFooter"/>
   <ToastList/>
 </template>
 

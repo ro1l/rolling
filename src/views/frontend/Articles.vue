@@ -3,8 +3,7 @@
   :title="'文章總覽'"/>
 
   <PageTitleSm
-  :title="'文章總覽'"
-  :content="'文章數量'"/>
+  :title="'文章總覽'"/>
 
   <div class="articles-box">
     <a href="#"

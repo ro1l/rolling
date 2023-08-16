@@ -1,8 +1,4 @@
 <template>
-  <!-- <Navbar
-  :isHomePage="isHomePage"/> -->
-  <Navbar/>
-
   <div class="scroll-container" id="scroll-container">
     <!-- banner -->
     <div class="scroll-area special-div" id="banner">
@@ -37,7 +33,7 @@
     </div> -->
 
     <!-- activity -->
-    <!-- <div class="scroll-area"
+    <div class="scroll-area"
     id="activity">
       <div class="home-activity">
         <div class="text">
@@ -46,7 +42,7 @@
           <a href="#">瞭解更多</a>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <!-- look -->
     <!-- <div class="scroll-area">
@@ -95,29 +91,26 @@
     </div> -->
 
     <!-- footer -->
-    <div class="scroll-area">
-      <Footer/>
-    </div>
   </div>
 
 </template>
 
 <script>
 // import MediaScroll from '@/components/frontend/MediaScroll.vue';
-import Navbar from '@/components/frontend/Navbar.vue';
-import Footer from '@/components/frontend/Footer.vue';
+// import Navbar from '@/components/frontend/Navbar.vue';
+// import Footer from '@/components/frontend/Footer.vue';
+// import emitter from '@/methods/emitter';
 
 export default {
   data() {
     return {
       products: [],
-      isHomePage: true,
     };
   },
   components: {
     // MediaScroll,
-    Navbar,
-    Footer,
+    // Navbar,
+    // Footer,
   },
   methods: {
     getProducts() {
