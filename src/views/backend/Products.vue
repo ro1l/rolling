@@ -6,10 +6,9 @@
         align-items-center p-4">
           <h1 class="page-title">Products</h1>
           <button class="btn btn-outline-dark border-1 rounded-0
-          me-lg-3 mb-0 px-lg-5 py-lg-2"
-          @click="openModal(true)">
-          <i class="bi bi-plus-lg"></i>
-          新增商品</button>
+          me-lg-3 mb-0 px-lg-5 py-lg-2" @click="openModal(true)">
+            <i class="bi bi-plus-lg"></i>
+            新增商品</button>
         </div>
       </div>
 
@@ -32,11 +31,10 @@
                     text-center">啟用</th>
                   </tr>
                 </thead>
-                <tbody >
+                <tbody>
                   <tr href="#" @click.prevent="openModal(false, item)" class="cursor-pointer"
                   v-for="item in productsPage"
-                  :key="item.id"
-                  >
+                    :key="item.id">
                     <td class="">{{ item.category }}</td>
                     <td class="">{{ item.title }}</td>
                     <td>NT${{ $filters.currency(item.price) }}</td>
@@ -50,30 +48,19 @@
               </table>
             </div>
           </div>
-          <Pagination
-          :pages="pagination"
-          @emit-pages="getProductsPage"/>
+          <Pagination :pages="pagination" @emit-pages="getProductsPage" />
         </div>
       </div>
     </div>
   </div>
 
-  <ProductModal
-  ref="productModal"
-  :product="tempProduct"
-  :isNew="isNew"
-  @update-product="updateProduct"
-  @del-product="openDelProductModal(tempProduct)"/>
+  <ProductModal ref="productModal" :product="tempProduct"
+  :isNew="isNew" @update-product="updateProduct"
+    @del-product="openDelProductModal(tempProduct)" />
 
-  <DelModal
-  :item="tempProduct"
-  ref="delModal"
-  @del-item="delProduct"/>
+  <DelModal :item="tempProduct" ref="delModal" @del-item="delProduct" />
 
-  <Loading
-  :active="isLoading || isLoadingForStore"
-  :zIndex ="10000"/>
-
+  <Loading :active="isLoading || isLoadingForStore" :zIndex="10000" />
 </template>
 
 <script>

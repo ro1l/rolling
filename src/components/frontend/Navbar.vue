@@ -1,9 +1,6 @@
 <template>
   <!-- 導覽列 -->
-  <nav
-  class="nav-bar bg-color"
-  :class="{ 'isHome': isHome }"
-  id="nav">
+  <nav class="nav-bar bg-color" :class="{ 'isHome': isHome }" id="nav">
     <!-- left -->
     <div class="nav-list nav-left">
       <ul>
@@ -19,8 +16,7 @@
         <li>
           <a id="show-modal" @click="showTaxModal = true">稅金試算</a>
           <teleport to='body'>
-            <TaxModal :show="showTaxModal"
-            @close="showTaxModal = false">
+            <TaxModal :show="showTaxModal" @close="showTaxModal = false">
             </TaxModal>
           </teleport>
         </li>
@@ -37,10 +33,8 @@
           <router-link :to="{ name: '搜尋' }">搜尋</router-link>
         </li>
         <li>
-          <div class="mode-toggle"
-          @click="modeToggle"
-          :class="{ 'darkDark': true, }">
-                <div class="toggle">
+          <div class="mode-toggle" @click="modeToggle" :class="{ 'darkDark': true, }">
+            <div class="toggle">
               <div class="dark-mode" type="checkbox"></div>
             </div>
           </div>
@@ -56,51 +50,33 @@
   </nav>
 
   <!-- 手機版導覽列按鈕 -->
-  <button class="nav-button bg-color text-deep"
-  @click="toggleOffcanvas"
-  v-if="showNav">
-    <i class="bi bi-list"
-    v-if="isMenuOpen === false"></i>
-    <i class="bi bi-x-lg"
-    v-if="isMenuOpen === true"></i>
-    <span
-    v-if="isMenuOpen === false">導覽列</span>
-    <span
-    v-if="isMenuOpen === true">關  閉</span>
+  <button class="nav-button bg-color text-deep" @click="toggleOffcanvas" v-if="showNav">
+    <i class="bi bi-list" v-if="isMenuOpen === false"></i>
+    <i class="bi bi-x-lg" v-if="isMenuOpen === true"></i>
+    <span v-if="isMenuOpen === false">導覽列</span>
+    <span v-if="isMenuOpen === true">關 閉</span>
   </button>
 
   <!-- 手機版導覽列以及篩選按鈕 -->
-  <div class="button-ground bg-color text-deep"
-  v-if="productsNavbar">
-    <button
-    @click="toggleFilter">
-      <span
-      v-if="isFilterOpen === false">篩選</span>
-      <span
-      v-if="isFilterOpen === true">關  閉</span>
+  <div class="button-ground bg-color text-deep" v-if="productsNavbar">
+    <button @click="toggleFilter">
+      <span v-if="isFilterOpen === false">篩選</span>
+      <span v-if="isFilterOpen === true">關 閉</span>
     </button>
-    <button class="text-deep"
-    @click="toggleOffcanvas">
-      <i class="bi bi-list"
-      v-if="isMenuOpen === false"></i>
-      <i class="bi bi-x-lg"
-      v-if="isMenuOpen === true"></i>
-      <span
-      v-if="isMenuOpen === false">導覽列</span>
-      <span
-      v-if="isMenuOpen === true">關  閉</span>
+    <button class="text-deep" @click="toggleOffcanvas">
+      <i class="bi bi-list" v-if="isMenuOpen === false"></i>
+      <i class="bi bi-x-lg" v-if="isMenuOpen === true"></i>
+      <span v-if="isMenuOpen === false">導覽列</span>
+      <span v-if="isMenuOpen === true">關 閉</span>
     </button>
   </div>
 
   <!-- 手機導覽列頁面 -->
-  <div class="nav-page bg-color"
-  v-if="isMenuOpen">
+  <div class="nav-page bg-color" v-if="isMenuOpen">
     <div class="nav-list">
       <ul>
         <li>
-          <div class="mode-toggle"
-          @click="modeToggle"
-          :class="{ 'darkDark': true,}">
+          <div class="mode-toggle" @click="modeToggle" :class="{ 'darkDark': true, }">
             <div class="toggle">
               <div class="dark-mode" type="checkbox"></div>
             </div>
@@ -128,7 +104,6 @@
       </ul>
     </div>
   </div>
-
 </template>
 
 <script>

@@ -1,5 +1,4 @@
 <template>
-
   <div class="order-box">
     <header class="order-bg">
       <p class="logo">Rolling</p>
@@ -9,8 +8,7 @@
     </header>
 
     <div class="order">
-      <Form
-      @submit="payOrder">
+      <Form @submit="payOrder">
         <table class="products order-bg">
           <caption class="text-deep">商品明細</caption>
           <thead>
@@ -21,9 +19,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-            v-for="item in order.products"
-            :key="item.id">
+            <tr v-for="item in order.products" :key="item.id">
               <td class="item-underline">{{ item.product.title }}</td>
               <td class="item-underline">{{ item.qty }}{{ item.product.unit }}</td>
               <td class="item-underline">NT${{ $filters.currency(item.product.price) }}</td>
@@ -62,23 +58,19 @@
             </tr>
             <tr class="item-underline">
               <th>備註</th>
-              <td
-              v-if="order.message > 0">{{ order.message }}</td>
+              <td v-if="order.message > 0">{{ order.message }}</td>
               <td v-else>無備註</td>
             </tr>
-            <tr
-            v-if="order.is_paid === true" class="item-underline">
+            <tr v-if="order.is_paid === true" class="item-underline">
               <th>付款狀態</th>
               <td>付款完成</td>
             </tr>
           </tbody>
         </table>
-        <div class="button-box"
-        v-if="order.is_paid === false">
+        <div class="button-box" v-if="order.is_paid === false">
           <button class="pay fill-btn">確認付款</button>
         </div>
-        <div class="button-box"
-        v-else>
+        <div class="button-box" v-else>
           <button class="home">
             <router-link class="border-btn" :to="{ name: 'home' }">回首頁</router-link></button>
         </div>
@@ -86,8 +78,7 @@
     </div>
   </div>
 
-  <Loading
-  :active="isLoading"/>
+  <Loading :active="isLoading" />
 </template>
 
 <script>

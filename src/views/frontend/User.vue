@@ -1,11 +1,9 @@
 <template>
   <div class="h-80"></div>
-  <Navbar
-  v-if="!$route.meta.hideComponent"/>
-  <routerView/>
-  <Footer
-  v-if="!$route.meta.hideComponent && !$route.meta.hideFooter"/>
-  <ToastList/>
+  <Navbar v-if="!$route.meta.hideComponent" />
+  <routerView />
+  <Footer v-if="!$route.meta.hideComponent && !$route.meta.hideFooter" />
+  <ToastList />
 </template>
 
 <script>

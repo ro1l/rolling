@@ -14,28 +14,15 @@
         <input class="border-box" type="text" id="search"
         placeholder="請輸入車款" v-model="cacheProductsSearch">
         <button class="text-deep"
-        v-if="!cacheProductsSearch.length < 1"
-        @click="delCacheProductSearch">移除</button>
+        v-if="!cacheProductsSearch.length < 1" @click="delCacheProductSearch">移除</button>
       </div>
-      <div
-      v-if="cacheProductsSearch">
+      <div v-if="cacheProductsSearch">
         <!-- 產品 -->
-        <label
-        v-for="(item, key) in filterProductsSearch.splice(0, 3)" :key="item + key">
+        <label v-for="(item, key) in filterProductsSearch.splice(0, 3)" :key="item + key">
           <p>{{ item.title }}</p>
-          <input type="radio"
-          :checked="cacheProductArea.title === item.title"
+          <input type="radio" :checked="cacheProductArea.title === item.title"
           @click="getProduct(item.id)">
         </label>
-        <!-- 文章 -->
-        <!-- <p>文章</p>
-        <label
-        v-for="(item, key) in filterProductSearch.splice(0, 3)" :key="item + key">
-          <p>{{ item.title }}</p>
-          <input type="radio"
-          :checked="cacheProductArea.title === item.title"
-          @click="removeFilterSearch(item)">
-        </label> -->
       </div>
     </div>
 
@@ -50,9 +37,7 @@ export default {
   data() {
     return {
       cacheProductsSearch: '',
-      // cacheArticlesSearch: '',
       cacheProductArea: '',
-      // cacheArticleArea: '',
     };
   },
   computed: {
@@ -70,9 +55,7 @@ export default {
     ...mapActions(productStore, ['getProducts']),
     removeFilterSearch(item) {
       this.cacheProductArea = item;
-      // this.cacheArticleArea = item;
       this.cacheProductsSearch = '';
-      // this.cacheArticlesSearch = '';
     },
     delCacheProductSearch() {
       this.cacheProductsSearch = '';

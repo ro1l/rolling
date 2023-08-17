@@ -1,5 +1,4 @@
 <template>
-  <!-- <div v-for="(item, index) in num" :key="index" class="product-skeleton"> -->
   <div class="product-skeleton">
     <div class="img-box load">
     </div>

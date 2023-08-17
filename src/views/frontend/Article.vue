@@ -1,6 +1,5 @@
 <template>
-  <PageTitle
-  :title="article.title"/>
+  <PageTitle :title="article.title" />
 
   <div class="article-box">
     <h1 class="article-title">{{ article.title }}</h1>
@@ -22,13 +21,11 @@
 
     <div class="related-articles">
       <p>最新文章</p>
-      <RelatedArticles/>
+      <RelatedArticles />
     </div>
   </div>
 
-  <Loading
-  :active="isLoadingForStore"/>
-
+  <Loading :active="isLoadingForStore" />
 </template>
 
 <script>

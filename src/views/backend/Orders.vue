@@ -21,16 +21,15 @@
                     fw-normal pb-lg-4 pt-sm-0 text-center">付款</th>
                   </tr>
                 </thead>
-                <tbody >
+                <tbody>
                   <tr @click.prevent="openOrderModal(order)" class="cursor-pointer"
                   v-for="order in orders"
-                  :key="order.id">
+                    :key="order.id">
                     <td>{{ $filters.date(order.create_at) }}</td>
                     <td>{{ order.user.email }}</td>
                     <td>NT${{ $filters.currency(order.total) }}元</td>
                     <td class="text-center">
-                      <span
-                      v-if="order.is_paid === true"><i class="bi bi-check-lg fs-5"></i></span>
+                      <span v-if="order.is_paid === true"><i class="bi bi-check-lg fs-5"></i></span>
                       <span v-else></span>
                     </td>
                   </tr>
@@ -38,24 +37,15 @@
               </table>
             </div>
           </div>
-          <Pagination
-          :pages="pagination"
-          @emit-pages="getOrders"/>
+          <Pagination :pages="pagination" @emit-pages="getOrders" />
         </div>
       </div>
     </div>
   </div>
 
-  <Loading
-  :active="isLoading"/>
-  <OrderModal
-  ref="orderModal"
-  :order="tempOrder"
-  @del-order="openDelModal(tempOrder)"/>
-  <DelModal
-  ref="delModal"
-  :item="tempOrder"
-  @del-item="delOrder"/>
+  <Loading :active="isLoading" />
+  <OrderModal ref="orderModal" :order="tempOrder" @del-order="openDelModal(tempOrder)" />
+  <DelModal ref="delModal" :item="tempOrder" @del-item="delOrder" />
 </template>
 
 <script>

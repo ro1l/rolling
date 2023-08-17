@@ -18,8 +18,7 @@
     </div>
 
     <!-- activity -->
-    <div class="scroll-area"
-    id="activity">
+    <div class="scroll-area" id="activity">
       <div class="home-activity">
         <div class="text">
           <h3>2023 全球 H.O.G. 大會師</h3>
@@ -29,5 +28,4 @@
       </div>
     </div>
   </div>
-
 </template>

@@ -14,27 +14,22 @@
         <!-- search -->
         <div class="search border-box">
           <div class="search-bar">
-            <input class="border-box" type="text" id="search"
-            placeholder="請輸入車款" v-model="cacheSearch">
+            <input class="border-box" type="text" id="search" placeholder="請輸入車款"
+            v-model="cacheSearch">
             <button class="text-deep"
-            v-if="!cacheSearch.length < 1"
-            @click="delCacheSearch">移除</button>
+            v-if="!cacheSearch.length < 1" @click="delCacheSearch">移除</button>
           </div>
-          <div
-          v-if="cacheSearch">
-            <label
-            v-for="(item, key) in filterSearch.splice(0,3)" :key="item + key">
+          <div v-if="cacheSearch">
+            <label v-for="(item, key) in filterSearch.splice(0, 3)" :key="item + key">
               <p>{{ item.title }}</p>
-              <input type="radio"
-              :checked="cacheArea.title === item.title"
+              <input type="radio" :checked="cacheArea.title === item.title"
               @click="removeFilterSearch(item)">
             </label>
           </div>
         </div>
 
         <!-- product -->
-        <div class="product item-underline"
-        v-if="cacheArea">
+        <div class="product item-underline" v-if="cacheArea">
           <div class="img-box">
             <img :src="cacheArea.imageUrl" alt="">
           </div>
@@ -44,8 +39,7 @@
         </div>
 
         <!-- tax -->
-        <div class="tax"
-        v-if="cacheArea">
+        <div class="tax" v-if="cacheArea">
           <p class="text-deep">總稅金 NT${{ $filters.currency(totalTax) }}</p>
           <small>
             (牌照稅${{ $filters.currency(licenseTax) }} +

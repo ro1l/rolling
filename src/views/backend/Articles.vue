@@ -6,10 +6,9 @@
         align-items-center p-4">
           <h1 class="page-title">Articles</h1>
           <button class="btn btn-outline-dark border-1 rounded-0
-          me-lg-3 mb-0 px-lg-5 py-lg-2"
-          @click="openModal(true)">
-          <i class="bi bi-plus-lg"></i>
-          新增文章</button>
+          me-lg-3 mb-0 px-lg-5 py-lg-2" @click="openModal(true)">
+            <i class="bi bi-plus-lg"></i>
+            新增文章</button>
         </div>
       </div>
 
@@ -27,16 +26,16 @@
                     text-center">啟用</th>
                   </tr>
                 </thead>
-                <tbody >
+                <tbody>
                   <tr @click="openModal(false, article)" class="cursor-pointer"
                   v-for="article in articles"
-                  :key=article.id>
+                    :key=article.id>
                     <td>{{ article.title }}</td>
                     <td>{{ $filters.date(article.create_at) }}</td>
                     <td>{{ article.author }}</td>
                     <td class="text-center">
-                      <span
-                      v-if="article.isPublic === true"><i class="bi bi-check-lg fs-5"></i></span>
+                      <span v-if="article.isPublic === true">
+                        <i class="bi bi-check-lg fs-5"></i></span>
                       <span v-else></span>
                     </td>
                   </tr>
@@ -44,26 +43,16 @@
               </table>
             </div>
           </div>
-          <Pagination
-          :pages="pagination"
-          @emit-pages="getArticles"/>
+          <Pagination :pages="pagination" @emit-pages="getArticles" />
         </div>
       </div>
     </div>
   </div>
 
-  <ArticleModal
-  ref="articleModal"
-  :article="tempArticle"
-  @del-article="openDelModal(tempArticle)"
-  @update-article="updateArticle"
-  :isNew="isNew"/>
-  <Loading
-  :active="isLoading || isLoadingForStore"/>
-  <DelModal
-  :item="tempArticle"
-  @del-item="delArticle"
-  ref="delModal"/>
+  <ArticleModal ref="articleModal" :article="tempArticle" @del-article="openDelModal(tempArticle)"
+    @update-article="updateArticle" :isNew="isNew" />
+  <Loading :active="isLoading || isLoadingForStore" />
+  <DelModal :item="tempArticle" @del-item="delArticle" ref="delModal" />
 </template>
 
 <script>

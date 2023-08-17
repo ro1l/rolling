@@ -12,10 +12,9 @@
     <div class="product">
       <h1 class="text-deep">{{ product.title }}</h1>
       <div class="img-boz-sm">
-        <Swiper
-        :mergedImagesUrl="mergedImagesUrl"/>
+        <Swiper :mergedImagesUrl="mergedImagesUrl" />
         <button class="add-comparison text-deep" @click.prevent="addComparison">
-        加入比較</button>
+          加入比較</button>
       </div>
       <!-- information -->
       <div class="sidebar information" v-if="product.content">
@@ -122,7 +121,8 @@
             <tr>
               <td>NT$ {{ $filters.currency(totalTax) }} <br>
                 <small class="text-shallow">(牌照稅${{ $filters.currency(licenseTax) }} +
-                燃料稅${{ $filters.currency(fuelTax) }})</small></td>
+                  燃料稅${{ $filters.currency(fuelTax) }})</small>
+              </td>
             </tr>
             <tr>
               <td class="display-td">
@@ -156,19 +156,18 @@
     </div>
 
     <div class="buy-control bg-color text-deep">
-      <button class="pre-page text-deep"
-      @click="goBack">上一頁</button>
+      <button class="pre-page text-deep" @click="goBack">上一頁</button>
       <button class="add-cart fill-btn" @click="addCart(product.id)"
-        :disabled="this.status.loadingItem === product.id">
+      :disabled="this.status.loadingItem === product.id">
         <span class="fill-btn-text" v-if="this.status.loadingItem !== product.id">
           加入購物車 </span>
         <span class="fill-btn-text" v-if="this.status.loadingItem === product.id">
-          加入中。。。</span></button>    </div>
+          加入中。。。</span></button>
+    </div>
 
   </div>
 
   <Loading :active="isLoading || isLoadingForStore" />
-
 </template>
 
 <script>

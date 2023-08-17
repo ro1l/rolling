@@ -1,5 +1,4 @@
 <template>
-
   <NavbarSm />
 
   <div class="container-fluid text-black">
@@ -11,7 +10,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>

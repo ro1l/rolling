@@ -1,10 +1,7 @@
 <template>
-  <PageTitle
-  :title="'車款比較'"/>
+  <PageTitle :title="'車款比較'" />
 
-  <PageTitleSm
-  :title="'車款比較'"
-  :content="'$NT'"/>
+  <PageTitleSm :title="'車款比較'" :content="'$NT'" />
 
   <!-- comparison -->
   <div class="comparison-box">
@@ -51,62 +48,62 @@
       <!-- comparison-car -->
       <table v-for="item in displayedArray" :key="item.id" class="text-deep">
         <a href="" @click.prevent="getProduct(item.id)">
-        <tr class="img-box table-bg">
-          <td>
-            <div class="remove">
-              <button class="text-deep" @click="delProduct(item.id)">移除</button>
-              <img :src="item.imageUrl" alt="">
-              <p><strong>{{ item.category }}</strong>
-              <br> {{ item.title }}
-              </p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>{{ $filters.currency(item.price) }}
-          </td>
-        </tr>
-        <tr>
-          <td>{{ item.content.comparison.type }}</td>
-        </tr>
-        <tr>
-          <td>{{ item.content.comparison.engine }}</td>
-        </tr>
-        <tr>
-          <td>{{ item.content.comparison.cc }}cc</td>
-        </tr>
-        <tr>
-          <td>{{ item.content.comparison.hp }}</td>
-        </tr>
-        <tr>
-          <td>{{ item.content.comparison.torque }}</td>
-        </tr>
-        <tr>
-          <td>{{ item.content.comparison.ht }}mm</td>
-        </tr>
-        <tr>
-          <td>{{ item.content.comparison.wt }}kg</td>
-        </tr>
-        <tr>
-          <td>{{ item.content.comparison.afc }}公升</td>
-        </tr>
-        <tr>
-          <td>{{ item.content.comparison.tank }}公升</td>
-        </tr>
-        <tr>
-          <td>
-            <p>NT${{ $filters.currency(totalTax(item)) }}</p>
-            <small class="text-shallow">(牌照稅：NT$
-              {{ $filters.currency(licenseTax(item)) }} + 燃料稅：NT$
-              {{ $filters.currency(fuelTax(item)) }})
-            </small>
-          </td>
-        </tr>
-      </a>
+          <tr class="img-box table-bg">
+            <td>
+              <div class="remove">
+                <button class="text-deep" @click="delProduct(item.id)">移除</button>
+                <img :src="item.imageUrl" alt="">
+                <p><strong>{{ item.category }}</strong>
+                  <br> {{ item.title }}
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>{{ $filters.currency(item.price) }}
+            </td>
+          </tr>
+          <tr>
+            <td>{{ item.content.comparison.type }}</td>
+          </tr>
+          <tr>
+            <td>{{ item.content.comparison.engine }}</td>
+          </tr>
+          <tr>
+            <td>{{ item.content.comparison.cc }}cc</td>
+          </tr>
+          <tr>
+            <td>{{ item.content.comparison.hp }}</td>
+          </tr>
+          <tr>
+            <td>{{ item.content.comparison.torque }}</td>
+          </tr>
+          <tr>
+            <td>{{ item.content.comparison.ht }}mm</td>
+          </tr>
+          <tr>
+            <td>{{ item.content.comparison.wt }}kg</td>
+          </tr>
+          <tr>
+            <td>{{ item.content.comparison.afc }}公升</td>
+          </tr>
+          <tr>
+            <td>{{ item.content.comparison.tank }}公升</td>
+          </tr>
+          <tr>
+            <td>
+              <p>NT${{ $filters.currency(totalTax(item)) }}</p>
+              <small class="text-shallow">(牌照稅：NT$
+                {{ $filters.currency(licenseTax(item)) }} + 燃料稅：NT$
+                {{ $filters.currency(fuelTax(item)) }})
+              </small>
+            </td>
+          </tr>
+        </a>
       </table>
       <!-- add-data -->
       <div class="add-data" v-if="(isSmallSize === true
-      ? smCompProd.length < 2 : lgCompProd.length < 4)">
+        ? smCompProd.length < 2 : lgCompProd.length < 4)">
         <router-link class="text-deep" :to="{ name: '所有產品' }">+ 加入車款</router-link>
       </div>
     </div>
@@ -125,14 +122,14 @@
             <div class="example-box">
               <img src="@/assets/media/methods-2.png" alt="">
               <p><b>YAMAHA</b><br>MT-07</p>
-              </div>
+            </div>
             <p><strong>2.</strong> 選擇要比較的車款</p>
           </div>
           <div class="item">
             <div class="example-box">
               <p> ＋ 加入比較</p>
             </div>
-            <p><strong>3.</strong>在所選商品頁點擊  <b> ＋加入比較 </b></p>
+            <p><strong>3.</strong>在所選商品頁點擊 <b> ＋加入比較 </b></p>
           </div>
         </div>
       </a>

@@ -1,27 +1,21 @@
 <template>
   <div class="vh-100 w-100 m-0 p-0">
     <div class="container d-flex justify-content-center align-items-center vh-100">
-    <form class="form-card mt-sm-5"
-    @submit.prevent="LogIn()">
-      <div class="mb-5 text-center">
-        <div class="logo">Rolling</div>
-      </div>
-      <div class="mb-4">
-        <input type="email" class="form-control p-3
-        bg-transparent"
-        placeholder="email"
-        v-model="user.username"
-        autocomplete="email">
-      </div>
-      <div class="mb-5">
-        <input type="password" class="form-control p-3
-        bg-transparent"
-        placeholder="password"
-        v-model="user.password"
-        autocomplete="current-password">
-      </div>
-      <button type="submit" class="btn btn-dark w-100 mt-5 py-2 rounded-0">登入</button>
-    </form>
+      <form class="form-card mt-sm-5" @submit.prevent="LogIn()">
+        <div class="mb-5 text-center">
+          <div class="logo">Rolling</div>
+        </div>
+        <div class="mb-4">
+          <input type="email" class="form-control p-3
+        bg-transparent" placeholder="email" v-model="user.username" autocomplete="email">
+        </div>
+        <div class="mb-5">
+          <input type="password" class="form-control p-3
+          bg-transparent" placeholder="password"
+          v-model="user.password" autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-dark w-100 mt-5 py-2 rounded-0">登入</button>
+      </form>
     </div>
   </div>
   <Loading :active="isLoading" />

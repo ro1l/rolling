@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="copy-right">
-      <p>Copyright © 2023 Rolling Web design  by je. All rights reserved.</p>
+      <p>Copyright © 2023 Rolling Web design by je. All rights reserved.</p>
       <p>本網站為個人作品使用，非商業用途</p>
     </div>
   </footer>
