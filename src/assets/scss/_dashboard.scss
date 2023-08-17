@@ -153,7 +153,6 @@
 .form-card{
   z-index: 100;
   border-radius: 0rem;
-  backdrop-filter: blur(20px);
   border: 1px solid black;
   padding: 2rem 4rem 3rem;
   input{
@@ -178,3 +177,34 @@
 //   box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.733) inset;
 //   // -webkit-text-fill-color: #ec0606;
 // }
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+
+  .border-lg {
+    border-color: transparent !important;
+    border-bottom: 1px solid rgb(0, 0, 0) !important;
+  }
+  
+  .bg-sm-color {
+    border-color: transparent !important;
+    // border-top: 1px solid rgb(0, 0, 0) !important;
+    background: rgb(255, 255, 255);
+  }
+
+  .form-card {
+    // z-index: 100;
+    // border-radius: 0rem;
+    // border: 1px solid black;
+    // padding: 2rem 4rem 3rem;
+    padding: 2rem;
+  }
+
+  .form-control:focus {
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    outline: 2px solid rgba(0, 0, 0, 0.3);
+  }
+}
