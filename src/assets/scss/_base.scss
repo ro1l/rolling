@@ -1,4 +1,3 @@
-// base mode
 $light-bg: #fff;
 $light-text-shallow: #ababab;
 $light-text-middle: #696969;
@@ -20,8 +19,8 @@ ol {
 body {
   background: $light-bg;
   color: $light-text-middle;
-  transition: background-color .2s ease, color .2s ease;
-  font-family: 'Noto Sans TC', sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-family: "Noto Sans TC", sans-serif;
   font-weight: 300;
 }
 
@@ -49,8 +48,8 @@ input:focus {
   background: none;
 }
 
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -64,19 +63,19 @@ input[type=number]::-webkit-inner-spin-button {
   text-align: center;
   border: $light-border-btn;
   display: inline-block;
-  padding: .5rem 5rem;
+  padding: 0.5rem 5rem;
 }
 
 .fill-btn {
   display: inline-block;
   text-align: center;
-  padding: .5rem 5rem;
+  padding: 0.5rem 5rem;
   background: $light-fill-btn-bg;
   color: $light-fill-btn-text;
 }
 
 .logo {
-  transition: .8s;
+  transition: 0.8s;
   font-size: 1.5rem;
   padding: 0.5rem 1rem;
   font-weight: 700;
@@ -104,7 +103,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .table-bg {
-  background: rgba($light-bg, .9);
+  background: rgba($light-bg, 0.9);
 }
 
 .border-box {
@@ -116,9 +115,14 @@ input[type=number]::-webkit-inner-spin-button {
   background: $light-bg;
 }
 
+.bg-color {
+  background: $light-bg;
+  transition: background-color 0.2s ease;
+}
+
 // modal
 .modal-mask {
-  background: rgba(0,0,0, .5);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .modal-enter-from {
@@ -135,23 +139,21 @@ input[type=number]::-webkit-inner-spin-button {
   transform: scale(1.1);
 }
 
-.bg-color {
-  background: $light-bg;
-  transition: background-color .2s ease;
+.load {
+  background: linear-gradient(
+      100deg,
+      rgba(256, 256, 256, 0) 30%,
+      rgba(256, 256, 256, 0.5) 50%,
+      rgba(256, 256, 256, 0) 30%
+    )
+    #ededed;
+  background-size: 200% 100%;
+  background-position-x: 180%;
+  animation: 2s loading ease-in-out infinite;
 }
 
 @keyframes loading {
   to {
     background-position-x: -20%;
   }
-}
-
-.load {
-  background: linear-gradient(100deg,
-      rgba(256, 256, 256, 0) 30%,
-      rgba(256, 256, 256, 0.5) 50%,
-      rgba(256, 256, 256, 0) 30%) #ededed;
-  background-size: 200% 100%;
-  background-position-x: 180%;
-  animation: 2s loading ease-in-out infinite;
 }

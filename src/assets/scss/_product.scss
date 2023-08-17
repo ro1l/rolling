@@ -6,7 +6,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 0 0 .5rem;
+    padding: 0 0 0.5rem;
 
     ul {
       display: flex;
@@ -16,7 +16,7 @@
           display: inline-block;
           padding-right: 0.2rem;
           padding-left: 0.2rem;
-          content: '/';
+          content: "/";
         }
 
         a {
@@ -37,15 +37,15 @@
     }
 
     h1 {
-        display: none;
-      }
+      display: none;
+    }
 
     .sidebar {
       height: 100vh;
       position: sticky;
       top: 2rem;
       width: calc(45% / 2);
-      font-size: .9rem;
+      font-size: 0.9rem;
       display: flex;
       table {
         width: 100%;
@@ -58,7 +58,7 @@
         }
 
         td {
-          padding: .2rem 0 .8rem;
+          padding: 0.2rem 0 0.8rem;
           font-weight: 100;
         }
       }
@@ -73,14 +73,13 @@
     }
 
     .information {
-
       h1 {
         width: 946px;
         position: absolute;
         top: 2rem;
         left: 6rem;
         font-size: 9rem;
-        font-family: 'Noto Serif Gujarati', serif;
+        font-family: "Noto Serif Gujarati", serif;
         z-index: -10;
         overflow-x: scroll;
         display: block;
@@ -92,11 +91,11 @@
         input {
           display: none;
 
-          &:checked~.more {
+          &:checked ~ .more {
             display: block;
           }
 
-          &:checked~label {
+          &:checked ~ label {
             display: none;
           }
         }
@@ -109,8 +108,8 @@
           margin: 0rem 0 3rem;
 
           &::after {
-            content: '\F282';
-            font-family: 'bootstrap-icons';
+            content: "\F282";
+            font-family: "bootstrap-icons";
             text-align: center;
             display: block;
           }
@@ -121,14 +120,10 @@
 
           label {
             &::after {
-              content: '\F286';
+              content: "\F286";
             }
           }
         }
-
-        th {}
-
-        td {}
       }
     }
 
@@ -145,11 +140,9 @@
 
     .buy {
       table {
-        th {}
-
         td {
           .add-cart {
-            padding: .5rem 0;
+            padding: 0.5rem 0;
             width: 13rem;
             box-sizing: border-box;
             span {
@@ -163,12 +156,12 @@
             width: 100%;
             text-align: left;
             display: flex;
-    
+
             &::before {
               height: 100%;
-              content: '\F64D';
-              font-family: 'bootstrap-icons';
-              margin-right: .5rem;
+              content: "\F64D";
+              font-family: "bootstrap-icons";
+              margin-right: 0.5rem;
               font-size: 1rem;
             }
           }
@@ -180,17 +173,11 @@
   .related-articles {
     margin: 5rem 0 0;
     padding-left: 5rem;
-
-    p {}
   }
 
   .media-scroll {
     margin: 5rem 0 0;
     padding-left: 5rem;
-
-    .media-scroller {
-      grid-auto-columns: 25%;
-    }
   }
 
   .buy-control {
@@ -198,17 +185,13 @@
   }
 }
 
-
 @media (max-width: 768px) {
-.product-box {
+  .product-box {
     .breadcrumb-box {
       display: none;
     }
 
     .product {
-      // width: 100%;
-      // display: flex;
-      // position: relative;
       flex-direction: column;
       padding: 0 2rem;
 
@@ -216,23 +199,23 @@
         display: block;
 
         .add-comparison {
-            z-index: 100;
-            border: none;
-            width: 100%;
-            text-align: center;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin-top: 1rem;
-        
-            &::before {
-              content: '\F64D';
-              font-family: 'bootstrap-icons';
-              margin-right: .5rem;
-              font-size: 1rem;
-              padding-top: 0.1rem;
-            }
+          z-index: 100;
+          border: none;
+          width: 100%;
+          text-align: center;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          margin-top: 1rem;
+
+          &::before {
+            content: "\F64D";
+            font-family: "bootstrap-icons";
+            margin-right: 0.5rem;
+            font-size: 1rem;
+            padding-top: 0.1rem;
           }
+        }
       }
 
       h1 {
@@ -242,17 +225,11 @@
         font-size: 4rem;
         overflow-x: scroll;
         overflow-y: hidden;
-        font-family: 'Noto Serif Gujarati', serif;
+        font-family: "Noto Serif Gujarati", serif;
         padding: 0;
-        } 
+      }
 
       .sidebar {
-        // height: 100vh;
-        // position: sticky;
-        // top: 2rem;
-        // width: calc(45% / 2);
-        // font-size: .9rem;
-        // display: flex;
         height: auto;
         position: static;
         top: auto;
@@ -260,30 +237,15 @@
         padding-top: 1rem;
 
         table {
-          // width: 100%;
-          // display: inline-block;
-          // padding-left: 4rem;
           padding-left: 0;
           font-size: 1rem;
 
           th {
             font-size: 1rem;
-            // font-weight: 300;
-            // font-size: 0.95rem;
-          }
-
-          td {
-            // padding: .2rem 0 .8rem;
-            // font-weight: 100;
           }
         }
 
         .content {
-          // overflow: scroll;
-          // height: 65%;
-          // bottom: 0;
-          // position: absolute;
-          // width: 100%;
           height: auto;
           position: static;
         }
@@ -294,68 +256,11 @@
         order: 3;
 
         h1 {
-          // width: 946px;
-          // position: absolute;
-          // top: 2rem;
-          // left: 6rem;
-          // font-size: 9rem;
-          // font-family: 'Noto Serif Gujarati', serif;
-          // z-index: -10;
-          // overflow-x: scroll;
           display: none;
-          }
-
-        table {
-          width: 100%;
-
-          input {
-            display: none;
-
-            &:checked~.more {
-              display: block;
-            }
-
-            &:checked~label {
-              display: none;
-            }
-          }
-
-          label {
-            width: 100%;
-            text-align: center;
-            display: inline-block;
-            cursor: pointer;
-            margin: 0rem 0 3rem;
-
-            &::after {
-              content: '\F282';
-              font-family: 'bootstrap-icons';
-              text-align: center;
-              display: block;
-            }
-          }
-
-          .more {
-            display: none;
-
-            label {
-              &::after {
-                content: '\F286';
-              }
-            }
-          }
-
-          th {}
-
-          td {}
         }
       }
 
       .img-box {
-        // padding-top: 80px;
-        // overflow-y: scroll;
-        // width: 55%;
-        // z-index: 100;
         display: none;
       }
 
@@ -363,38 +268,9 @@
         order: 2;
 
         table {
-          th {}
-
           td {
             &.display-td {
               display: none;
-            }
-
-            .add-cart {
-              // padding: .5rem 0;
-              // width: 13rem;
-              // box-sizing: border-box;
-
-              span {
-                // display: inline-block;
-                // width: 100%;
-              }
-            }
-
-            .add-comparison {
-              // z-index: 100;
-              // border: none;
-              // width: 100%;
-              // text-align: left;
-              // display: flex;
-
-              &::before {
-                // height: 100%;
-                // content: '\F64D';
-                // font-family: 'bootstrap-icons';
-                // margin-right: .5rem;
-                // font-size: 1rem;
-              }
             }
           }
         }
@@ -402,23 +278,11 @@
     }
 
     .related-articles {
-      // margin: 5rem 0 0;
-      // padding-left: 5rem;
       padding: 0 2rem;
-
-      p {}
     }
 
     .media-scroll {
-      // margin: 5rem 0 0;
-      // padding-left: 5rem;
       padding: 0 2rem;
-
-      .media-scroller {
-        // grid-auto-columns: 25%;
-        grid-auto-columns: 100% !important;
-        
-      }
     }
 
     .buy-control {
@@ -438,16 +302,16 @@
         align-items: center;
 
         &::before {
-          content: '\F284';
-          font-family: 'bootstrap-icons';
-          margin-right: .5rem;
+          content: "\F284";
+          font-family: "bootstrap-icons";
+          margin-right: 0.5rem;
           font-size: 1rem;
           padding-top: 0.1rem;
-          }
+        }
       }
 
       .add-cart {
-        padding: .8rem 2rem;
+        padding: 0.8rem 2rem;
 
         span {
           width: 100px;
