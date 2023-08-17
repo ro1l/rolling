@@ -1,7 +1,7 @@
 <template>
   <div class="vh-100 w-100 m-0 p-0">
     <div class="container d-flex justify-content-center align-items-center vh-100">
-    <form class="form-card"
+    <form class="form-card mt-sm-5"
     @submit.prevent="LogIn()">
       <div class="mb-5 text-center">
         <div class="logo">Rolling</div>

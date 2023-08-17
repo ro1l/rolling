@@ -15,7 +15,7 @@
 
       <div class="col-12">
         <div class="card mb-4 bg-gray-white  ">
-          <div class="card-body pt-4 mt-lg-3 py-0 px-lg-5">
+          <div class="card-body pt-lg-4 mt-lg-3 py-0 px-lg-5">
             <div class="table-responsive p-0 d-flex">
               <table class="table lh-lg mb-0 table-hover">
                 <thead>
@@ -59,7 +59,7 @@
   @update-article="updateArticle"
   :isNew="isNew"/>
   <Loading
-  :active="isLoading"/>
+  :active="isLoading || isLoadingForStore"/>
   <DelModal
   :item="tempArticle"
   @del-item="delArticle"
@@ -70,6 +70,9 @@
 import ArticleModal from '@/components/backend/ArticleModal.vue';
 import Pagination from '@/components/Pagination.vue';
 import DelModal from '@/components/backend/DelModal.vue';
+import { mapActions, mapState } from 'pinia';
+import articleStore from '@/stores/articleStore';
+import statusStore from '@/stores/statusStore';
 
 export default {
   components: {
@@ -79,26 +82,18 @@ export default {
   },
   data() {
     return {
-      articles: {},
       tempArticle: {
       },
       isNew: false,
-      pagination: {},
       isLoading: false,
     };
   },
+  computed: {
+    ...mapState(articleStore, ['articles', 'pagination']),
+    ...mapState(statusStore, ['isLoadingForStore']),
+  },
   methods: {
-    getArticles(page = 1) {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/articles/?page=${page}`;
-      this.$http.get(api)
-        .then((res) => {
-          this.isLoading = false;
-          this.articles = res.data.articles;
-          this.pagination = res.data.pagination;
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    },
+    ...mapActions(articleStore, ['getArticles']),
     openModal(isNew, item) {
       this.isLoading = true;
       if (isNew) {
@@ -107,7 +102,6 @@ export default {
           isPublic: true,
         };
       } else {
-        // this.tempArticle = { ...item };
         this.isLoading = true;
         const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${item.id}`;
         this.$http.get(api)
@@ -132,7 +126,6 @@ export default {
       }
       this.$http[httpMethod](api, { data: this.tempArticle })
         .then((res) => {
-          console.log(this.tempArticle);
           this.isLoading = false;
           this.getArticles();
           this.pushMessageState(res);

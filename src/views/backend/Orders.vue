@@ -9,7 +9,7 @@
       </div>
       <div class="col-12">
         <div class="card mb-4">
-          <div class="card-body pt-4 mt-lg-3 py-0 px-lg-5">
+          <div class="card-body pt-lg-4 mt-lg-3 py-0 px-lg-5">
             <div class="table-responsive p-0 d-flex">
               <table class="table lh-lg mb-0 table-hover">
                 <thead>

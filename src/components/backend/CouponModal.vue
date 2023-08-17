@@ -15,7 +15,7 @@
             <div class="row p-0">
               <!-- 優惠券編輯 -->
               <div class="col-lg-6 col-sm-12">
-                <div class="card border-end border-black px-2 py-4">
+                <div class="card border-lg border-end border-black px-2 py-4">
                   <div class="card-header pb-2 mb-0">
                     <h6 class="mb-0 fs-5 font-family-taipei">Coupon</h6>
                   </div>
@@ -53,7 +53,7 @@
               </div>
               <!-- 啟用 -->
               <div class="col-lg-6 col-sm-12">
-                <div class="card px-2 py-4">
+                <div class="card border-lg px-2 py-4">
                   <div class="card-header pb-2 mb-0">
                     <h6 class="mb-0 fs-5 font-family-taipei">是否啟用</h6>
                   </div>
@@ -85,7 +85,8 @@
           </div>
         </div>
 
-        <div class="modal-footer d-flex justify-content-between p-lg-5 border-top border-black">
+        <div class="modal-footer d-flex justify-content-between p-lg-5
+        border-top border-black p-3 bg-sm-color">
           <button type="button" class="btn btn-outline-dark rounded-5
           me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
           v-if="isNew === false"

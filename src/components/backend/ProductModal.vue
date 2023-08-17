@@ -15,7 +15,7 @@
             <div class="row p-0">
               <!-- 商品主圖 -->
               <div class="col-lg-6 col-sm-12">
-                <div class="card border-bottom border-black px-2 py-4">
+                <div class="card border-lg border-bottom border-black px-2 py-4">
                   <div class="card-header pb-2 mb-0">
                     <h6 class="mb-0 fs-5 font-family-taipei">商品主圖</h6>
                   </div>
@@ -43,7 +43,7 @@
                 </div>
 
                 <!-- / 商品資訊 -->
-                <div class="card border-bottom border-black px-2 py-4">
+                <div class="card border-lg border-bottom border-black px-2 py-4">
                   <div class="card-header pb-2 mb-0">
                     <h6 class="mb-0 fs-5 font-family-taipei">商品資訊
                     <small class="text-danger font-family-taipei text-xxs">(必填)</small>
@@ -95,7 +95,7 @@
                   </div>
                 </div>
                 <!-- / 是否啟用 -->
-                <div class="card px-2 py-4">
+                <div class="card border-lg px-2 py-4 border-black">
                   <div class="card-header pb-2 mb-0">
                     <h6 class="mb-0 fs-5 font-family-taipei">是否啟用</h6>
                   </div>
@@ -128,7 +128,7 @@
 
               <!-- 車款資訊 -->
               <div class="col-lg-6 col-sm-12">
-                <div class="card border-start border-black px-2 py-4">
+                <div class="card border-lg border-start border-black px-2 py-4">
                   <div class="card-header pb-2 mb-0">
                     <h6 class="mb-0 fs-5 font-family-taipei">車款資訊</h6>
                   </div>
@@ -204,7 +204,7 @@
             <!-- 副圖 -->
             <div class="row">
               <div class="col-12">
-                <div class="card border-top border-bottom border-black px-2 py-4">
+                <div class="card border-lg border-top border-bottom border-black px-2 py-4">
                   <div class="card-header pb-2 mb-0">
                     <h6 class="mb-0 fs-5 font-family-taipei">副圖</h6>
                   </div>
@@ -243,7 +243,7 @@
           </div>
         </div>
 
-        <div class="modal-footer d-flex justify-content-between p-lg-5">
+        <div class="modal-footer d-flex justify-content-between p-lg-5 p-3 bg-sm-color">
           <button type="button" class="btn btn-outline-dark rounded-5
           me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
           v-if="isNew === false"

@@ -15,7 +15,7 @@
             <div class="row p-0">
               <!-- 文章內容 -->
               <div class="col-12">
-                <div class="card border-bottom border-black px-2 py-4">
+                <div class="card border-lg border-bottom border-black px-2 py-4">
                   <div class="card-header pb-2 mb-0">
                     <h6 class="mb-0 fs-5 font-family-taipei">文章內容
                     <small class="text-danger font-family-taipei text-xxs">(必填)</small></h6>
@@ -43,7 +43,7 @@
             <div class="row">
               <!-- 文章圖片 -->
               <div class="col-lg-6 col-sm-12">
-                <div class="card border-bottom border-black px-2 py-4">
+                <div class="card border-lg border-bottom border-black px-2 py-4">
                   <div class="card-header pb-2 mb-0">
                     <h6 class="mb-0 fs-5 font-family-taipei">文章圖片</h6>
                   </div>
@@ -70,7 +70,7 @@
                   </div>
                 </div>
                 <!-- / 是否公開 -->
-                <div class="card px-2 py-4">
+                <div class="card border-lg px-2 py-4">
                   <div class="card-header pb-2 mb-0">
                     <h6 class="mb-0 fs-5 font-family-taipei">是否公開</h6>
                   </div>
@@ -100,7 +100,7 @@
 
               <!-- 文章資訊 -->
               <div class="col-lg-6 col-sm-12">
-                <div class="card border-start border-black px-2 py-4">
+                <div class="card border-lg border-start border-black px-2 py-4">
                   <div class="card-header pb-2 mb-0">
                     <h6 class="mb-0 fs-5 font-family-taipei">文章資訊
                       <small class="text-danger font-family-taipei text-xxs">(必填)</small></h6>
@@ -148,7 +148,8 @@
           </div>
         </div>
 
-        <div class="modal-footer d-flex justify-content-between p-lg-5 border-top border-black">
+        <div class="modal-footer d-flex justify-content-between
+        p-lg-5 border-top border-black p-3 bg-sm-color">
           <button type="button" class="btn btn-outline-dark rounded-5
           me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
           v-if="isNew === false"

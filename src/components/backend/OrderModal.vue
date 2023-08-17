@@ -16,7 +16,7 @@
               <!-- 左側 -->
               <div class="col-lg-6 col-sm-12">
                 <!-- / 訂購人資訊 -->
-                <div class="card border-end border-black px-2 py-4"
+                <div class="card border-lg border-end border-black px-2 py-4"
                 v-if="tempOrder.user">
                   <div class="card-body px-4">
                     <div class="row">
@@ -61,7 +61,7 @@
 
               <!-- 訂單資訊 -->
               <div class="col-lg-6 col-sm-12">
-                <div class="card px-2 py-4"
+                <div class="card border-lg px-2 py-4"
                 v-if="tempOrder.user">
                   <div class="card-body px-4">
                     <div class="row">
@@ -106,7 +106,7 @@
 
               <!-- 訂購細項 -->
               <div class="col-lg-12">
-                <div class="card border-top border-bottom border-black px-2 py-4"
+                <div class="card border-lg border-top border-bottom border-black px-2 py-4"
                 v-if="tempOrder.user">
                   <div class="card-body ps-4 pe-4">
                     <div class="row">
@@ -141,7 +141,7 @@
           </div>
         </div>
 
-        <div class="modal-footer d-flex justify-content-between p-lg-5">
+        <div class="modal-footer d-flex justify-content-between p-lg-5 p-3  bg-sm-color">
           <button type="button" class="btn btn-outline-dark rounded-5
           me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
           @click="$emit('del-order', tempOrder)">刪除</button>

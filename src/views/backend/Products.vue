@@ -15,7 +15,7 @@
 
       <div class="col-12">
         <div class="card mb-4 bg-gray-white">
-          <div class="card-body pt-4 mt-lg-3 py-0 px-lg-5">
+          <div class="card-body pt-lg-4 mt-lg-3 py-0 px-lg-5">
             <div class="table-responsive p-0 d-flex">
               <table class="table lh-lg mb-0 table-hover">
                 <thead>
@@ -34,7 +34,7 @@
                 </thead>
                 <tbody >
                   <tr href="#" @click.prevent="openModal(false, item)" class="cursor-pointer"
-                  v-for="item in products"
+                  v-for="item in productsPage"
                   :key="item.id"
                   >
                     <td class="">{{ item.category }}</td>
@@ -52,7 +52,7 @@
           </div>
           <Pagination
           :pages="pagination"
-          @emit-pages="getProducts"/>
+          @emit-pages="getProductsPage"/>
         </div>
       </div>
     </div>
@@ -71,14 +71,18 @@
   @del-item="delProduct"/>
 
   <Loading
-  :active="isLoading"
+  :active="isLoading || isLoadingForStore"
   :zIndex ="10000"/>
+
 </template>
 
 <script>
 import ProductModal from '@/components/backend/ProductModal.vue';
 import DelModal from '@/components/backend/DelModal.vue';
 import Pagination from '@/components/Pagination.vue';
+import { mapState, mapActions } from 'pinia';
+import productStore from '@/stores/productStore';
+import statusStore from '@/stores/statusStore';
 
 export default {
   components: {
@@ -88,35 +92,17 @@ export default {
   },
   data() {
     return {
-      products: [],
-      pagination: {},
       tempProduct: {},
       isNew: false,
       isLoading: false,
-      productsAll: [],
     };
   },
+  computed: {
+    ...mapState(productStore, ['productsPage', 'pagination']),
+    ...mapState(statusStore, ['isLoadingForStore']),
+  },
   methods: {
-    getProductsAll() {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/all`;
-      this.$http.get(api)
-        .then((res) => {
-          this.productsAll = Object.values(res.data.products);
-        });
-    },
-    getProducts(page = 1) {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
-      this.$http.get(api)
-        .then((res) => {
-          this.isLoading = false;
-          if (res.data.success) {
-            this.products = res.data.products;
-            this.pagination = res.data.pagination;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        });
-    },
+    ...mapActions(productStore, ['getProductsPage']),
     openModal(isNew, item) {
       this.isLoading = true;
       if (isNew) {
@@ -151,7 +137,7 @@ export default {
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
       let httpMethod = 'post';
       this.$refs.productModal.hideModal();
-      this.getProducts();
+      this.getProductsPage();
 
       if (!this.isNew) {
         api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
@@ -163,7 +149,7 @@ export default {
         });
       this.isLoading = false;
       this.$refs.productModal.hideModal();
-      this.getProducts();
+      this.getProductsPage();
     },
     openDelProductModal(item) {
       this.isLoading = true;
@@ -178,15 +164,14 @@ export default {
         .then((res) => {
           this.isLoading = false;
           this.$refs.delModal.hideModal();
-          this.getProducts();
+          this.getProductsPage();
           this.pushMessageState(res);
           this.$refs.productModal.hideModal();
         });
     },
   },
   created() {
-    this.getProducts();
-    this.getProductsAll();
+    this.getProductsPage();
   },
   inject: ['emitter', 'pushMessageState'],
 };
