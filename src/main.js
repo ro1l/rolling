@@ -42,6 +42,11 @@ const app = createApp(App);
 app.config.globalProperties.$filters = {
   currency, date,
 };
+
+// axios 全域設定
+// 使用方式 this.$axios
+// app.config.globalProperties.$axios = axios;
+
 app.component('Loading', Loading);
 app.use(VueAxios, axios);
 // 註冊 vee-validate 三個全域元件
