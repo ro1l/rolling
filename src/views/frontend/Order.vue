@@ -91,6 +91,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -103,26 +105,34 @@ export default {
     };
   },
   methods: {
-    getOrder() {
+    async getOrder() {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order/${this.orderId}`;
-      this.$http.get(api)
-        .then((res) => {
-          this.order = res.data.order;
-          this.isLoading = false;
-        });
+
+      try {
+        const res = await axios.get(api);
+        this.isLoading = false;
+
+        this.order = res.data.order;
+      } catch (error) {
+        console.error('Error 找不到資料', error);
+      }
     },
-    payOrder() {
+    async payOrder() {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/pay/${this.orderId}`;
-      this.$http.post(api)
-        .then((res) => {
-          if (res.data.success) {
-            this.isLoading = false;
-            this.getOrder();
-          }
+
+      try {
+        const res = await axios.post(api);
+        this.isLoading = false;
+
+        if (res.data.success) {
+          this.getOrder();
           this.pushMessageState(res);
-        });
+        }
+      } catch (error) {
+        console.error('Error 找不到資料', error);
+      }
     },
   },
   created() {

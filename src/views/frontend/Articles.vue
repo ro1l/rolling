@@ -7,7 +7,7 @@
 
   <div class="articles-box">
     <template
-    v-if="isLoading">
+    v-if="isLoadingForStore">
       <a href="" class="skeleton-item"
       v-for="(item, index) in skeletonNum"
       :key="index">
@@ -44,14 +44,17 @@
   :pages="pagination"
   @emit-pages="getArticles"/>
 
-  <!-- <Loading
-  :active="isLoading"/> -->
+  <Loading
+  :active="isLoading && isLoadingForStore"/>
 </template>
 
 <script>
 import Pagination from '@/components/Pagination.vue';
 import PageTitle from '@/components/frontend/PageTitle.vue';
 import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
+import { mapActions, mapState } from 'pinia';
+import articleStore from '@/stores/articleStore';
+import statusStore from '@/stores/statusStore';
 
 export default {
   components: {
@@ -61,23 +64,16 @@ export default {
   },
   data() {
     return {
-      articles: {},
-      pagination: {},
       isLoading: false,
       skeletonNum: 4,
     };
   },
+  computed: {
+    ...mapState(articleStore, ['articles', 'pagination']),
+    ...mapState(statusStore, ['isLoadingForStore']),
+  },
   methods: {
-    getArticles(page = 1) {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/articles/?page=${page}`;
-      this.$http.get(api)
-        .then((res) => {
-          this.isLoading = false;
-          this.articles = res.data.articles;
-          this.pagination = res.data.pagination;
-        });
-    },
+    ...mapActions(articleStore, ['getArticles']),
     getArticle(id) {
       this.$router.push(`/article/${id}`);
     },

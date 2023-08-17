@@ -1,43 +1,114 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
+import statusStore from './statusStore';
 
-export default defineStore('product', {
+const status = statusStore();
+
+export default defineStore('productStore', {
   state: () => ({
-    product: [],
-    resizeProduct: [],
+    // products
     products: [],
+    productsPage: [],
+    pagination: {},
+    productsCategory: [],
+    productsType: [],
+
+    // product
+    product: {},
+    imageUrl: '',
+    imagesUrl: [],
+    cc: 0,
+
+    // comp
+    lgCompProd: [],
+    smCompProd: [],
+
   }),
+
   actions: {
-    getProducts() {
+    async getProducts() {
+      status.isLoadingForStore = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
-      axios.get(api)
-        .then((res) => {
-          this.products = res.data.products;
-        });
-    },
-    setProduct(product) {
-      if (this.product.length < 4) {
-        // 檢查新產品是否已存在於 product 陣列中
-        if (!this.product.some((p) => p.id === product.id)) {
-          this.product.push(product);
-        }
-      } else if (!this.product.some((p) => p.id === product.id)) {
-        // 刪除第一個產品並添加新產品到末尾
-        this.product.shift();
-        this.product.push(product);
+
+      try {
+        const res = await axios.get(api);
+        status.isLoadingForStore = false;
+
+        this.products = res.data.products;
+        this.updateProductsCategoryAndType();
+        this.scrollToTop();
+      } catch (error) {
+        console.error('Error 找不到資料:', error);
       }
     },
-    setProductRWD(product) {
-      if (this.resizeProduct.length < 2) {
-        // 檢查新產品是否已存在於 product 陣列中
-        if (!this.resizeProduct.some((p) => p.id === product.id)) {
-          this.resizeProduct.push(product);
+
+    async getProductsPage(page = 1) {
+      status.isLoadingForStore = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
+
+      try {
+        const res = await axios.get(api);
+        status.isLoadingForStore = false;
+
+        if (res.data.success) {
+          this.productsPage = res.data.products;
+          this.pagination = res.data.pagination;
+          this.scrollToTop();
         }
-      } else if (!this.resizeProduct.some((p) => p.id === product.id)) {
-        // 刪除第一個產品並添加新產品到末尾
-        this.resizeProduct.shift();
-        this.resizeProduct.push(product);
+      } catch (error) {
+        console.error('Error fetching paginated products:', error);
       }
+    },
+
+    async getProduct(id) {
+      status.isLoadingForStore = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
+
+      try {
+        const res = await axios.get(api);
+        status.isLoadingForStore = false;
+
+        this.product = res.data.product;
+        this.imageUrl = res.data.product.imageUrl;
+        this.imagesUrl = res.data.product.imagesUrl;
+        this.cc = res.data.product.content.comparison.cc;
+      } catch (error) {
+        console.error('Error 找不到資料', error);
+      }
+    },
+
+    setLgCompProd(product) {
+      this.updateProductArray(this.lgCompProd, product, 4);
+    },
+
+    setSmCompProd(product) {
+      this.updateProductArray(this.smCompProd, product, 2);
+    },
+
+    updateProductArray(array, product, limit) {
+      if (array.length < limit) {
+        if (!array.some((p) => p.id === product.id)) {
+          array.push(product);
+        }
+      } else if (!array.some((p) => p.id === product.id)) {
+        array.shift();
+        array.push(product);
+      }
+    },
+
+    updateProductsCategoryAndType() {
+      this.products.forEach((item) => {
+        if (!this.productsCategory.includes(item.category)) {
+          this.productsCategory.push(item.category);
+        }
+        if (!this.productsType.includes(item.content.comparison.type)) {
+          this.productsType.push(item.content.comparison.type);
+        }
+      });
+    },
+
+    scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
 });

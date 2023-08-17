@@ -4,9 +4,6 @@
   <PageTitle
   :title="'結帳頁面'"/>
 
-  <PageTitleSm
-  :title="'結帳頁面'"/>
-
   <div class="checkbox-box">
     <div class="order-information">
       <p>訂購人資訊</p>
@@ -127,23 +124,24 @@
   </div>
 
   <Loading
-  :active="isLoading"/>
+  :active="isLoadingForStore"/>
 </template>
 
 <script>
 import LogoNavVue from '@/components/frontend/LogoNav.vue';
 import PageTitle from '@/components/frontend/PageTitle.vue';
-import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
+import axios from 'axios';
+import { mapActions, mapState } from 'pinia';
+import cartStore from '@/stores/cartStore';
+import statusStore from '@/stores/statusStore';
 
 export default {
   components: {
     LogoNavVue,
     PageTitle,
-    PageTitleSm,
   },
   data() {
     return {
-      cartProducts: {},
       form: {
         user: {
           name: '',
@@ -152,29 +150,30 @@ export default {
           address: '',
         },
         message: '',
-        isLoading: false,
+        // isLoading: false,
       },
     };
   },
+  computed: {
+    ...mapState(cartStore, ['cartProducts']),
+    ...mapState(statusStore, ['isLoadingForStore']),
+  },
   methods: {
-    getCartProducts() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
-      this.$http.get(api)
-        .then((res) => {
-          this.isLoading = false;
-          this.cartProducts = res.data.data;
-        });
-    },
-    createOrder() {
+    ...mapActions(cartStore, ['getCartProducts']),
+    async createOrder() {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
+
       const order = this.form;
-      this.$http.post(api, { data: order })
-        .then((res) => {
-          if (res.data.success) {
-            this.$router.push(`/order/${res.data.orderId}`);
-          }
-        });
+
+      try {
+        const res = await axios.post(api, { data: order });
+
+        if (res.data.success) {
+          this.$router.push(`/order/${res.data.orderId}`);
+        }
+      } catch (error) {
+        console.error('Error 找不到資料', error);
+      }
     },
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;

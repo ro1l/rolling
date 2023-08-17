@@ -50,15 +50,15 @@
       </table>
       <!-- comparison-car -->
       <table v-for="item in displayedArray" :key="item.id" class="text-deep">
+        <a href="" @click.prevent="getProduct(item.id)">
         <tr class="img-box table-bg">
           <td>
             <div class="remove">
               <button class="text-deep" @click="delProduct(item.id)">移除</button>
               <img :src="item.imageUrl" alt="">
-              <a href="#" class="text-deep"
-              @click.prevent="getProduct(item.id)"> <strong>{{ item.category }}</strong>
-                <br> {{ item.title }}
-              </a>
+              <p><strong>{{ item.category }}</strong>
+              <br> {{ item.title }}
+              </p>
             </div>
           </td>
         </tr>
@@ -102,10 +102,11 @@
             </small>
           </td>
         </tr>
+      </a>
       </table>
       <!-- add-data -->
       <div class="add-data" v-if="(isSmallSize === true
-      ? resizeProduct.length < 2 : product.length < 4)">
+      ? smCompProd.length < 2 : lgCompProd.length < 4)">
         <router-link class="text-deep" :to="{ name: '所有產品' }">+ 加入車款</router-link>
       </div>
     </div>
@@ -158,16 +159,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(productStore, ['product']),
-    ...mapState(productStore, ['resizeProduct']),
+    ...mapState(productStore, ['lgCompProd', 'smCompProd']),
     displayedArray() {
-      return this.isSmallSize ? this.resizeProduct : this.product;
+      return this.isSmallSize ? this.smCompProd : this.lgCompProd;
     },
   },
   methods: {
     delProduct(id) {
-      this.product.splice(this.product.indexOf(id), 1);
-      this.resizeProduct.splice(this.resizeProduct.indexOf(id), 1);
+      this.lgCompProd.splice(this.lgCompProd.indexOf(id), 1);
+      this.smCompProd.splice(this.smCompProd.indexOf(id), 1);
     },
     getProduct(id) {
       this.$router.push(`/product/${id}`);

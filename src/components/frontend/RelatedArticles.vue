@@ -8,25 +8,20 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'pinia';
+import articleStore from '@/stores/articleStore';
+import statusStore from '@/stores/statusStore';
+
 export default {
-  data() {
-    return {
-      articles: [],
-    };
-  },
   computed: {
+    ...mapState(articleStore, ['articles', 'pagination']),
+    ...mapState(statusStore, ['isLoadingForStore']),
     reversedArticles() {
       return this.articles.slice(5).reverse();
     },
   },
   methods: {
-    getArticles(page = 1) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/articles/?page=${page}`;
-      this.$http.get(api)
-        .then((res) => {
-          this.articles = res.data.articles;
-        });
-    },
+    ...mapActions(articleStore, ['getArticles']),
     getArticle(id) {
       setTimeout(() => {
         this.$router.push(`/article/${id}`);

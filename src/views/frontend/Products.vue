@@ -25,9 +25,9 @@
     <!-- products -->
     <div class="products">
       <Breadcrumb :title="title" :content="`${filteredProductsLength}項商品`"
-      v-if="!isLoading"/>
+      v-if="!isLoadingForStore"/>
       <div class="products-box"
-      v-if="isLoading">
+      v-if="isLoadingForStore">
         <div class="products-item"
         v-for="(item, index) in skeletonNum" :key="index">
           <ProductsSkeleton :skeleton="item"/>
@@ -117,7 +117,9 @@
 
   </div>
 
-  <!-- <Loading :active="isLoading" /> -->
+    <Loading
+    :active="isLoading && isLoadingForStore"
+    :zIndex ="10000"/>
 
   <Pagination :pages="pagination" @emit-pages="showCategory" />
 </template>
@@ -129,6 +131,9 @@ import Pagination from '@/components/Pagination.vue';
 import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
 import Breadcrumb from '@/components/frontend/Breadcrumb.vue';
 import ProductsSkeleton from '@/components/frontend/ProductsSkeleton.vue';
+import { mapState, mapActions } from 'pinia';
+import productStore from '@/stores/productStore';
+import statusStore from '@/stores/statusStore';
 
 export default {
   components: {
@@ -140,8 +145,6 @@ export default {
   },
   data() {
     return {
-      products: [],
-      productsCategory: [],
       productByCategory: [],
       nowCategory: '',
       selectCategory: '',
@@ -166,13 +169,15 @@ export default {
       //   '黃牌', '紅牌',
       // ],
       // selectedLicensePlateColor: [],
-      productsType: [],
+      // productsType: [],
       selectedProductsType: [],
       isFilterOpen: false,
       skeletonNum: 9,
     };
   },
   computed: {
+    ...mapState(productStore, ['products', 'productsCategory', 'productsType']),
+    ...mapState(statusStore, ['isLoadingForStore']),
     categoryProduct() {
       let categoryProduct = this.products.filter(
         (item) => item.category?.match(this.selectCategory),
@@ -191,6 +196,7 @@ export default {
         );
       }
 
+      // 黃牌紅牌篩選
       // if (this.selectedLicensePlateColor.length > 0) {
       //   categoryProduct = categoryProduct.filter((item) => {
       //     const productCc = parseInt(item.content.comparison.cc, 10);
@@ -211,28 +217,7 @@ export default {
     },
   },
   methods: {
-    getProducts() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
-      this.$http.get(api)
-        .then((res) => {
-          this.products = res.data.products;
-          this.productsLength = this.products.length;
-          this.products.forEach((item) => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (!this.productsCategory.includes(item.category)) {
-              this.isLoading = false;
-              this.productsCategory.push(item.category);
-            }
-          });
-          this.products.forEach((item) => {
-            if (!this.productsType.includes(item.content.comparison.type)) {
-              this.isLoading = false;
-              this.productsType.push(item.content.comparison.type);
-            }
-          });
-        });
-    },
+    ...mapActions(productStore, ['getProducts']),
     getProduct(id) {
       setTimeout(() => {
         this.$router.push(`/product/${id}`);
@@ -261,12 +246,10 @@ export default {
       const to = this.$route;
       if (to.name === '所有產品') {
         this.title = '所有產品';
-        this.productsLength = this.filteredProductsLength;
         this.isFilterOpen = false;
       }
       if (to.query.category) {
         this.title = to.query.category;
-        this.productsLength = this.filteredProductsLength;
         this.isFilterOpen = false;
       }
       if (window.innerWidth >= 768) {

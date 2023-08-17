@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import productStore from '@/stores/productStore';
 import { mapState, mapActions } from 'pinia';
+import productStore from '@/stores/productStore';
 
 export default {
   data() {

@@ -166,16 +166,19 @@
           加入中。。。</span></button>    </div>
 
   </div>
-  <Loading :active="isLoading" />
+
+  <Loading :active="isLoading || isLoadingForStore" />
+
 </template>
 
 <script>
 import emitter from '@/methods/emitter';
-import productStore from '@/stores/productStore';
-import { mapState, mapActions } from 'pinia';
 import MediaScroll from '@/components/frontend/MediaScroll.vue';
 import RelatedArticles from '@/components/frontend/RelatedArticles.vue';
 import Swiper from '@/components/frontend/Swiper.vue';
+import { mapState, mapActions } from 'pinia';
+import productStore from '@/stores/productStore';
+import statusStore from '@/stores/statusStore';
 
 export default {
   components: {
@@ -185,7 +188,6 @@ export default {
   },
   data() {
     return {
-      product: {},
       id: '',
       isLoading: false,
       status: {
@@ -193,13 +195,11 @@ export default {
       },
       route: '所有產品',
       isFirstLoad: true,
-      cc: 0,
-      imageUrl: '',
-      imagesUrl: [],
     };
   },
   computed: {
-    ...mapState(productStore, ['products']),
+    ...mapState(productStore, ['products', 'product', 'imageUrl', 'imagesUrl', 'cc']),
+    ...mapState(statusStore, ['isLoadingForStore']),
     mergedImagesUrl() {
       return this.imagesUrl
         && this.imagesUrl.length > 0 ? [this.imageUrl, ...this.imagesUrl] : [this.imageUrl];
@@ -239,19 +239,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(productStore, ['getProducts']),
-    getProduct() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`;
-      this.$http.get(api)
-        .then((res) => {
-          this.isLoading = false;
-          this.product = res.data.product;
-          this.imageUrl = res.data.product.imageUrl;
-          this.imagesUrl = res.data.product.imagesUrl;
-          this.cc = res.data.product.content.comparison.cc;
-        });
-    },
+    ...mapActions(productStore, ['getProducts', 'getProduct']),
     addCart(id) {
       this.isLoading = true;
       this.status.loadingItem = id;
@@ -270,8 +258,8 @@ export default {
     },
     addComparison() {
       const product = productStore();
-      product.setProduct(this.product);
-      product.setProductRWD(this.product);
+      product.setLgCompProd(this.product);
+      product.setSmCompProd(this.product);
       setTimeout(() => {
         this.$router.push('/comparison');
       });
@@ -281,8 +269,8 @@ export default {
     },
   },
   created() {
-    this.id = this.$route.params.productId;
-    this.getProduct();
+    const id = this.$route.params.productId;
+    this.getProduct(id);
     this.getProducts();
   },
   inject: ['emitter', 'pushMessageState'],

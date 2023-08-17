@@ -26,36 +26,33 @@
     </div>
   </div>
 
+  <Loading
+  :active="isLoadingForStore"/>
+
 </template>
 
 <script>
 import RelatedArticles from '@/components/frontend/RelatedArticles.vue';
 import PageTitle from '@/components/frontend/PageTitle.vue';
+import { mapState, mapActions } from 'pinia';
+import articleStore from '@/stores/articleStore';
+import statusStore from '@/stores/statusStore';
 
 export default {
   components: {
     RelatedArticles,
     PageTitle,
   },
-  data() {
-    return {
-      id: '',
-      article: {},
-      router: '/articles',
-    };
+  computed: {
+    ...mapState(articleStore, ['article']),
+    ...mapState(statusStore, ['isLoadingForStore']),
   },
   methods: {
-    getArticle() {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/article/${this.id}`;
-      this.$http.get(api)
-        .then((res) => {
-          this.article = res.data.article;
-        });
-    },
+    ...mapActions(articleStore, ['getArticle']),
   },
   created() {
-    this.id = this.$route.params.articleId;
-    this.getArticle();
+    const id = this.$route.params.articleId;
+    this.getArticle(id);
   },
 };
 </script>

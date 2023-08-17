@@ -31,25 +31,3 @@
   </div>
 
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      products: [],
-    };
-  },
-  methods: {
-    getProducts() {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
-      this.$http.get(api)
-        .then((res) => {
-          this.products = res.data.products;
-        });
-    },
-  },
-  created() {
-    this.getProducts();
-  },
-};
-</script>
