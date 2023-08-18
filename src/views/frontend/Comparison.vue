@@ -8,6 +8,7 @@
     <div class="table-box" v-if="displayedArray.length > 0">
       <!-- comparison-title -->
       <table>
+        <tr class="first-tr"><th></th></tr>
         <tr class="car-model table-bg">
           <th>車款</th>
         </tr>
@@ -47,11 +48,17 @@
       </table>
       <!-- comparison-car -->
       <table v-for="item in displayedArray" :key="item.id" class="text-deep">
+        <tr class="remove">
+          <td>
+            <div>
+              <button class="text-deep" @click.prevent="delProduct(item.id)">移除</button>
+            </div>
+          </td>
+        </tr>
         <a href="" @click.prevent="getProduct(item.id)">
           <tr class="img-box table-bg">
             <td>
-              <div class="remove">
-                <button class="text-deep" @click="delProduct(item.id)">移除</button>
+              <div class="img">
                 <img :src="item.imageUrl" alt="">
                 <p><strong>{{ item.category }}</strong>
                   <br> {{ item.title }}
@@ -92,10 +99,11 @@
           </tr>
           <tr>
             <td>
-              <p>NT${{ $filters.currency(totalTax(item)) }}</p>
+              <p>NT${{ $filters.currency(licenseTax(item.content.comparison.cc) +
+              fuelTax(item.content.comparison.cc)) }}</p>
               <small class="text-shallow">(牌照稅：NT$
-                {{ $filters.currency(licenseTax(item)) }} + 燃料稅：NT$
-                {{ $filters.currency(fuelTax(item)) }})
+                {{ $filters.currency(licenseTax(item.content.comparison.cc)) }} + 燃料稅：NT$
+                {{ $filters.currency(fuelTax(item.content.comparison.cc)) }})
               </small>
             </td>
           </tr>
@@ -138,7 +146,7 @@
 </template>
 
 <script>
-import { mapState } from 'pinia';
+import { mapState, mapActions } from 'pinia';
 import productStore from '@/stores/productStore';
 import PageTitle from '@/components/frontend/PageTitle.vue';
 import PageTitleSm from '@/components/frontend/PageTitleSm.vue';
@@ -148,6 +156,7 @@ export default {
     PageTitle,
     PageTitleSm,
   },
+
   data() {
     return {
       tempProduct: {},
@@ -155,57 +164,35 @@ export default {
       comparisonState: true,
     };
   },
+
   computed: {
     ...mapState(productStore, ['lgCompProd', 'smCompProd']),
+
     displayedArray() {
       return this.isSmallSize ? this.smCompProd : this.lgCompProd;
     },
   },
+
   methods: {
+    ...mapActions(productStore, ['licenseTax', 'fuelTax']),
+
     delProduct(id) {
-      this.lgCompProd.splice(this.lgCompProd.indexOf(id), 1);
-      this.smCompProd.splice(this.smCompProd.indexOf(id), 1);
+      const lgIndex = this.lgCompProd.findIndex((item) => item.id === id);
+      const smIndex = this.smCompProd.findIndex((item) => item.id === id);
+
+      if (lgIndex !== -1) {
+        this.lgCompProd.splice(lgIndex, 1);
+      }
+      if (smIndex !== -1) {
+        this.smCompProd.splice(smIndex, 1);
+      }
     },
+
     getProduct(id) {
       this.$router.push(`/product/${id}`);
     },
-    licenseTax(item) {
-      const license = item.content.comparison.cc;
-      if (license <= 500) {
-        return 1620;
-      }
-      if (license <= 600) {
-        return 2160;
-      }
-      if (license <= 1200) {
-        return 4320;
-      }
-      if (license <= 1800) {
-        return 7120;
-      }
-      return 11230;
-    },
-    fuelTax(item) {
-      const fuel = item.content.comparison.cc;
-      if (fuel <= 500) {
-        return 900;
-      }
-      if (fuel <= 600) {
-        return 1200;
-      }
-      if (fuel <= 1200) {
-        return 1800;
-      }
-      if (fuel <= 500) {
-        return 900;
-      }
-      return 2010;
-    },
-    totalTax(item) {
-      const total = this.licenseTax(item) + this.fuelTax(item);
-      return total;
-    },
   },
+
   mounted() {
     if (window.innerWidth <= 768) {
       this.isSmallSize = true;

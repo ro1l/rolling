@@ -22,30 +22,17 @@
     }
 
     table {
+
       a {
         vertical-align: middle;
         margin: 0;
         padding: 0;
       }
 
-      .remove {
+      .img {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
-
-        button {
-          width: 100%;
-          display: inline-block;
-          text-align: right;
-          padding: 10px;
-          border: none;
-          background: none;
-          font-weight: 300;
-          text-decoration: underline;
-          text-underline-offset: 0.3rem;
-          text-decoration-thickness: 1px;
-          font-size: 0.9rem;
-        }
 
         img {
           width: 200px;
@@ -65,6 +52,8 @@
       }
 
       td {
+        width: 300px;
+
         p {
           margin: 0;
         }
@@ -76,18 +65,43 @@
 
         &.car-model {
           position: relative;
-          height: 300px;
+          height: 250px;
           position: sticky;
           top: 3rem;
           // box-shadow: 0px 1px $light-text-shallow;
         }
 
         &.img-box {
-          height: 300px;
+          height: 250px;
           box-sizing: border-box;
           position: sticky;
           top: 3rem;
           // box-shadow: 0px 1px $light-text-shallow;
+        }
+
+        &.remove {
+          height: 50px;
+          border: none;
+
+          button {
+            width: 100%;
+            display: inline-block;
+            text-align: right;
+            padding: 10px;
+            border: none;
+            background: none;
+            font-weight: 300;
+            text-decoration: underline;
+            text-underline-offset: 0.3rem;
+            text-decoration-thickness: 1px;
+            font-size: 0.9rem;
+            z-index: 1000;
+          }
+        }
+
+        &.first-tr {
+          height: 50px;
+          border: none;
         }
       }
     }
