@@ -12,7 +12,11 @@
         </div>
       </div>
 
-      <div class="col-12">
+      <DashboardSkeleton
+      v-if="isLoadingForStore"/>
+
+      <div class="col-12"
+      v-if="!isLoadingForStore">
         <div class="card mb-4 bg-gray-white">
           <div class="card-body pt-lg-4 mt-lg-3 py-0 px-lg-5">
             <div class="table-responsive p-0 d-flex">
@@ -71,12 +75,14 @@ import Pagination from '@/components/Pagination.vue';
 import { mapState, mapActions } from 'pinia';
 import productStore from '@/stores/productStore';
 import statusStore from '@/stores/statusStore';
+import DashboardSkeleton from '@/components/backend/DashboardSkeleton.vue';
 
 export default {
   components: {
     ProductModal,
     DelModal,
     Pagination,
+    DashboardSkeleton,
   },
 
   data() {
@@ -84,6 +90,7 @@ export default {
       tempProduct: {},
       isNew: false,
       isLoading: false,
+      skeletonNum: 15,
     };
   },
 

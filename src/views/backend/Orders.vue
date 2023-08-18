@@ -7,6 +7,10 @@
           <h1 class="page-title">Orders</h1>
         </div>
       </div>
+
+      <DashboardSkeleton
+      v-if="isLoading"/>
+
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-body pt-lg-4 mt-lg-3 py-0 px-lg-5">
@@ -54,12 +58,14 @@ import axios from 'axios';
 import OrderModal from '@/components/backend/OrderModal.vue';
 import DelModal from '@/components/backend/DelModal.vue';
 import Pagination from '@/components/Pagination.vue';
+import DashboardSkeleton from '@/components/backend/DashboardSkeleton.vue';
 
 export default {
   components: {
     OrderModal,
     DelModal,
     Pagination,
+    DashboardSkeleton,
   },
   data() {
     return {
@@ -71,6 +77,7 @@ export default {
   },
   methods: {
     async getOrders(page = 1) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       try {
         this.isLoading = true;
         const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/orders/?page=${page}`;

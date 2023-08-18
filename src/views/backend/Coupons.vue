@@ -11,6 +11,10 @@
             新增優惠券</button>
         </div>
       </div>
+
+      <DashboardSkeleton
+      v-if="isLoading"/>
+
       <div class="col-12">
         <div class="card mb-4 bg-gray-white">
           <div class="card-body pt-lg-4 mt-lg-3 py-0 px-lg-5">
@@ -61,12 +65,14 @@ import axios from 'axios';
 import CouponModal from '@/components/backend/CouponModal.vue';
 import DelModal from '@/components/backend/DelModal.vue';
 import Pagination from '@/components/Pagination.vue';
+import DashboardSkeleton from '@/components/backend/DashboardSkeleton.vue';
 
 export default {
   components: {
     CouponModal,
     DelModal,
     Pagination,
+    DashboardSkeleton,
   },
 
   data() {
@@ -81,6 +87,7 @@ export default {
 
   methods: {
     async getCoupons(page = 1) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       try {
         this.isLoading = true;
         const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons/?page=${page}`;

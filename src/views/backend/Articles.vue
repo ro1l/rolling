@@ -12,8 +12,12 @@
         </div>
       </div>
 
-      <div class="col-12">
-        <div class="card mb-4 bg-gray-white  ">
+      <DashboardSkeleton
+      v-if="isLoadingForStore"/>
+
+      <div class="col-12"
+      v-if="!isLoadingForStore">
+        <div class="card mb-4 bg-gray-white">
           <div class="card-body pt-lg-4 mt-lg-3 py-0 px-lg-5">
             <div class="table-responsive p-0 d-flex">
               <table class="table lh-lg mb-0 table-hover">
@@ -51,7 +55,7 @@
 
   <ArticleModal ref="articleModal" :article="tempArticle" @del-article="openDelModal(tempArticle)"
   @update-article="updateArticle" :isNew="isNew" />
-  <Loading :active="isLoading || isLoadingForStore"
+  <Loading :active="isLoading"
   :zIndex="10000"/>
   <DelModal :item="tempArticle" @del-item="delArticle" ref="delModal" />
 </template>
@@ -64,12 +68,14 @@ import DelModal from '@/components/backend/DelModal.vue';
 import { mapActions, mapState } from 'pinia';
 import articleStore from '@/stores/articleStore';
 import statusStore from '@/stores/statusStore';
+import DashboardSkeleton from '@/components/backend/DashboardSkeleton.vue';
 
 export default {
   components: {
     ArticleModal,
     Pagination,
     DelModal,
+    DashboardSkeleton,
   },
 
   data() {
@@ -78,6 +84,7 @@ export default {
       },
       isNew: false,
       isLoading: false,
+      skeletonNum: 15,
     };
   },
 
