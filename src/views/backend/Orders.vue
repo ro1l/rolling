@@ -43,7 +43,8 @@
     </div>
   </div>
 
-  <Loading :active="isLoading" />
+  <Loading :active="isLoading"
+  :zIndex="10000"/>
   <OrderModal ref="orderModal" :order="tempOrder" @del-order="openDelModal(tempOrder)" />
   <DelModal ref="delModal" :item="tempOrder" @del-item="delOrder" />
 </template>

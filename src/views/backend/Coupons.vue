@@ -52,7 +52,8 @@
   <CouponModal ref="couponModal" :coupon="tempCoupon" :isNew="isNew" @update-coupon="updateCoupon"
     @del-coupon="openDelModal(tempCoupon)" />
   <DelModal ref="delModal" :item="tempCoupon" @del-item="delCoupon" />
-  <Loading :active="isLoading" />
+  <Loading :active="isLoading"
+  :zIndex="10000"/>
 </template>
 
 <script>
@@ -84,13 +85,13 @@ export default {
         this.isLoading = true;
         const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons/?page=${page}`;
         const response = await axios.get(api);
-        this.isLoading = false;
         this.coupons = response.data.coupons;
         this.pagination = response.data.pagination;
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } catch (error) {
         console.error('Error 找不到資料', error);
       }
+      this.isLoading = false;
     },
 
     openModal(isNew, item) {

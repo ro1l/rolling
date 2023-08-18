@@ -168,7 +168,7 @@ export default {
         this.pushMessageState(res);
         this.$refs.productModal.hideModal();
       } catch (error) {
-        console.error('Error deleting product:', error);
+        console.error('Error', error);
       }
     },
 

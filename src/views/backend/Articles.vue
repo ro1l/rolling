@@ -50,8 +50,9 @@
   </div>
 
   <ArticleModal ref="articleModal" :article="tempArticle" @del-article="openDelModal(tempArticle)"
-    @update-article="updateArticle" :isNew="isNew" />
-  <Loading :active="isLoading || isLoadingForStore" />
+  @update-article="updateArticle" :isNew="isNew" />
+  <Loading :active="isLoading || isLoadingForStore"
+  :zIndex="10000"/>
   <DelModal :item="tempArticle" @del-item="delArticle" ref="delModal" />
 </template>
 
