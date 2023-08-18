@@ -163,6 +163,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import modalMixin from '@/mixins/modalMixin';
 import Editor from '@tinymce/tinymce-vue';
 
@@ -170,16 +171,19 @@ export default {
   components: {
     Editor,
   },
+
   props: {
     article: {
       type: Object,
       default() { return {}; },
     },
+
     isNew: {
       type: Boolean,
       required: true,
     },
   },
+
   data() {
     return {
       isLoading: false,
@@ -188,22 +192,28 @@ export default {
       create_at: '',
     };
   },
+
   methods: {
-    uploadFile() {
-      this.isLoading = true;
-      const uploadFile = this.$refs.fileInput.files[0];
-      const formData = new FormData();
-      formData.append('file-to-upload', uploadFile);
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-      this.$http.post(api, formData)
-        .then((res) => {
-          if (res.data.success) {
-            this.tempArticle.image = res.data.imageUrl;
-            this.isLoading = false;
-          }
-        });
+    async uploadFile() {
+      try {
+        this.isLoading = true;
+        const uploadFile = this.$refs.fileInput.files[0];
+        const formData = new FormData();
+        formData.append('file-to-upload', uploadFile);
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+        const res = await axios.post(api, formData);
+
+        if (res.data.success) {
+          this.tempArticle.image = res.data.imageUrl;
+          this.isLoading = false;
+        }
+      } catch (error) {
+        console.error('Error', error);
+      }
+      this.isLoading = false;
     },
   },
+
   watch: {
     article() {
       this.tempArticle = this.article;
@@ -211,10 +221,12 @@ export default {
         .toISOString().split('T');
       [this.create_at] = changeDate;
     },
+
     create_at() {
       this.tempArticle.create_at = Math.floor(new Date(this.create_at) / 1000);
     },
   },
+
   emits: ['update-article', 'del-article'],
   mixins: [modalMixin],
 };

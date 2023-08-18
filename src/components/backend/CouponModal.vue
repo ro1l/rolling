@@ -115,6 +115,7 @@ export default {
       required: true,
     },
   },
+
   data() {
     return {
       modal: {},
@@ -122,6 +123,7 @@ export default {
       due_date: '',
     };
   },
+
   watch: {
     coupon() {
       this.tempCoupon = this.coupon;
@@ -129,11 +131,14 @@ export default {
         .toISOString().split('T');
       [this.due_date] = changeDate;
     },
+
     due_date() {
       this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000);
     },
   },
+
   emits: ['update-coupon', 'del-coupon'],
+
   mixins: [modalMixin],
 };
 </script>

@@ -27,11 +27,13 @@ export default {
   props: {
     item: {},
   },
+
   data() {
     return {
       modal: '',
     };
   },
+
   mixins: [modalMixin],
 };
 </script>

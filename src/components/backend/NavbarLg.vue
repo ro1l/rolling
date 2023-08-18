@@ -55,6 +55,7 @@ export default {
       isMenuOpen: false,
     };
   },
+
   methods: {
     LogOut() {
       this.isLoading = true;
@@ -67,6 +68,7 @@ export default {
           }
         });
     },
+
     toggleOffcanvas() {
       this.isMenuOpen = !this.isMenuOpen;
       this.isOffcanvasOpen = !this.isOffcanvasOpen;
@@ -77,11 +79,13 @@ export default {
       }
     },
   },
+
   watch: {
     $route() {
       this.isMenuOpen = false;
       document.body.style.overflow = 'auto';
     },
   },
+
 };
 </script>

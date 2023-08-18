@@ -156,17 +156,20 @@ export default {
       default() { return {}; },
     },
   },
+
   data() {
     return {
       modal: {},
       tempOrder: {},
     };
   },
+
   watch: {
     order() {
       this.tempOrder = this.order;
     },
   },
+
   mixins: [modalMixin],
 };
 </script>
