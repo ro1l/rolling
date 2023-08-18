@@ -14,6 +14,7 @@ export default defineStore('articleStore', {
 
   actions: {
     async getArticles(page = 1) {
+      this.scrollToTop();
       status.isLoadingForStore = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/articles/?page=${page}`;
 
@@ -23,13 +24,13 @@ export default defineStore('articleStore', {
 
         this.articles = res.data.articles;
         this.pagination = res.data.pagination;
-        this.scrollToTop();
       } catch (error) {
         console.error('Error 找不到資料', error);
       }
     },
 
     async getArticle(id) {
+      this.scrollToTop();
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/article/${id}`;
       status.isLoadingForStore = true;
 

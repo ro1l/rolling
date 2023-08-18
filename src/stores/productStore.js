@@ -27,6 +27,7 @@ export default defineStore('productStore', {
 
   actions: {
     async getProducts() {
+      this.scrollToTop();
       status.isLoadingForStore = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
 
@@ -36,13 +37,13 @@ export default defineStore('productStore', {
 
         this.products = res.data.products;
         this.updateProductsCategoryAndType();
-        this.scrollToTop();
       } catch (error) {
         console.error('Error 找不到資料:', error);
       }
     },
 
     async getProductsPage(page = 1) {
+      this.scrollToTop();
       status.isLoadingForStore = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
 
@@ -53,7 +54,6 @@ export default defineStore('productStore', {
         if (res.data.success) {
           this.productsPage = res.data.products;
           this.pagination = res.data.pagination;
-          this.scrollToTop();
         }
       } catch (error) {
         console.error('Error fetching paginated products:', error);
@@ -61,6 +61,7 @@ export default defineStore('productStore', {
     },
 
     async getProduct(id) {
+      this.scrollToTop();
       status.isLoadingForStore = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
 
