@@ -95,6 +95,7 @@ export default {
     LogoNavVue,
     PageTitle,
   },
+
   data() {
     return {
       form: {
@@ -109,12 +110,15 @@ export default {
       },
     };
   },
+
   computed: {
     ...mapState(cartStore, ['cartProducts']),
     ...mapState(statusStore, ['isLoadingForStore']),
   },
+
   methods: {
     ...mapActions(cartStore, ['getCartProducts']),
+
     async createOrder() {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
 
@@ -130,15 +134,18 @@ export default {
         console.error('Error 找不到資料', error);
       }
     },
+
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
       return phoneNumber.test(value) ? true : '需要正確的電話號碼';
     },
+
     isAddress(value) {
       const addressRegex = /(?:(?<city>[^市縣]+[市縣])(?<district>[^市區鄉鎮鄉鎮市區]+[市區鄉鎮鄉鎮市區])?(?<neighborhood>[^村里]+[村里])?(?<lin>[0-9]+[鄰])?(?<street>[^路段]+[路段])?(?<section>[^段]*段)?(?<alley>[0-9]+巷)?(?<lane>[0-9]+弄)?(?<number>[0-9]+號)?(?:-(?<number2>[0-9]+號))?(?<floor>[0-9]+樓)?(?<other>.+)?)/;
       return addressRegex.test(value) ? true : '需要正確的地址';
     },
   },
+
   created() {
     this.getCartProducts();
   },

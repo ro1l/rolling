@@ -81,6 +81,7 @@ export default {
   components: {
     PageTitle,
   },
+
   data() {
     return {
       min: 1,
@@ -88,16 +89,20 @@ export default {
       couponCode: '',
     };
   },
+
   computed: {
     ...mapState(cartStore, ['cartProducts']),
     ...mapState(statusStore, ['isLoadingForStore', 'cartLoadingItem']),
   },
+
   methods: {
     ...mapActions(cartStore, ['getCartProducts', 'updateCart', 'delProduct', 'addCouponCode']),
   },
+
   created() {
     this.getCartProducts();
   },
+
   inject: ['emitter', 'pushMessageState'],
 };
 </script>

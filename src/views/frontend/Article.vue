@@ -40,13 +40,16 @@ export default {
     RelatedArticles,
     PageTitle,
   },
+
   computed: {
     ...mapState(articleStore, ['article']),
     ...mapState(statusStore, ['isLoadingForStore']),
   },
+
   methods: {
     ...mapActions(articleStore, ['getArticle']),
   },
+
   created() {
     const id = this.$route.params.articleId;
     this.getArticle(id);

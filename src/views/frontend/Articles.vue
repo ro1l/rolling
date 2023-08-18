@@ -49,24 +49,31 @@ export default {
     PageTitle,
     PageTitleSm,
   },
+
   data() {
     return {
       isLoading: false,
       skeletonNum: 4,
     };
   },
+
   computed: {
     ...mapState(articleStore, ['articles', 'pagination']),
     ...mapState(statusStore, ['isLoadingForStore']),
   },
+
   methods: {
     ...mapActions(articleStore, ['getArticles']),
+
     getArticle(id) {
       this.$router.push(`/article/${id}`);
     },
+
   },
+
   created() {
     this.getArticles();
   },
+
 };
 </script>

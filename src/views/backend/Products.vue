@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import ProductModal from '@/components/backend/ProductModal.vue';
 import DelModal from '@/components/backend/DelModal.vue';
 import Pagination from '@/components/Pagination.vue';
@@ -77,6 +78,7 @@ export default {
     DelModal,
     Pagination,
   },
+
   data() {
     return {
       tempProduct: {},
@@ -84,12 +86,15 @@ export default {
       isLoading: false,
     };
   },
+
   computed: {
     ...mapState(productStore, ['productsPage', 'pagination']),
     ...mapState(statusStore, ['isLoadingForStore']),
   },
+
   methods: {
     ...mapActions(productStore, ['getProductsPage']),
+
     openModal(isNew, item) {
       this.isLoading = true;
       if (isNew) {
@@ -118,48 +123,61 @@ export default {
       this.isLoading = false;
       this.$refs.productModal.showModal();
     },
-    updateProduct(item) {
-      this.isLoading = true;
-      this.tempProduct = item;
-      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
-      let httpMethod = 'post';
-      this.$refs.productModal.hideModal();
-      this.getProductsPage();
 
-      if (!this.isNew) {
-        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
-        httpMethod = 'put';
+    async updateProduct(item) {
+      try {
+        this.isLoading = true;
+        this.tempProduct = item;
+        let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
+        let httpMethod = 'post';
+        this.$refs.productModal.hideModal();
+        this.getProductsPage();
+
+        if (!this.isNew) {
+          api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
+          httpMethod = 'put';
+        }
+
+        const res = await axios[httpMethod](api, { data: this.tempProduct });
+        this.pushMessageState(res);
+      } catch (error) {
+        console.error('Error 找不到資料:', error);
+      } finally {
+        this.isLoading = false;
+        this.$refs.productModal.hideModal();
+        this.getProductsPage();
       }
-      this.$http[httpMethod](api, { data: this.tempProduct })
-        .then((res) => {
-          this.pushMessageState(res);
-        });
-      this.isLoading = false;
-      this.$refs.productModal.hideModal();
-      this.getProductsPage();
     },
+
     openDelProductModal(item) {
       this.isLoading = true;
       this.tempProduct = { ...item };
       this.isLoading = false;
       this.$refs.delModal.showModal();
     },
-    delProduct() {
-      this.isLoading = true;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`;
-      this.$http.delete(url)
-        .then((res) => {
-          this.isLoading = false;
-          this.$refs.delModal.hideModal();
-          this.getProductsPage();
-          this.pushMessageState(res);
-          this.$refs.productModal.hideModal();
-        });
+
+    async delProduct() {
+      try {
+        this.isLoading = true;
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`;
+
+        const res = await axios.delete(api);
+        this.isLoading = false;
+        this.$refs.delModal.hideModal();
+        this.getProductsPage();
+        this.pushMessageState(res);
+        this.$refs.productModal.hideModal();
+      } catch (error) {
+        console.error('Error deleting product:', error);
+      }
     },
+
   },
+
   created() {
     this.getProductsPage();
   },
+
   inject: ['emitter', 'pushMessageState'],
 };
 </script>

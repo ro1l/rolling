@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import OrderModal from '@/components/backend/OrderModal.vue';
 import DelModal from '@/components/backend/DelModal.vue';
 import Pagination from '@/components/Pagination.vue';
@@ -68,15 +69,17 @@ export default {
     };
   },
   methods: {
-    getOrders(page = 1) {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/orders/?page=${page}`;
-      this.$http.get(api)
-        .then((res) => {
-          this.orders = res.data.orders;
-          this.pagination = res.data.pagination;
-          this.isLoading = false;
-        });
+    async getOrders(page = 1) {
+      try {
+        this.isLoading = true;
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/orders/?page=${page}`;
+        const res = await axios.get(api);
+        this.orders = res.data.orders;
+        this.pagination = res.data.pagination;
+        this.isLoading = false;
+      } catch (error) {
+        console.error('Error 找不到資料', error);
+      }
     },
     openOrderModal(item) {
       this.tempOrder = { ...item };
@@ -86,19 +89,21 @@ export default {
       this.tempOrder = { ...item };
       this.$refs.delModal.showModal();
     },
-    delOrder() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/${this.tempOrder.id}`;
-      this.$http.delete(api)
-        .then((res) => {
-          if (res.data.success) {
-            this.$refs.delModal.hideModal();
-            this.$refs.orderModal.hideModal();
-            this.isLoading = false;
-            this.getOrders();
-            this.pushMessageState(res);
-          }
-        });
+    async delOrder() {
+      try {
+        this.isLoading = true;
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/${this.tempOrder.id}`;
+        const res = await axios.delete(api);
+        if (res.data.success) {
+          this.$refs.delModal.hideModal();
+          this.$refs.orderModal.hideModal();
+          this.isLoading = false;
+          this.getOrders();
+          this.pushMessageState(res);
+        }
+      } catch (error) {
+        console.error('Error 找不到資料', error);
+      }
     },
   },
   created() {

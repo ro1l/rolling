@@ -19,6 +19,7 @@ export default {
     ToastList,
     Footer,
   },
+
   provide() {
     return {
       emitter,

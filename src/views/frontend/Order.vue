@@ -95,6 +95,7 @@ export default {
       isLoading: false,
     };
   },
+
   methods: {
     async getOrder() {
       this.isLoading = true;
@@ -109,6 +110,7 @@ export default {
         console.error('Error 找不到資料', error);
       }
     },
+
     async payOrder() {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/pay/${this.orderId}`;
@@ -126,10 +128,12 @@ export default {
       }
     },
   },
+
   created() {
     this.orderId = this.$route.params.orderId;
     this.getOrder();
   },
+
   inject: ['pushMessageState'],
 };
 </script>

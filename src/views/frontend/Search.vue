@@ -40,33 +40,41 @@ export default {
       cacheProductArea: '',
     };
   },
+
   computed: {
     ...mapState(productStore, ['products']),
     filterProductsSearch() {
       const regex = new RegExp(this.cacheProductsSearch, 'i');
       return this.products.filter((item) => item.title.match(regex));
     },
+
     filterArticlesSearch() {
       const regex = new RegExp(this.cacheArticlesSearch, 'i');
       return this.articles.filter((item) => item.title.match(regex));
     },
   },
+
   methods: {
     ...mapActions(productStore, ['getProducts']),
+
     removeFilterSearch(item) {
       this.cacheProductArea = item;
       this.cacheProductsSearch = '';
     },
+
     delCacheProductSearch() {
       this.cacheProductsSearch = '';
     },
+
     getProduct(id) {
       this.$router.push(`/product/${id}`);
     },
+
     goBack() {
       return this.$router.go(-1);
     },
   },
+
   created() {
     this.getProducts();
   },

@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import CouponModal from '@/components/backend/CouponModal.vue';
 import DelModal from '@/components/backend/DelModal.vue';
 import Pagination from '@/components/Pagination.vue';
@@ -66,6 +67,7 @@ export default {
     DelModal,
     Pagination,
   },
+
   data() {
     return {
       coupons: {},
@@ -75,18 +77,22 @@ export default {
       isLoading: false,
     };
   },
+
   methods: {
-    getCoupons(page = 1) {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons/?page=${page}`;
-      this.$http.get(api)
-        .then((res) => {
-          this.isLoading = false;
-          this.coupons = res.data.coupons;
-          this.pagination = res.data.pagination;
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+    async getCoupons(page = 1) {
+      try {
+        this.isLoading = true;
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons/?page=${page}`;
+        const response = await axios.get(api);
+        this.isLoading = false;
+        this.coupons = response.data.coupons;
+        this.pagination = response.data.pagination;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (error) {
+        console.error('Error 找不到資料', error);
+      }
     },
+
     openModal(isNew, item) {
       this.isLoading = true;
       if (isNew) {
@@ -101,48 +107,57 @@ export default {
       this.isLoading = false;
       this.$refs.couponModal.showModal();
     },
-    updateCoupon(item) {
-      this.isLoading = true;
-      this.tempCoupon = item;
-      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`;
-      let httpMethod = 'post';
-      this.$refs.couponModal.hideModal();
-      this.getCoupons();
 
-      if (!this.isNew) {
-        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${item.id}`;
-        httpMethod = 'put';
+    async updateCoupon(item) {
+      try {
+        this.isLoading = true;
+        this.tempCoupon = item;
+        let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`;
+        let httpMethod = 'post';
+        this.$refs.couponModal.hideModal();
+        this.getCoupons();
+
+        if (!this.isNew) {
+          api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${item.id}`;
+          httpMethod = 'put';
+        }
+        const res = await axios[httpMethod](api, { data: this.tempCoupon });
+        this.pushMessageState(res);
+        this.isLoading = false;
+        this.$refs.couponModal.hideModal();
+        this.getCoupons();
+      } catch (error) {
+        console.error('Error 找不到資料:', error);
       }
-      this.$http[httpMethod](api, { data: this.tempCoupon })
-        .then((res) => {
-          this.pushMessageState(res);
-        });
-      this.isLoading = false;
-      this.$refs.couponModal.hideModal();
-      this.getCoupons();
     },
+
     openDelModal(item) {
       this.isLoading = true;
       this.tempCoupon = { ...item };
       this.isLoading = false;
       this.$refs.delModal.showModal();
     },
-    delCoupon() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`;
-      this.$http.delete(api)
-        .then((res) => {
-          this.isLoading = false;
-          this.$refs.delModal.hideModal();
-          this.getCoupons();
-          this.pushMessageState(res);
-          this.$refs.couponModal.hideModal();
-        });
+
+    async delCoupon() {
+      try {
+        this.isLoading = true;
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${this.tempCoupon.id}`;
+        const res = await axios.delete(api);
+        this.isLoading = false;
+        this.$refs.delModal.hideModal();
+        this.getCoupons();
+        this.pushMessageState(res);
+        this.$refs.couponModal.hideModal();
+      } catch (error) {
+        console.error('Error 找不到資料:', error);
+      }
     },
   },
+
   created() {
     this.getCoupons();
   },
+
   inject: ['emitter', 'pushMessageState'],
 };
 </script>

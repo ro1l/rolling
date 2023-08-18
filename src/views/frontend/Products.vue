@@ -33,7 +33,7 @@
     </div>
     <div class="products-box" id="infinite-list" v-if="productByCategory.length > 0">
       <div class="products-item" v-for="item in productByCategory" :key="item.id">
-        <ProductsCard :product="item" @click="getProduct(item.id)" />
+        <ProductsCard :product="item" @click.prevent="getProduct(item.id)" />
       </div>
     </div>
     <h4 v-else>暫無商品</h4>
@@ -113,7 +113,7 @@
 
   </div>
 
-  <Loading :active="isLoading && isLoadingForStore" :zIndex="10000" />
+  <Loading :active="isLoadingForStore" :zIndex="10000" />
 
   <Pagination :pages="pagination" @emit-pages="showCategory" />
 </template>
@@ -137,6 +137,7 @@ export default {
     Breadcrumb,
     ProductsSkeleton,
   },
+
   data() {
     return {
       productByCategory: [],
@@ -148,8 +149,6 @@ export default {
         has_pre: false,
         total_pages: 1,
       },
-      isLoadingMore: false,
-      isLoading: false,
       title: '',
       selectCc: [
         { min: 251, max: 550 },
@@ -159,19 +158,21 @@ export default {
         { min: 1800, max: 10000 },
       ],
       selectedCc: [],
+      selectedProductsType: [],
+      isFilterOpen: false,
+      skeletonNum: 9,
       // selectLicensePlateColor: [
       //   '黃牌', '紅牌',
       // ],
       // selectedLicensePlateColor: [],
       // productsType: [],
-      selectedProductsType: [],
-      isFilterOpen: false,
-      skeletonNum: 9,
     };
   },
+
   computed: {
     ...mapState(productStore, ['products', 'productsCategory', 'productsType']),
     ...mapState(statusStore, ['isLoadingForStore']),
+
     categoryProduct() {
       let categoryProduct = this.products.filter(
         (item) => item.category?.match(this.selectCategory),
@@ -206,23 +207,28 @@ export default {
 
       return categoryProduct;
     },
+
     filteredProductsLength() {
       return this.categoryProduct.length;
     },
   },
+
   methods: {
     ...mapActions(productStore, ['getProducts']),
+
     getProduct(id) {
       setTimeout(() => {
         this.$router.push(`/product/${id}`);
       });
     },
+
     changeCategory(category) {
       setTimeout(() => {
         this.$router.push({ name: '所有產品', query: { category } });
       });
       this.nowCategory = category;
     },
+
     showCategory(page = 1) {
       const tempProductCategory = [...this.categoryProduct];
       const allPage = Math.ceil(tempProductCategory.length / 9);
@@ -236,6 +242,7 @@ export default {
       this.productByCategory = tempProductCategory.splice((page - 1) * 9, page * 9);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
+
     checkRoute() {
       const to = this.$route;
       if (to.name === '所有產品') {
@@ -252,19 +259,23 @@ export default {
         this.isFilterOpen = false;
       }
     },
+
     formatRange(range) {
       return `${range.min}~${range.max}cc`;
     },
   },
+
   watch: {
     $route() {
       this.selectCategory = this.$route.query.category || '';
       this.checkRoute();
     },
+
     categoryProduct() {
       this.showCategory();
     },
   },
+
   created() {
     emitter.emit('sendCategory', this.productsCategory);
     emitter.on('sendToggleFilter', (data) => {
@@ -272,10 +283,12 @@ export default {
     });
     this.getProducts();
   },
+
   mounted() {
     this.getProducts();
     this.checkRoute();
   },
+
   inject: ['emitter', 'pushMessageState'],
 };
 </script>

@@ -18,11 +18,21 @@
       </form>
     </div>
   </div>
+  <ToastList />
   <Loading :active="isLoading" />
 </template>
 
 <script>
+import axios from 'axios';
+import pushMessageState from '@/methods/pushMessageState';
+import ToastList from '@/components/ToastList.vue';
+import emitter from '@/methods/emitter';
+
 export default {
+  components: {
+    ToastList,
+  },
+
   data() {
     return {
       isLoading: false,
@@ -32,20 +42,36 @@ export default {
       },
     };
   },
+
   methods: {
-    LogIn() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}admin/signin`;
-      this.$http.post(api, this.user)
-        .then((res) => {
-          if (res.data.success) {
-            this.isLoading = false;
-            const { token, expired } = res.data;
-            document.cookie = `rollingToken=${token}; expires=${new Date(expired)}`;
-            this.$router.push('/dashboard/products');
-          }
-        });
+    async LogIn() {
+      try {
+        this.isLoading = true;
+        const api = `${process.env.VUE_APP_API}admin/signin`;
+        const res = await axios.post(api, this.user);
+
+        if (res.data.success) {
+          this.isLoading = false;
+          const { token, expired } = res.data;
+          const expirationDate = new Date(expired);
+          document.cookie = `rollingToken=${token}; expires=${expirationDate}`;
+          this.$router.push('/dashboard/products');
+          pushMessageState(res);
+        }
+        pushMessageState(res);
+      } catch (error) {
+        console.error('Login Error:', error);
+        this.isLoading = false;
+      }
+      this.isLoading = false;
     },
+  },
+
+  provide() {
+    return {
+      emitter,
+      pushMessageState,
+    };
   },
 };
 </script>

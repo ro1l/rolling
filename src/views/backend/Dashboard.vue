@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import emitter from '@/methods/emitter';
 import pushMessageState from '@/methods/pushMessageState';
 import ToastList from '@/components/ToastList.vue';
@@ -25,23 +26,31 @@ export default {
     NavbarSm,
     NavbarLg,
   },
+
   data() {
     return {
       isMenuOpen: false,
     };
   },
+
   methods: {
-    LogOut() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}logout`;
-      this.$http.post(api, this.user)
-        .then((res) => {
-          if (res.data.success) {
-            this.isLoading = false;
-            this.$router.push('/r');
-          }
-        });
+    async LogOut() {
+      try {
+        this.isLoading = true;
+        const api = `${process.env.VUE_APP_API}logout`;
+        const res = await axios.post(api, this.user);
+
+        if (res.data.success) {
+          this.isLoading = false;
+          this.$router.push('/r');
+        }
+      } catch (error) {
+        console.error('Logout Error:', error);
+        this.isLoading = false;
+      }
+      this.isLoading = false;
     },
+
     toggleOffcanvas() {
       this.isMenuOpen = !this.isMenuOpen;
       this.isOffcanvasOpen = !this.isOffcanvasOpen;
@@ -52,29 +61,37 @@ export default {
       }
     },
   },
+
   watch: {
     $route() {
       this.isMenuOpen = false;
       document.body.style.overflow = 'auto';
     },
   },
-  created() {
+
+  async created() {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)rollingToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
     this.$http.defaults.headers.common.Authorization = token;
 
     const api = `${process.env.VUE_APP_API}api/user/check`;
-    this.$http.post(api, this.user)
-      .then((res) => {
-        if (!res.data.success) {
-          this.$router.push('/r');
-        }
-      });
+    try {
+      const res = await axios.post(api, this.user);
+
+      if (!res.data.success) {
+        this.$router.push('/r');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      this.$router.push('/r');
+    }
   },
+
   provide() {
     return {
       emitter,
       pushMessageState,
     };
   },
+
 };
 </script>

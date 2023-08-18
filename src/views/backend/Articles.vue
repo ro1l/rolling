@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import ArticleModal from '@/components/backend/ArticleModal.vue';
 import Pagination from '@/components/Pagination.vue';
 import DelModal from '@/components/backend/DelModal.vue';
@@ -69,6 +70,7 @@ export default {
     Pagination,
     DelModal,
   },
+
   data() {
     return {
       tempArticle: {
@@ -77,70 +79,90 @@ export default {
       isLoading: false,
     };
   },
+
   computed: {
     ...mapState(articleStore, ['articles', 'pagination']),
     ...mapState(statusStore, ['isLoadingForStore']),
   },
+
   methods: {
     ...mapActions(articleStore, ['getArticles']),
-    openModal(isNew, item) {
+
+    async openModal(isNew, item) {
       this.isLoading = true;
       if (isNew) {
         this.tempArticle = {
           create_at: new Date().getTime() / 1000,
           isPublic: true,
+          content: '',
         };
       } else {
-        this.isLoading = true;
         const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${item.id}`;
-        this.$http.get(api)
-          .then((res) => {
-            this.isLoading = false;
-            this.tempArticle = res.data.article;
-          });
+
+        try {
+          const res = await axios.get(api);
+
+          this.tempArticle = res.data.article;
+        } catch (error) {
+          console.error('Error 找不到資料', error);
+        }
       }
       this.isNew = isNew;
       this.isLoading = false;
       this.$refs.articleModal.showModal();
     },
-    updateArticle(tempArticle) {
-      this.tempArticle = tempArticle;
-      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article`;
-      let httpMethod = 'post';
-      this.isLoading = true;
 
-      if (!this.isNew) {
-        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${tempArticle.id}`;
-        httpMethod = 'put';
+    async updateArticle(tempArticle) {
+      try {
+        this.tempArticle = tempArticle;
+        let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article`;
+        let httpMethod = 'post';
+        this.isLoading = true;
+
+        if (!this.isNew) {
+          api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${tempArticle.id}`;
+          httpMethod = 'put';
+        }
+
+        const res = await this.$http[httpMethod](api, { data: this.tempArticle });
+        this.isLoading = false;
+        this.getArticles();
+        this.pushMessageState(res);
+      } catch (error) {
+        console.error('Error 找不到資料:', error);
+      } finally {
+        this.$refs.articleModal.hideModal();
       }
-      this.$http[httpMethod](api, { data: this.tempArticle })
-        .then((res) => {
-          this.isLoading = false;
-          this.getArticles();
-          this.pushMessageState(res);
-        });
-      this.$refs.articleModal.hideModal();
     },
+
     openDelModal(item) {
       this.tempArticle = { ...item };
       this.$refs.delModal.showModal();
     },
-    delArticle() {
+
+    async delArticle() {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${this.tempArticle.id}`;
-      this.$http.delete(api)
-        .then((res) => {
-          this.$refs.delModal.hideModal();
-          this.isLoading = false;
-          this.getArticles();
-          this.pushMessageState(res);
-          this.$refs.articleModal.hideModal();
-        });
+
+      try {
+        const res = await axios.delete(api);
+
+        this.isLoading = false;
+        this.getArticles();
+        this.pushMessageState(res);
+      } catch (error) {
+        console.error('Error 找不到資料', error);
+      } finally {
+        this.$refs.delModal.hideModal();
+        this.$refs.articleModal.hideModal();
+      }
     },
   },
+
   created() {
     this.getArticles();
   },
+
   inject: ['emitter', 'pushMessageState'],
 };
 </script>
