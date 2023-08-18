@@ -18,6 +18,28 @@ export default defineStore('cartStore', {
 
   actions: {
 
+    async addCart(id) {
+      status.isLoadingForStore = true;
+      status.cartLoadingItem = id;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+
+      const cart = {
+        product_id: id,
+        qty: 1,
+      };
+
+      try {
+        const res = await axios.post(api, { data: cart });
+        status.isLoadingForStore = false;
+        status.cartLoadingItem = '';
+
+        pushMessageState(res);
+        emitter.emit('updateCart');
+      } catch (error) {
+        console.error('Error 找不到資料', error);
+      }
+    },
+
     async getCartProducts() {
       status.isLoadingForStore = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
