@@ -198,15 +198,20 @@
               <div class="col-12">
                 <div class="card border-lg border-top border-bottom border-black px-2 py-4">
                   <div class="card-header pb-2 mb-0">
-                    <h6 class="mb-0 fs-5 font-family-taipei">副圖</h6>
+                    <h6 class="mb-0 fs-5 font-family-taipei">副圖
+                      <small class="text-danger font-family-taipei
+                      text-xxs d-inline-block"
+                      :class="{ 'shake-top' : wrongMessage }">
+                        {{ wrongMessage }}
+                      </small>
+                    </h6>
                   </div>
-                  <div class="card-body ps-5 pe-4
+                  <div class="card-body px-5
                   d-flex justify-content-start align-items-center flex-sm-column flex-lg-row
-                  flex-wrap flex-lg-nowrap
-" v-if="tempProduct.imagesUrl">
+                  flex-wrap flex-lg-nowrap" v-if="tempProduct.imagesUrl">
                     <div class="preview-more rounded-0 d-flex cursor-pointer justify-content-center
                     position-relative
-                    align-items-center border border-1 border-black p-2 me-lg-4"
+                    align-items-center border border-1 border-black p-2 me-lg-5"
                     v-for="item in tempProduct.imagesUrl"
                       :key="item" @click.prevent="delImages(item)">
                       <img :src="item" alt="" class="w-100">
@@ -249,6 +254,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import modalMixin from '@/mixins/modalMixin';
 import DelModal from './DelModal.vue';
 
@@ -256,16 +262,19 @@ export default {
   components: {
     DelModal,
   },
+
   props: {
     product: {
       type: Object,
       default() { return {}; },
     },
+
     isNew: {
       type: Boolean,
       required: true,
     },
   },
+
   data() {
     return {
       isLoading: false,
@@ -288,56 +297,67 @@ export default {
           },
         },
       },
+      wrongMessage: '',
     };
   },
+
   methods: {
-    uploadFile() {
-      this.isLoading = true;
-      const uploadFile = this.$refs.fileInput.files[0];
-      const formData = new FormData();
-      formData.append('file-to-upload', uploadFile);
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-      this.$http.post(url, formData)
-        .then((res) => {
-          if (res.data.success) {
-            this.tempProduct.imageUrl = res.data.imageUrl;
-            this.isLoading = false;
-          }
-        });
+    async uploadFile() {
+      try {
+        this.isLoading = true;
+        const uploadFile = this.$refs.fileInput.files[0];
+        const formData = new FormData();
+        formData.append('file-to-upload', uploadFile);
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+        const res = await axios.post(api, formData);
+
+        if (res.data.success) {
+          this.tempProduct.imageUrl = res.data.imageUrl;
+          this.isLoading = false;
+        }
+      } catch (error) {
+        console.error('Error', error);
+      }
+      this.isLoading = false;
     },
-    uploadFiles() {
+
+    async uploadFiles() {
       const files = Array.from(this.$refs.filesInput.files);
       if (files.length + this.tempProduct.imagesUrl.length > 5) {
-        console.log('最多只能選擇五張圖片');
+        this.wrongMessage = '(最多只能選擇五張圖片)';
       } else {
-        files.forEach((file) => {
-          this.isLoading = true;
-          const formData = new FormData();
-          formData.append('file-to-upload', file);
-          const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-          this.$http.post(api, formData).then((res) => {
+        this.isLoading = true;
+
+        try {
+          await Promise.all(files.map(async (file) => {
+            const formData = new FormData();
+            formData.append('file-to-upload', file);
+            const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+
+            const res = await axios.post(api, formData);
             if (res.data.success) {
               this.tempProduct.imagesUrl.push(res.data.imageUrl);
-              this.isLoading = false;
-              console.log(this.tempProduct.imagesUrl);
             }
-          });
-        });
+          }));
+        } catch (error) {
+          console.error('Error:', error);
+        }
+
+        this.isLoading = false;
       }
     },
+
     delImage() {
       this.tempProduct.imageUrl = '';
       this.tempProduct.imageUrl = undefined;
     },
-    openDelImagesModal() {
-      // this.$refs.delModal.showModal();
-    },
+
     delImages(item) {
       const index = this.tempProduct.imagesUrl.indexOf(item);
       this.tempProduct.imagesUrl.splice(index, 1);
-      // this.$refs.delModal.hideModal();
     },
   },
+
   watch: {
     product() {
       this.tempProduct = this.product;
@@ -346,6 +366,7 @@ export default {
       }
     },
   },
+
   mixins: [modalMixin],
 };
 </script>
