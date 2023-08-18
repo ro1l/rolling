@@ -54,45 +54,48 @@
 
 <script>
 import taxMixin from '@/mixins/taxMixin';
+import { mapActions, mapState } from 'pinia';
+import productStore from '@/stores/productStore';
 
 export default {
   props: {
     show: Boolean,
   },
+
   data() {
     return {
       cc: '',
-      products: [],
       cacheSearch: '',
       cacheArea: '',
     };
   },
+
   computed: {
+    ...mapState(productStore, ['products']),
+
     filterSearch() {
       const regex = new RegExp(this.cacheSearch, 'i');
       return this.products.filter((item) => item.title.match(regex));
     },
   },
+
   methods: {
-    getProducts() {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
-      this.$http.get(api)
-        .then((res) => {
-          this.products = res.data.products;
-        });
-    },
+    ...mapActions(productStore, ['getProducts']),
+
     removeFilterSearch(item) {
       this.cacheArea = item;
       this.cacheSearch = '';
     },
+
     delCacheSearch() {
       this.cacheSearch = '';
     },
   },
+
   created() {
     this.getProducts();
   },
-  mixins: [taxMixin],
 
+  mixins: [taxMixin],
 };
 </script>

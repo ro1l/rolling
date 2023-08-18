@@ -42,7 +42,7 @@
         <li>
           <router-link class="cart" :to="{ name: '購物車' }">
             <span>購物車</span>
-            <span v-if="cartProducts.length > 0">({{ cartsNum }})</span>
+            <span v-if="cartProductsData.length > 0">({{ cartsNum }})</span>
           </router-link>
         </li>
       </ul>
@@ -108,19 +108,21 @@
 
 <script>
 import emitter from '@/methods/emitter';
+import { mapActions, mapState } from 'pinia';
+import cartStore from '@/stores/cartStore';
 import TaxModal from './TaxModal.vue';
 
 export default {
   components: {
     TaxModal,
   },
+
   data() {
     return {
       isHome: false,
       showTaxModal: false,
       showSearchModal: false,
       darkMode: false,
-      cartProducts: [],
       isMenuOpen: false,
       isFilterOpen: false,
       productsNavbar: false,
@@ -130,38 +132,38 @@ export default {
       taxStatus: false,
     };
   },
+
   computed: {
+    ...mapState(cartStore, ['cartProductsData']),
+
     darkDark() {
       return this.darkMode && 'darkmode-toggled';
     },
+
     cartsNum() {
       let cartNum = 0;
-      this.cartProducts.forEach((e) => {
+      this.cartProductsData.forEach((e) => {
         cartNum += e.qty;
       });
       return cartNum;
     },
   },
+
   methods: {
-    getCartProducts() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
-      this.$http.get(api)
-        .then((res) => {
-          this.isLoading = false;
-          this.cartProducts = res.data.data.carts;
-        });
-    },
+    ...mapActions(cartStore, ['getCartProducts']),
+
     dark() {
       document.querySelector('body').classList.add('dark-mode');
       this.darkMode = true;
       this.$emit('dark');
     },
+
     light() {
       document.querySelector('body').classList.remove('dark-mode');
       this.darkMode = false;
       this.$emit('light');
     },
+
     modeToggle() {
       if (this.darkMode || document.querySelector('body').classList.contains('dark-mode')) {
         this.light();
@@ -169,6 +171,7 @@ export default {
         this.dark();
       }
     },
+
     toggleOffcanvas() {
       this.isMenuOpen = !this.isMenuOpen;
       if (this.isMenuOpen) {
@@ -178,6 +181,7 @@ export default {
       }
       this.isFilterOpen = false;
     },
+
     toggleFilter() {
       this.isFilterOpen = !this.isFilterOpen;
       emitter.emit('sendToggleFilter', this.isFilterOpen);
@@ -189,15 +193,18 @@ export default {
       document.body.style.overflow = 'auto';
       this.isMenuOpen = false;
     },
+
     changeCategory(category) {
       this.$router.push({ name: '所有產品', query: { category } });
       this.isFilterOpen = false;
       document.body.style.overflow = 'auto';
     },
+
     changeFilter() {
       this.isFilterOpen = false;
       document.body.style.overflow = 'auto';
     },
+
     checkRoute() {
       const to = this.$route;
       this.showNav = !this.routesWithoutNav.includes(to.name);
@@ -213,6 +220,7 @@ export default {
         this.isHome = false;
       }
     },
+
     closeModal() {
       this.showTaxModal = false;
       this.isMenuOpen = !this.isMenuOpen;
@@ -224,6 +232,7 @@ export default {
       this.isFilterOpen = false;
     },
   },
+
   watch: {
     $route() {
       this.checkRoute();
@@ -232,6 +241,7 @@ export default {
       document.body.style.overflow = 'auto';
     },
   },
+
   created() {
     emitter.on('updateCart', () => {
       this.getCartProducts();
@@ -240,6 +250,7 @@ export default {
       this.productsCategory = data;
     });
   },
+
   mounted() {
     this.getCartProducts();
     this.checkRoute();

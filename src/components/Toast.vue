@@ -14,6 +14,7 @@ export default {
   props: [
     'msg',
   ],
+
   mounted() {
     const toastEl = this.$refs.toast;
     const toast = new Toast(toastEl, {

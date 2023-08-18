@@ -14,18 +14,20 @@ export default {
   computed: {
     ...mapState(articleStore, ['articles', 'pagination']),
     ...mapState(statusStore, ['isLoadingForStore']),
+
     reversedArticles() {
       return this.articles.slice(5).reverse();
     },
   },
+
   methods: {
     ...mapActions(articleStore, ['getArticles']),
+
     getArticle(id) {
-      setTimeout(() => {
-        this.$router.push(`/article/${id}`);
-      });
+      this.$router.push(`/article/${id}`);
     },
   },
+
   created() {
     this.getArticles();
   },

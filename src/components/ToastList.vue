@@ -11,17 +11,20 @@ export default {
   components: {
     Toast,
   },
+
   data() {
     return {
       messages: [],
     };
   },
+
   mounted() {
     this.emitter.on('push-message', (message) => {
       const { style = 'success', title, content } = message;
       this.messages.push({ style, title, content });
     });
   },
+
   inject: ['emitter'],
 };
 </script>

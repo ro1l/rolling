@@ -17,11 +17,13 @@ export default {
   props: {
     products: Array,
   },
+
   computed: {
     reversedProducts() {
       return this.products.slice(-5).reverse();
     },
   },
+
   methods: {
     getProduct(id) {
       setTimeout(() => {
