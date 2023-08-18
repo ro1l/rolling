@@ -1,4 +1,29 @@
 <template>
+  <!-- skeleton -->
+  <div class="product-box product-box-skeleton"
+  v-if="isLoadingForStore">
+    <div class="breadcrumb-box item-underline">
+      <ul>
+        <li class="load"></li>
+        <li class="load"></li>
+        <li class="load"></li>
+      </ul>
+    </div>
+    <div class="product">
+      <div class="sidebar information">
+        <h1 class="load"></h1>
+        <div class="content load"></div>
+      </div>
+      <div class="img-box">
+        <div class="img-item load"></div>
+      </div>
+      <div class="sidebar">
+        <div class="content load"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- product-box -->
   <div class="product-box">
     <!-- breadcrumb -->
     <div class="breadcrumb-box item-underline">
@@ -119,9 +144,9 @@
               <th class="text-deep">稅金</th>
             </tr>
             <tr>
-              <td>NT$ {{ $filters.currency(totalTax) }} <br>
-                <small class="text-shallow">(牌照稅${{ $filters.currency(licenseTax) }} +
-                  燃料稅${{ $filters.currency(fuelTax) }})</small>
+              <td>NT$ {{ $filters.currency(licenseTax(cc) + fuelTax(cc)) }} <br>
+                <small class="text-shallow">(牌照稅${{ $filters.currency(licenseTax(cc)) }} +
+                  燃料稅${{ $filters.currency(fuelTax(cc)) }})</small>
               </td>
             </tr>
             <tr>
@@ -171,13 +196,13 @@
 </template>
 
 <script>
-import emitter from '@/methods/emitter';
 import MediaScroll from '@/components/frontend/MediaScroll.vue';
 import RelatedArticles from '@/components/frontend/RelatedArticles.vue';
 import Swiper from '@/components/frontend/Swiper.vue';
 import { mapState, mapActions } from 'pinia';
 import productStore from '@/stores/productStore';
 import statusStore from '@/stores/statusStore';
+import cartStore from '@/stores/cartStore';
 
 export default {
   components: {
@@ -185,6 +210,7 @@ export default {
     RelatedArticles,
     Swiper,
   },
+
   data() {
     return {
       id: '',
@@ -196,77 +222,37 @@ export default {
       isFirstLoad: true,
     };
   },
+
   computed: {
     ...mapState(productStore, ['products', 'product', 'imageUrl', 'imagesUrl', 'cc']),
+
     ...mapState(statusStore, ['isLoadingForStore']),
+
     mergedImagesUrl() {
       return this.imagesUrl
         && this.imagesUrl.length > 0 ? [this.imageUrl, ...this.imagesUrl] : [this.imageUrl];
     },
-    licenseTax() {
-      const license = this.cc;
-      if (license <= 500) {
-        return 1620;
-      }
-      if (license <= 600) {
-        return 2160;
-      }
-      if (license <= 1200) {
-        return 4320;
-      }
-      if (license <= 1800) {
-        return 7120;
-      }
-      return 11230;
-    },
-    fuelTax() {
-      const fuel = this.cc;
-      if (fuel <= 500) {
-        return 900;
-      }
-      if (fuel <= 600) {
-        return 1200;
-      }
-      if (fuel <= 1200) {
-        return 1800;
-      }
-      return 2010;
-    },
-    totalTax() {
-      const total = this.licenseTax + this.fuelTax;
-      return total;
-    },
   },
+
   methods: {
-    ...mapActions(productStore, ['getProducts', 'getProduct']),
-    addCart(id) {
-      this.isLoading = true;
-      this.status.loadingItem = id;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
-      const cart = {
-        product_id: id,
-        qty: 1,
-      };
-      this.$http.post(api, { data: cart })
-        .then((res) => {
-          this.isLoading = false;
-          this.status.loadingItem = '';
-          this.pushMessageState(res);
-          emitter.emit('updateCart');
-        });
-    },
+    ...mapActions(productStore, ['getProducts', 'getProduct', 'licenseTax', 'fuelTax']),
+
+    ...mapActions(cartStore, ['addCart']),
+
     addComparison() {
       const product = productStore();
+
       product.setLgCompProd(this.product);
       product.setSmCompProd(this.product);
-      setTimeout(() => {
-        this.$router.push('/comparison');
-      });
+
+      this.$router.push('/comparison');
     },
+
     goBack() {
       return this.$router.go(-1);
     },
   },
+
   created() {
     const id = this.$route.params.productId;
     this.getProduct(id);

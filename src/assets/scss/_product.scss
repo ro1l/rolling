@@ -1,4 +1,50 @@
 .product-box {
+  &.product-box-skeleton {
+    width: 100%;
+    height: calc( 100vh - 80px );
+
+    .breadcrumb-box {
+      height: 10%;
+
+      ul {
+
+        li {
+          width: 5rem;
+          height: 2rem;
+          margin-left: 2rem;
+
+          &:not(:last-child)::after {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .product {
+      height: 90%;
+
+      .information {
+
+        h1 {
+          height: 10rem;
+        }
+      }
+
+      .img-box {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: end;
+        padding-top: 200px;
+        
+        .img-item {
+          width: 70%;
+          height: 90%;
+        }
+      }
+    }
+  }
+
   .breadcrumb-box {
     position: relative;
     width: 90%;
