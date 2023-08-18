@@ -10,6 +10,7 @@ export default defineStore('cartStore', {
   state: () => ({
 
     cartProducts: {},
+    cartProductsData: [],
     status: {
       loadingItem: '',
     },
@@ -49,6 +50,7 @@ export default defineStore('cartStore', {
         status.isLoadingForStore = false;
 
         this.cartProducts = res.data.data;
+        this.cartProductsData = res.data.data.carts;
       } catch (error) {
         console.error('Error 找不到資料', error);
       }
