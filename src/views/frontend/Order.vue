@@ -61,18 +61,24 @@
               <td v-if="order.message > 0">{{ order.message }}</td>
               <td v-else>無備註</td>
             </tr>
-            <tr v-if="order.is_paid === true" class="item-underline">
+            <tr class="item-underline"
+              v-if="order.is_paid === true" >
               <th>付款狀態</th>
               <td>付款完成</td>
             </tr>
           </tbody>
         </table>
-        <div class="button-box" v-if="order.is_paid === false">
+        <div class="button-box"
+          v-if="order.is_paid === false">
           <button class="pay fill-btn">確認付款</button>
         </div>
-        <div class="button-box" v-else>
+        <div class="button-box"
+          v-else>
           <button class="home">
-            <router-link class="border-btn" :to="{ name: 'home' }">回首頁</router-link></button>
+            <router-link :to="{ name: 'home' }" class="border-btn" >
+              回首頁
+            </router-link>
+          </button>
         </div>
       </Form>
     </div>

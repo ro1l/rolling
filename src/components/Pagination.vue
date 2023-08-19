@@ -4,7 +4,8 @@
 
       <!-- 上一頁 -->
       <li class="pre" v-if="pages.has_pre === true">
-        <a href="#" aria-label="Previous" @click.prevent="updatePage(pages.current_page - 1)"
+        <a href="#" aria-label="Previous"
+          @click.prevent="updatePage(pages.current_page - 1)"
           :class="{ 'disabled': pages.has_pre === false }">
           <span aria-hidden="true">上一頁</span>
         </a>
@@ -20,7 +21,8 @@
 
       <!-- 下一頁 -->
       <li class="next" v-if="pages.has_next === true">
-        <a href="#" aria-label="Next" @click.prevent="updatePage(pages.current_page + 1)"
+        <a href="#" aria-label="Next"
+          @click.prevent="updatePage(pages.current_page + 1)"
           :class="{ 'disabled': pages.has_next === false }">
           <span aria-hidden="true">下一頁</span>
         </a>

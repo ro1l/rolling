@@ -1,11 +1,14 @@
 <template>
   <PageTitle :title="'車款比較'" />
 
-  <PageTitleSm :title="'車款比較'" :content="'$NT'" />
+  <PageTitleSm :title="'車款比較'"
+  :content="'$NT'" />
 
   <!-- comparison -->
   <div class="comparison-box">
-    <div class="table-box" v-if="displayedArray.length > 0">
+    <div class="table-box"
+      v-if="displayedArray.length > 0">
+
       <!-- comparison-title -->
       <table>
         <tr class="first-tr"><th></th></tr>
@@ -46,22 +49,30 @@
           <th>稅金</th>
         </tr>
       </table>
+
       <!-- comparison-car -->
-      <table v-for="item in displayedArray" :key="item.id" class="text-deep">
+      <table class="text-deep"
+        v-for="item in displayedArray" :key="item.id">
         <tr class="remove">
           <td>
             <div>
-              <button class="text-deep" @click.prevent="delProduct(item.id)">移除</button>
+              <button class="text-deep"
+                @click.prevent="delProduct(item.id)">
+                移除
+              </button>
             </div>
           </td>
         </tr>
-        <a href="" @click.prevent="getProduct(item.id)">
+        <a href=""
+          @click.prevent="getProduct(item.id)">
           <tr class="img-box table-bg">
             <td>
               <div class="img">
                 <img :src="item.imageUrl" alt="">
-                <p><strong>{{ item.category }}</strong>
-                  <br> {{ item.title }}
+                <p>
+                  <strong>{{ item.category }}</strong>
+                  <br>
+                  {{ item.title }}
                 </p>
               </div>
             </td>
@@ -99,22 +110,29 @@
           </tr>
           <tr>
             <td>
-              <p>NT${{ $filters.currency(licenseTax(item.content.comparison.cc) +
-              fuelTax(item.content.comparison.cc)) }}</p>
-              <small class="text-shallow">(牌照稅：NT$
-                {{ $filters.currency(licenseTax(item.content.comparison.cc)) }} + 燃料稅：NT$
-                {{ $filters.currency(fuelTax(item.content.comparison.cc)) }})
+              <p>
+                NT${{ $filters.currency(licenseTax(item.content.comparison.cc) +
+                fuelTax(item.content.comparison.cc)) }}
+              </p>
+              <small class="text-shallow">
+                (牌照稅：NT${{ $filters.currency(licenseTax(item.content.comparison.cc)) }}
+                + 燃料稅：NT${{ $filters.currency(fuelTax(item.content.comparison.cc)) }})
               </small>
             </td>
           </tr>
         </a>
       </table>
+
       <!-- add-data -->
-      <div class="add-data" v-if="(isSmallSize === true
+      <div class="add-data"
+        v-if="(isSmallSize === true
         ? smCompProd.length < 2 : lgCompProd.length < 4)">
-        <router-link class="text-deep" :to="{ name: '所有產品' }">+ 加入車款</router-link>
+        <router-link :to="{ name: '所有產品' }" class="text-deep" >
+          + 加入車款
+        </router-link>
       </div>
     </div>
+
     <!-- no-data -->
     <div class="no-data" v-else>
       <a>
@@ -124,20 +142,34 @@
             <div class="example-box">
               <p>車款總覽</p>
             </div>
-            <p><strong>1.</strong>點擊導覽列 “車款總覽”</p>
+            <p>
+              <strong>1. </strong>
+              點擊導覽列 “車款總覽”
+            </p>
           </div>
           <div class="item">
             <div class="example-box">
               <img src="@/assets/media/methods-2.png" alt="">
-              <p><b>YAMAHA</b><br>MT-07</p>
+              <p>
+                <b>YAMAHA</b>
+                <br>
+                MT-07
+              </p>
             </div>
-            <p><strong>2.</strong> 選擇要比較的車款</p>
+            <p>
+              <strong>2. </strong>
+              選擇要比較的車款
+            </p>
           </div>
           <div class="item">
             <div class="example-box">
               <p> ＋ 加入比較</p>
             </div>
-            <p><strong>3.</strong>在所選商品頁點擊 <b> ＋加入比較 </b></p>
+            <p>
+              <strong>3. </strong>
+              在所選商品頁點擊
+              <b> ＋加入比較 </b>
+            </p>
           </div>
         </div>
       </a>

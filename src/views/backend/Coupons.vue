@@ -3,12 +3,14 @@
     <div class="row">
       <div class="col-12 border-bottom border-black">
         <div class="container-fluid d-flex justify-content-between
-      align-items-center p-4">
+          align-items-center p-4">
           <h1 class="page-title">Coupons</h1>
           <button class="btn btn-outline-dark border-1 rounded-0
-        me-lg-3 mb-0 px-lg-5 py-lg-2" @click="openModal(true)">
+            me-lg-3 mb-0 px-lg-5 py-lg-2"
+            @click="openModal(true)">
             <i class="bi bi-plus-lg"></i>
-            新增優惠券</button>
+            新增優惠券
+          </button>
         </div>
       </div>
 
@@ -26,20 +28,23 @@
                     <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">code</th>
                     <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">百分比</th>
                     <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">期限</th>
-                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
-                    text-center">啟用</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0 text-center">
+                      啟用
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr @click="openModal(false, coupon)" class="cursor-pointer"
-                  v-for="coupon in coupons" :key="coupon.id">
+                  <tr class="cursor-pointer"
+                    @click="openModal(false, coupon)"
+                    v-for="coupon in coupons" :key="coupon.id">
                     <td>{{ coupon.title }}</td>
                     <td>{{ coupon.code }}</td>
                     <td>{{ coupon.percent }}</td>
                     <td>{{ $filters.date(coupon.due_date) }}</td>
                     <td class="text-center">
-                      <span v-if="coupon.is_enabled === 1"><i class="bi bi-check-lg fs-5">
-                      </i></span>
+                      <span v-if="coupon.is_enabled === 1">
+                        <i class="bi bi-check-lg fs-5"></i>
+                      </span>
                       <span v-else></span>
                     </td>
                   </tr>
@@ -47,19 +52,26 @@
               </table>
             </div>
           </div>
-          <Pagination :pages="pagination" @emit-pages="getCoupons" />
+
+          <Pagination :pages="pagination"
+            @emit-pages="getCoupons" />
         </div>
       </div>
     </div>
   </div>
 
-  <CouponModal ref="couponModal" :coupon="tempCoupon" :isNew="isNew" @update-coupon="updateCoupon"
+  <CouponModal ref="couponModal"
+    :coupon="tempCoupon"
+    :isNew="isNew"
+    @update-coupon="updateCoupon"
     @del-coupon="openDelModal(tempCoupon)" />
 
-  <DelModal ref="delModal" :item="tempCoupon" @del-item="delCoupon" />
+  <DelModal ref="delModal"
+    :item="tempCoupon"
+    @del-item="delCoupon" />
 
   <Loading :active="isLoading"
-  :zIndex="10000"/>
+    :zIndex="10000"/>
 </template>
 
 <script>

@@ -3,12 +3,14 @@
     <div class="row">
       <div class="col-12 border-bottom border-black">
         <div class="container-fluid d-flex justify-content-between
-        align-items-center p-4">
+          align-items-center p-4">
           <h1 class="page-title">Articles</h1>
           <button class="btn btn-outline-dark border-1 rounded-0
-          me-lg-3 mb-0 px-lg-5 py-lg-2" @click="openModal(true)">
+            me-lg-3 mb-0 px-lg-5 py-lg-2"
+            @click="openModal(true)">
             <i class="bi bi-plus-lg"></i>
-            新增文章</button>
+            新增文章
+          </button>
         </div>
       </div>
 
@@ -26,13 +28,15 @@
                     <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">標題</th>
                     <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">建立時間</th>
                     <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">作者</th>
-                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
-                    text-center">啟用</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0 text-center">
+                      啟用
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr @click="openModal(false, article)" class="cursor-pointer"
-                  v-for="article in articles"
+                  <tr class="cursor-pointer"
+                    @click="openModal(false, article)"
+                    v-for="article in articles"
                     :key=article.id>
                     <td>{{ article.title }}</td>
                     <td>{{ $filters.date(article.create_at) }}</td>
@@ -47,17 +51,25 @@
               </table>
             </div>
           </div>
+
           <Pagination :pages="pagination" @emit-pages="getArticles" />
         </div>
       </div>
     </div>
   </div>
 
-  <ArticleModal ref="articleModal" :article="tempArticle" @del-article="openDelModal(tempArticle)"
-  @update-article="updateArticle" :isNew="isNew" />
+  <ArticleModal ref="articleModal"
+    :article="tempArticle"
+    @del-article="openDelModal(tempArticle)"
+    @update-article="updateArticle"
+    :isNew="isNew" />
+
   <Loading :active="isLoading"
-  :zIndex="10000"/>
-  <DelModal :item="tempArticle" @del-item="delArticle" ref="delModal" />
+    :zIndex="10000"/>
+
+  <DelModal :item="tempArticle"
+    @del-item="delArticle"
+    ref="delModal" />
 </template>
 
 <script>

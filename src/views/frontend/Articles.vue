@@ -5,7 +5,8 @@
 
   <div class="articles-box">
     <template v-if="isLoadingForStore">
-      <a href="" class="skeleton-item" v-for="(item, index) in skeletonNum" :key="index">
+      <a href="" class="skeleton-item"
+      v-for="(item, index) in skeletonNum" :key="index">
         <div class="img-box load"></div>
         <div class="text">
           <h2 class="load"></h2>
@@ -14,8 +15,10 @@
       </a>
     </template>
 
-    <a href="#" v-for="item in articles" :key="item.id" @click.prevent="getArticle(item.id)">
-      <div class="img-box" v-if="item.image">
+    <a href="#" v-for="item in articles" :key="item.id"
+      @click.prevent="getArticle(item.id)">
+      <div class="img-box"
+        v-if="item.image">
         <img :src="item.image" alt="">
       </div>
       <div class="img-box" v-else>
@@ -30,7 +33,8 @@
     </a>
   </div>
 
-  <Pagination :pages="pagination" @emit-pages="getArticles" />
+  <Pagination :pages="pagination"
+    @emit-pages="getArticles" />
 
   <Loading :active="isLoading && isLoadingForStore" />
 </template>

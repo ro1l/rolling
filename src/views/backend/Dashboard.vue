@@ -3,10 +3,15 @@
 
   <div class="container-fluid text-black">
     <div class="row p-0">
+
       <NavbarLg />
+
       <div class="col-lg-9">
+
         <ToastList />
+
         <router-view />
+
       </div>
     </div>
   </div>

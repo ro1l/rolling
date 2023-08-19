@@ -1,73 +1,109 @@
 <template>
-  <!-- 導覽列 -->
-  <nav class="nav-bar bg-color" :class="{ 'isHome': isHome }" id="nav">
-    <!-- left -->
+  <nav class="nav-bar bg-color"
+    :class="{ 'isHome': isHome }" id="nav">
+
+    <!-- 左側（導覽列） -->
     <div class="nav-list nav-left">
       <ul>
         <li>
-          <router-link :to="{ name: '所有產品' }">車款總覽</router-link>
+          <router-link :to="{ name: '所有產品' }">
+            車款總覽
+          </router-link>
         </li>
         <li>
-          <router-link :to="{ name: '車款比較' }">車款比較</router-link>
+          <router-link :to="{ name: '車款比較' }">
+            車款比較
+          </router-link>
         </li>
         <li>
-          <router-link :to="{ name: '文章總覽' }">文章總覽</router-link>
+          <router-link :to="{ name: '文章總覽' }">
+            文章總覽
+          </router-link>
         </li>
         <li>
-          <a id="show-modal" @click="showTaxModal = true">稅金試算</a>
+          <a id="show-modal"
+            @click="showTaxModal = true">
+            稅金試算
+          </a>
           <teleport to='body'>
-            <TaxModal :show="showTaxModal" @close="showTaxModal = false">
+            <TaxModal :show="showTaxModal"
+              @close="showTaxModal = false">
             </TaxModal>
           </teleport>
         </li>
       </ul>
     </div>
-    <!-- center -->
+
+    <!-- 中間（Logo） -->
     <div class="nav-list">
-      <router-link class="logo" :to="{ name: 'home' }">Rolling</router-link>
+      <router-link :to="{ name: 'home' }" class="logo" >
+        Rolling
+      </router-link>
     </div>
-    <!-- right -->
+
+    <!-- 右側（搜尋、深色模式、購物車） -->
     <div class="nav-list nav-right">
       <ul>
         <li>
-          <router-link :to="{ name: '搜尋' }">搜尋</router-link>
+          <router-link :to="{ name: '搜尋' }">
+            搜尋
+          </router-link>
         </li>
         <li>
-          <div class="mode-toggle" @click="modeToggle" :class="{ 'darkDark': true, }">
+          <div class="mode-toggle"
+            @click="modeToggle"
+            :class="{ 'darkDark': true }">
             <div class="toggle">
               <div class="dark-mode" type="checkbox"></div>
             </div>
           </div>
         </li>
         <li>
-          <router-link class="cart" :to="{ name: '購物車' }">
+          <router-link :to="{ name: '購物車' }" class="cart">
             <span>購物車</span>
-            <span v-if="cartProductsData.length > 0">({{ cartsNum }})</span>
+            <span v-if="cartProductsData.length > 0">
+              ({{ cartsNum }})
+            </span>
           </router-link>
         </li>
       </ul>
     </div>
   </nav>
 
-  <!-- 手機版導覽列按鈕 -->
-  <button class="nav-button bg-color text-deep" @click="toggleOffcanvas" v-if="showNav">
+  <!-- RWD導覽列按鈕 -->
+  <button class="nav-button bg-color text-deep"
+    @click="toggleOffcanvas"
+    v-if="showNav">
     <i class="bi bi-list" v-if="isMenuOpen === false"></i>
     <i class="bi bi-x-lg" v-if="isMenuOpen === true"></i>
-    <span v-if="isMenuOpen === false">導覽列</span>
-    <span v-if="isMenuOpen === true">關 閉</span>
+    <span v-if="isMenuOpen === false">
+      導覽列
+    </span>
+    <span v-if="isMenuOpen === true">
+      關 閉
+    </span>
   </button>
 
-  <!-- 手機版導覽列以及篩選按鈕 -->
-  <div class="button-ground bg-color text-deep" v-if="productsNavbar">
+  <!-- RWD導覽列以及篩選按鈕 -->
+  <div class="button-ground bg-color text-deep"
+    v-if="productsNavbar">
     <button @click="toggleFilter">
-      <span v-if="isFilterOpen === false">篩選</span>
-      <span v-if="isFilterOpen === true">關 閉</span>
+      <span v-if="isFilterOpen === false">
+        篩選
+      </span>
+      <span v-if="isFilterOpen === true">
+        關 閉
+      </span>
     </button>
     <button class="text-deep" @click="toggleOffcanvas">
       <i class="bi bi-list" v-if="isMenuOpen === false"></i>
       <i class="bi bi-x-lg" v-if="isMenuOpen === true"></i>
-      <span v-if="isMenuOpen === false">導覽列</span>
-      <span v-if="isMenuOpen === true">關 閉</span>
+      <span v-if="isMenuOpen === false">
+        導覽列
+      </span>
+      <span v-if="isMenuOpen === true">
+        關 閉
+      </span>
     </button>
   </div>
 
@@ -76,30 +112,43 @@
     <div class="nav-list">
       <ul>
         <li>
-          <div class="mode-toggle" @click="modeToggle" :class="{ 'darkDark': true, }">
+          <div class="mode-toggle"
+            @click="modeToggle"
+            :class="{ 'darkDark': true }">
             <div class="toggle">
               <div class="dark-mode" type="checkbox"></div>
             </div>
           </div>
         </li>
         <li>
-          <router-link :to="{ name: '所有產品' }">車款總覽</router-link>
+          <router-link :to="{ name: '所有產品' }">
+            車款總覽
+          </router-link>
         </li>
         <li>
-          <router-link :to="{ name: '車款比較' }">車款比較</router-link>
+          <router-link :to="{ name: '車款比較' }">
+            車款比較
+          </router-link>
         </li>
         <li>
-          <router-link :to="{ name: '文章總覽' }">文章總覽</router-link>
+          <router-link :to="{ name: '文章總覽' }">
+            文章總覽
+          </router-link>
         </li>
         <li>
-          <a id="show-modal" @click="showTaxModal = true">稅金試算</a>
+          <a id="show-modal" @click="showTaxModal = true">
+            稅金試算
+          </a>
           <teleport to='body'>
-            <TaxModal :show="showTaxModal" @close="closeModal">
+            <TaxModal :show="showTaxModal"
+              @close="closeModal">
             </TaxModal>
           </teleport>
         </li>
         <li>
-          <router-link :to="{ name: '搜尋' }" class="search">搜尋商品</router-link>
+          <router-link :to="{ name: '搜尋' }" class="search">
+            搜尋商品
+          </router-link>
         </li>
       </ul>
     </div>

@@ -8,7 +8,8 @@
         </video>
         <div class="box">
           <router-link :to="{ name: '所有產品' }">
-            所有車款 <i class="bi bi-arrow-right"></i>
+            所有車款
+            <i class="bi bi-arrow-right"></i>
           </router-link>
           <div class="scroll-icon">
             <span class="wheel"></span>

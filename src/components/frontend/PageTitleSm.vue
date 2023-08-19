@@ -1,7 +1,9 @@
 <template>
   <div class="page-title-sm">
     <p>{{ title }}</p>
-    <p v-if="content">/{{ content }}</p>
+    <p v-if="content">
+      /{{ content }}
+    </p>
   </div>
 </template>
 

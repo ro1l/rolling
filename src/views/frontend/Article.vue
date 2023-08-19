@@ -5,12 +5,16 @@
     <h1 class="article-title">{{ article.title }}</h1>
     <div class="article">
       <p class="text-shallow">
-        {{ $filters.date(article.create_at) }} <span>By&nbsp;{{ article.author }}</span></p>
+        {{ $filters.date(article.create_at) }}
+        <span>By&nbsp;{{ article.author }}</span>
+      </p>
       <p class="text-shallow article-description">“{{ article.description }}“</p>
       <div class="img-box">
         <img :src="article.image" alt="">
       </div>
-      <article class="article-content" v-html="article.content"></article>
+      <article class="article-content"
+        v-html="article.content">
+      </article>
       <div class="share">
         <p>分享於</p>
         <a href="">FB</a>

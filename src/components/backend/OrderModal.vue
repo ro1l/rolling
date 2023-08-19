@@ -1,22 +1,23 @@
 <template>
   <div class="modal fade " id="exampleModal" tabindex="-1"
-  aria-labelledby="exampleModalLabel" aria-hidden="true"
+    aria-labelledby="exampleModalLabel" aria-hidden="true"
     ref="modal">
     <div class="modal-dialog modal-xl  modal-dialog-centered modal-fullscreen-md-down">
       <div class="modal-content bg-gray-white rounded-0 p-0 border-0">
         <div class="modal-header border-bottom border-black p-4">
-          <h1 class="modal-title fs-5
-          font-family-taipei fw-normal" id="exampleModalLabel">訂單 #{{ tempOrder.id }}</h1>
+          <h1 class="modal-title fs-5 font-family-taipei fw-normal"
+            id="exampleModalLabel">訂單 #{{ tempOrder.id }}</h1>
           <button type="button" class="btn-close"
-          data-bs-dismiss="modal" aria-label="Close"></button>
+            data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body p-0">
           <div class="container-fluid">
             <div class="row">
-              <!-- 左側 -->
+
+              <!-- 訂購人資訊 -->
               <div class="col-lg-6 col-sm-12">
-                <!-- / 訂購人資訊 -->
-                <div class="card border-lg border-end border-black px-2 py-4" v-if="tempOrder.user">
+                <div class="card border-lg border-end border-black px-2 py-4"
+                  v-if="tempOrder.user">
                   <div class="card-body px-4">
                     <div class="row">
                       <div class="col-lg-12">
@@ -60,7 +61,8 @@
 
               <!-- 訂單資訊 -->
               <div class="col-lg-6 col-sm-12">
-                <div class="card border-lg px-2 py-4" v-if="tempOrder.user">
+                <div class="card border-lg px-2 py-4"
+                  v-if="tempOrder.user">
                   <div class="card-body px-4">
                     <div class="row">
                       <div class="col-lg-12">
@@ -102,10 +104,10 @@
                 </div>
               </div>
 
-              <!-- 訂購細項 -->
+              <!-- 訂購商品細項 -->
               <div class="col-lg-12">
                 <div class="card border-lg border-top border-bottom border-black px-2 py-4"
-                v-if="tempOrder.user">
+                  v-if="tempOrder.user">
                   <div class="card-body ps-4 pe-4">
                     <div class="row">
                       <div class="col-lg-12">
@@ -137,9 +139,11 @@
           </div>
         </div>
 
-        <div class="modal-footer d-flex justify-content-between p-lg-5 p-3  bg-sm-color">
+        <!-- modal-footer -->
+        <div class="modal-footer d-flex justify-content-between p-lg-5 p-3 bg-sm-color">
           <button type="button" class="btn btn-outline-dark rounded-5
-          me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2" @click="$emit('del-order', tempOrder)">刪除</button>
+            me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
+            @click="$emit('del-order', tempOrder)">刪除</button>
         </div>
       </div>
     </div>

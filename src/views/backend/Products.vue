@@ -3,12 +3,14 @@
     <div class="row">
       <div class="col-12 border-bottom border-black">
         <div class="container-fluid d-flex justify-content-between
-        align-items-center p-4">
+          align-items-center p-4">
           <h1 class="page-title">Products</h1>
           <button class="btn btn-outline-dark border-1 rounded-0
-          me-lg-3 mb-0 px-lg-5 py-lg-2" @click="openModal(true)">
+            me-lg-3 mb-0 px-lg-5 py-lg-2"
+            @click="openModal(true)">
             <i class="bi bi-plus-lg"></i>
-            新增商品</button>
+            新增商品
+          </button>
         </div>
       </div>
 
@@ -23,28 +25,32 @@
               <table class="table lh-lg mb-0 table-hover">
                 <thead>
                   <tr>
-                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
-                    ">分類</th>
-                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
-                    ">名稱</th>
-                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
-                    ">售價</th>
-                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
-                    text-center">圖片</th>
-                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0
-                    text-center">啟用</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">分類</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">名稱</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">售價</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0 text-center">
+                      圖片
+                    </th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0 text-center">
+                      啟用
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr href="#" @click.prevent="openModal(false, item)" class="cursor-pointer"
-                  v-for="item in productsPage"
+                  <tr href="#" class="cursor-pointer"
+                    @click.prevent="openModal(false, item)"
+                    v-for="item in productsPage"
                     :key="item.id">
                     <td class="">{{ item.category }}</td>
                     <td class="">{{ item.title }}</td>
                     <td>NT${{ $filters.currency(item.price) }}</td>
-                    <td class="text-center"><img class="img-30" :src="item.imageUrl" alt=""></td>
                     <td class="text-center">
-                      <span v-if="item.is_enabled === 1"><i class="bi bi-check-lg fs-5"></i></span>
+                      <img class="img-30" :src="item.imageUrl" alt="">
+                    </td>
+                    <td class="text-center">
+                      <span v-if="item.is_enabled === 1">
+                        <i class="bi bi-check-lg fs-5"></i>
+                      </span>
                       <span v-else></span>
                     </td>
                   </tr>
@@ -52,19 +58,24 @@
               </table>
             </div>
           </div>
+
           <Pagination :pages="pagination" @emit-pages="getProductsPage" />
         </div>
       </div>
     </div>
   </div>
 
-  <ProductModal ref="productModal" :product="tempProduct"
-  :isNew="isNew" @update-product="updateProduct"
+  <ProductModal ref="productModal"
+    :product="tempProduct"
+    :isNew="isNew" @update-product="updateProduct"
     @del-product="openDelProductModal(tempProduct)" />
 
-  <DelModal :item="tempProduct" ref="delModal" @del-item="delProduct" />
+  <DelModal :item="tempProduct"
+    ref="delModal"
+    @del-item="delProduct" />
 
-  <Loading :active="isLoading" :zIndex="10000" />
+  <Loading :active="isLoading"
+    :zIndex="10000" />
 </template>
 
 <script>

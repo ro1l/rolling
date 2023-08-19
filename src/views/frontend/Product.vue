@@ -1,7 +1,7 @@
 <template>
   <!-- skeleton -->
   <div class="product-box product-box-skeleton"
-  v-if="isLoadingForStore">
+    v-if="isLoadingForStore">
     <div class="breadcrumb-box item-underline">
       <ul>
         <li class="load"></li>
@@ -28,7 +28,11 @@
     <!-- breadcrumb -->
     <div class="breadcrumb-box item-underline">
       <ul>
-        <li><router-link :to="{ name: '所有產品' }">所有產品</router-link></li>
+        <li>
+          <router-link :to="{ name: '所有產品' }">
+          所有產品
+          </router-link>
+        </li>
         <li><a>{{ product.category }}</a></li>
         <li><a>{{ product.title }}</a></li>
       </ul>
@@ -37,12 +41,17 @@
     <div class="product">
       <h1 class="text-deep">{{ product.title }}</h1>
       <div class="img-boz-sm">
+
         <Swiper :mergedImagesUrl="mergedImagesUrl" />
-        <button class="add-comparison text-deep" @click.prevent="addComparison">
-          加入比較</button>
+
+        <button class="add-comparison text-deep"
+          @click.prevent="addComparison">
+          加入比較
+        </button>
       </div>
       <!-- information -->
-      <div class="sidebar information" v-if="product.content">
+      <div class="sidebar information"
+        v-if="product.content">
         <h1 class="text-deep">{{ product.title }}</h1>
         <div class="content">
           <table>
@@ -112,7 +121,8 @@
       <div class="img-box">
         <div class="img-item">
           <img :src="product.imageUrl" alt="">
-          <div class="attached" v-for="(attached, key) in product.imagesUrl" :key="key + 1">
+          <div class="attached"
+            v-for="(attached, key) in product.imagesUrl" :key="key + 1">
             <img :src="attached" alt="">
           </div>
         </div>
@@ -145,24 +155,34 @@
             </tr>
             <tr>
               <td>NT$ {{ $filters.currency(licenseTax(cc) + fuelTax(cc)) }} <br>
-                <small class="text-shallow">(牌照稅${{ $filters.currency(licenseTax(cc)) }} +
-                  燃料稅${{ $filters.currency(fuelTax(cc)) }})</small>
+                <small class="text-shallow">
+                  (牌照稅${{ $filters.currency(licenseTax(cc)) }} +
+                  燃料稅${{ $filters.currency(fuelTax(cc)) }})
+                </small>
               </td>
             </tr>
             <tr>
               <td class="display-td">
-                <button class="add-cart fill-btn" @click="addCart(product.id)"
+                <button class="add-cart fill-btn"
+                  @click="addCart(product.id)"
                   :disabled="this.status.loadingItem === product.id">
-                  <span class="fill-btn-text" v-if="this.status.loadingItem !== product.id">
-                    加入購物車 </span>
-                  <span class="fill-btn-text" v-if="this.status.loadingItem === product.id">
-                    加入中。。。</span></button>
+                  <span class="fill-btn-text"
+                    v-if="this.status.loadingItem !== product.id">
+                    加入購物車
+                  </span>
+                  <span class="fill-btn-text"
+                    v-if="this.status.loadingItem === product.id">
+                    加入中。。。
+                  </span>
+                </button>
               </td>
             </tr>
             <tr>
               <td class="display-td">
-                <button class="add-comparison text-deep" @click.prevent="addComparison">
-                  加入比較</button>
+                <button class="add-comparison text-deep"
+                  @click.prevent="addComparison">
+                  加入比較
+                </button>
               </td>
             </tr>
           </table>
@@ -172,22 +192,35 @@
 
     <div class="related-articles">
       <p>最新文章</p>
+
       <RelatedArticles />
+
     </div>
 
     <div class="media-scroll">
       <p>你可能會喜歡</p>
+
       <MediaScroll :products="products" />
+
     </div>
 
     <div class="buy-control bg-color text-deep">
-      <button class="pre-page text-deep" @click="goBack">上一頁</button>
-      <button class="add-cart fill-btn" @click="addCart(product.id)"
-      :disabled="this.status.loadingItem === product.id">
-        <span class="fill-btn-text" v-if="this.status.loadingItem !== product.id">
-          加入購物車 </span>
-        <span class="fill-btn-text" v-if="this.status.loadingItem === product.id">
-          加入中。。。</span></button>
+      <button class="pre-page text-deep"
+        @click="goBack">
+        上一頁
+      </button>
+      <button class="add-cart fill-btn"
+        @click="addCart(product.id)"
+        :disabled="this.status.loadingItem === product.id">
+        <span class="fill-btn-text"
+          v-if="this.status.loadingItem !== product.id">
+          加入購物車
+        </span>
+        <span class="fill-btn-text"
+          v-if="this.status.loadingItem === product.id">
+          加入中。。。
+        </span>
+      </button>
     </div>
 
   </div>

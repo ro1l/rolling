@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12 border-bottom border-black">
         <div class="container-fluid d-flex justify-content-between
-      align-items-center p-4">
+          align-items-center p-4">
           <h1 class="page-title">Orders</h1>
         </div>
       </div>
@@ -21,19 +21,23 @@
                     <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">購買時間</th>
                     <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">Email</th>
                     <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0">應付金額</th>
-                    <th class="text-secondary text-xxs
-                    fw-normal pb-lg-4 pt-sm-0 text-center">付款</th>
+                    <th class="text-secondary text-xxs fw-normal pb-lg-4 pt-sm-0 text-center">
+                      付款
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr @click.prevent="openOrderModal(order)" class="cursor-pointer"
-                  v-for="order in orders"
+                  <tr class="cursor-pointer"
+                    @click.prevent="openOrderModal(order)"
+                    v-for="order in orders"
                     :key="order.id">
                     <td>{{ $filters.date(order.create_at) }}</td>
                     <td>{{ order.user.email }}</td>
                     <td>NT${{ $filters.currency(order.total) }}元</td>
                     <td class="text-center">
-                      <span v-if="order.is_paid === true"><i class="bi bi-check-lg fs-5"></i></span>
+                      <span v-if="order.is_paid === true">
+                        <i class="bi bi-check-lg fs-5"></i>
+                      </span>
                       <span v-else></span>
                     </td>
                   </tr>
@@ -41,18 +45,24 @@
               </table>
             </div>
           </div>
-          <Pagination :pages="pagination" @emit-pages="getOrders" />
+
+          <Pagination :pages="pagination"
+            @emit-pages="getOrders" />
         </div>
       </div>
     </div>
   </div>
 
   <Loading :active="isLoading"
-  :zIndex="10000"/>
+    :zIndex="10000"/>
 
-  <OrderModal ref="orderModal" :order="tempOrder" @del-order="openDelModal(tempOrder)" />
+  <OrderModal ref="orderModal"
+    :order="tempOrder"
+    @del-order="openDelModal(tempOrder)" />
 
-  <DelModal ref="delModal" :item="tempOrder" @del-item="delOrder" />
+  <DelModal ref="delModal"
+    :item="tempOrder"
+    @del-item="delOrder" />
 </template>
 
 <script>

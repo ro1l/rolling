@@ -1,4 +1,5 @@
 <template>
+
   <LogoNavVue />
 
   <PageTitle :title="'結帳頁面'" />
@@ -6,7 +7,9 @@
   <div class="checkbox-box">
     <div class="order-information">
       <p>訂購人資訊</p>
-      <Form class="text-deep" v-slot="{ errors }" @submit="createOrder">
+      <Form class="text-deep"
+        v-slot="{ errors }"
+        @submit="createOrder">
         <div class="name-phone">
           <div class="name">
             <label for="name" class="form-label">姓名</label>
@@ -47,7 +50,9 @@
         </div>
 
         <div class="step bg-color">
-          <router-link class="border-btn text-deep" :to="{ name: '購物車' }">上一步</router-link>
+          <router-link :to="{ name: '購物車' }" class="border-btn text-deep">
+            上一步
+          </router-link>
           <button class="fill-btn">結帳去</button>
         </div>
       </Form>
@@ -56,7 +61,8 @@
     <div class="products-information">
       <p>訂單資訊</p>
       <div class="product-box item-underline">
-        <div class="product-item" v-for="item in cartProducts.carts" :key="item.id">
+        <div class="product-item"
+          v-for="item in cartProducts.carts" :key="item.id">
           <div class="img-box">
             <img :src="item.product.imageUrl" alt="">
           </div>
@@ -71,10 +77,18 @@
         </div>
       </div>
       <div class="total">
-        <p>商品總計<span>NT${{ $filters.currency(cartProducts.final_total) }}</span></p>
-        <p>運費<span>免運費</span></p>
-        <p class="item-top-line ">總計<span>
-            NT${{ $filters.currency(cartProducts.final_total) }}</span></p>
+        <p>
+          商品總計
+          <span>NT${{ $filters.currency(cartProducts.final_total) }}</span>
+        </p>
+        <p>
+          運費
+          <span>免運費</span>
+        </p>
+        <p class="item-top-line ">
+          總計
+          <span>NT${{ $filters.currency(cartProducts.final_total) }}</span>
+        </p>
       </div>
     </div>
   </div>

@@ -1,12 +1,15 @@
 <template>
-  <PageTitleSm :title="title" :content="`${filteredProductsLength}項商品`" />
+  <PageTitleSm :title="title"
+    :content="`${filteredProductsLength}項商品`" />
 
   <div class="products-box">
 
     <!-- category -->
     <div class="category sidebar">
       <li>
-        <router-link class="text-deep" :to="{ name: '所有產品' }">所有商品</router-link>
+        <router-link :to="{ name: '所有產品' }" class="text-deep">
+          所有商品
+        </router-link>
       </li>
       <li>
         <input type="checkbox" name="" id="collapsible-title" checked>
@@ -16,7 +19,10 @@
         </label>
         <div class="collapsible-item">
       <li v-for="(item, key) in productsCategory" :key="key">
-        <a class="text-deep" href="#" @click.prevent="changeCategory(item)">{{ item }}</a>
+        <a class="text-deep" href="#"
+          @click.prevent="changeCategory(item)">
+          {{ item }}
+        </a>
       </li>
     </div>
     </li>
@@ -24,27 +30,40 @@
 
   <!-- products -->
   <div class="products">
-    <Breadcrumb :title="title" :content="`${filteredProductsLength}項商品`"
-    v-if="!isLoadingForStore" />
-    <div class="products-box" v-if="isLoadingForStore">
-      <div class="products-item" v-for="(item, index) in skeletonNum" :key="index">
+    <Breadcrumb :title="title"
+      :content="`${filteredProductsLength}項商品`"
+      v-if="!isLoadingForStore" />
+    <div class="products-box"
+      v-if="isLoadingForStore">
+      <div class="products-item"
+        v-for="(item, index) in skeletonNum" :key="index">
+
         <ProductsSkeleton :skeleton="item" />
+
       </div>
     </div>
-    <div class="products-box" id="infinite-list" v-if="productByCategory.length > 0">
-      <div class="products-item" v-for="item in productByCategory" :key="item.id">
-        <ProductsCard :product="item" @click.prevent="getProduct(item.id)" />
+    <div class="products-box" id="infinite-list"
+      v-if="productByCategory.length > 0">
+      <div class="products-item"
+        v-for="item in productByCategory" :key="item.id">
+
+        <ProductsCard :product="item"
+          @click.prevent="getProduct(item.id)" />
+
       </div>
     </div>
     <h4 v-else>暫無商品</h4>
   </div>
 
   <!-- filter -->
-  <div class="filter sidebar bg-color" v-if="isFilterOpen">
+  <div class="filter sidebar bg-color"
+    v-if="isFilterOpen">
     <h4 class="text-deep">篩選</h4>
     <div class="category">
       <li>
-        <router-link class="text-deep" :to="{ name: '所有產品' }">所有商品</router-link>
+        <router-link :to="{ name: '所有產品' }"  class="text-deep">
+          所有商品
+        </router-link>
       </li>
       <li>
         <input type="checkbox" name="" id="collapsible-title2" checked>
@@ -54,7 +73,10 @@
         </label>
         <div class="collapsible-item">
       <li v-for="(item, key) in productsCategory" :key="key">
-        <a class="text-deep" href="#" @click.prevent="changeCategory(item)">{{ item }}</a>
+        <a class="text-deep" href="#"
+          @click.prevent="changeCategory(item)">
+          {{ item }}
+        </a>
       </li>
     </div>
     </li>
@@ -69,11 +91,15 @@
       <h5>排氣量</h5>
     </label>
     <div class="collapsible-item">
-      <div class="box" v-for="(item, key) in selectCc" :key="'item' + key">
+      <div class="box"
+        v-for="(item, key) in selectCc" :key="'item' + key">
         <input class="text-shallow" type="checkbox"
-        :id="'cc_' + item.min + '_' + item.max" v-model="selectedCc"
+          :id="'cc_' + item.min + '_' + item.max"
+          v-model="selectedCc"
           :value="item">
-        <label :for="'cc_' + item.min + '_' + item.max">{{ formatRange(item) }}</label>
+        <label :for="'cc_' + item.min + '_' + item.max">
+          {{ formatRange(item) }}
+        </label>
       </div>
     </div>
   </li>
@@ -88,7 +114,9 @@
     <div class="collapsible-item">
       <div class="box" v-for="(item, key) in productsType" :key="'item' + key">
         <input class="text-shallow" type="checkbox"
-        :id="item" v-model="selectedProductsType" :value="item">
+        :id="item"
+        v-model="selectedProductsType"
+        :value="item">
         <label :for="item">{{ item }}</label>
       </div>
     </div>
@@ -110,7 +138,6 @@
       </div>
       </li> -->
   </div>
-
   </div>
 
   <Loading :active="isLoadingForStore" :zIndex="10000" />
