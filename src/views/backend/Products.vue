@@ -64,7 +64,7 @@
 
   <DelModal :item="tempProduct" ref="delModal" @del-item="delProduct" />
 
-  <Loading :active="isLoading || isLoadingForStore" :zIndex="10000" />
+  <Loading :active="isLoading" :zIndex="10000" />
 </template>
 
 <script>
@@ -133,7 +133,7 @@ export default {
 
     async updateProduct(item) {
       try {
-        this.isLoading = true;
+        this.isLoadingForStore = true;
         this.tempProduct = item;
         let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
         let httpMethod = 'post';
@@ -150,7 +150,7 @@ export default {
       } catch (error) {
         console.error('Error 找不到資料:', error);
       } finally {
-        this.isLoading = false;
+        this.isLoadingForStore = false;
         this.$refs.productModal.hideModal();
         this.getProductsPage();
       }

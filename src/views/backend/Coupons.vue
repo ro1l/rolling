@@ -13,7 +13,7 @@
       </div>
 
       <DashboardSkeleton
-      v-if="isLoading"/>
+      v-if="isLoadingForSkeleton"/>
 
       <div class="col-12">
         <div class="card mb-4 bg-gray-white">
@@ -55,7 +55,9 @@
 
   <CouponModal ref="couponModal" :coupon="tempCoupon" :isNew="isNew" @update-coupon="updateCoupon"
     @del-coupon="openDelModal(tempCoupon)" />
+
   <DelModal ref="delModal" :item="tempCoupon" @del-item="delCoupon" />
+
   <Loading :active="isLoading"
   :zIndex="10000"/>
 </template>
@@ -82,6 +84,7 @@ export default {
       isNew: false,
       pagination: {},
       isLoading: false,
+      isLoadingForSkeleton: false,
     };
   },
 
@@ -89,7 +92,7 @@ export default {
     async getCoupons(page = 1) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       try {
-        this.isLoading = true;
+        this.isLoadingForSkeleton = true;
         const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons/?page=${page}`;
         const response = await axios.get(api);
         this.coupons = response.data.coupons;
@@ -98,7 +101,7 @@ export default {
       } catch (error) {
         console.error('Error 找不到資料', error);
       }
-      this.isLoading = false;
+      this.isLoadingForSkeleton = false;
     },
 
     openModal(isNew, item) {
@@ -118,7 +121,7 @@ export default {
 
     async updateCoupon(item) {
       try {
-        this.isLoading = true;
+        this.isLoadingForSkeleton = true;
         this.tempCoupon = item;
         let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`;
         let httpMethod = 'post';
@@ -131,7 +134,7 @@ export default {
         }
         const res = await axios[httpMethod](api, { data: this.tempCoupon });
         this.pushMessageState(res);
-        this.isLoading = false;
+        this.isLoadingForSkeleton = false;
         this.$refs.couponModal.hideModal();
         this.getCoupons();
       } catch (error) {

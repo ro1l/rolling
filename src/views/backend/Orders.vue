@@ -9,7 +9,7 @@
       </div>
 
       <DashboardSkeleton
-      v-if="isLoading"/>
+      v-if="isLoadingForSkeleton"/>
 
       <div class="col-12">
         <div class="card mb-4">
@@ -49,7 +49,9 @@
 
   <Loading :active="isLoading"
   :zIndex="10000"/>
+
   <OrderModal ref="orderModal" :order="tempOrder" @del-order="openDelModal(tempOrder)" />
+
   <DelModal ref="delModal" :item="tempOrder" @del-item="delOrder" />
 </template>
 
@@ -67,36 +69,42 @@ export default {
     Pagination,
     DashboardSkeleton,
   },
+
   data() {
     return {
       orders: [],
+      tempOrder: {},
       pagination: {},
       isLoading: false,
-      tempOrder: {},
+      isLoadingForSkeleton: false,
     };
   },
+
   methods: {
     async getOrders(page = 1) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       try {
-        this.isLoading = true;
+        this.isLoadingForSkeleton = true;
         const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/orders/?page=${page}`;
         const res = await axios.get(api);
         this.orders = res.data.orders;
         this.pagination = res.data.pagination;
-        this.isLoading = false;
+        this.isLoadingForSkeleton = false;
       } catch (error) {
         console.error('Error 找不到資料', error);
       }
     },
+
     openOrderModal(item) {
       this.tempOrder = { ...item };
       this.$refs.orderModal.showModal();
     },
+
     openDelModal(item) {
       this.tempOrder = { ...item };
       this.$refs.delModal.showModal();
     },
+
     async delOrder() {
       try {
         this.isLoading = true;
@@ -114,9 +122,11 @@ export default {
       }
     },
   },
+
   created() {
     this.getOrders();
   },
+
   inject: ['emitter', 'pushMessageState'],
 };
 </script>
