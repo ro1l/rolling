@@ -29,15 +29,15 @@
             <div class="control">
               <button
                 @click.prevent="updateCart(item, item.qty - 1)"
-                :disabled="item.qty === 1">
-                <i class="bi bi-dash"></i>
+                :disabled="item.qty === 1 && item.id === cartLoadingItem.loadingItem">
+                <i class="bi bi-dash text-deep"></i>
               </button>
               <input type="number" name="" id="qty" min="1"
                 v-model.number="item.qty"
                 @change="updateCart(item, item.qty)"
                 :disabled="item.id === cartLoadingItem.loadingItem">
               <button @click.prevent="updateCart(item, item.qty + 1)">
-                <i class="bi bi-plus"></i>
+                <i class="bi bi-plus text-deep"></i>
               </button>
             </div>
             <small v-if="item.coupon">
@@ -50,7 +50,13 @@
               :disabled="item.id === cartLoadingItem.loadingItem">
               移除購物車
             </a>
-            <p>NT${{ $filters.currency(item.final_total) }}</p>
+            <p>
+              <span v-if="!item.coupon">NT${{ $filters.currency(item.total) }}</span>
+              <span v-else>
+                <del>NT${{ $filters.currency(item.total) }}</del>
+                <h5>NT${{ $filters.currency(item.final_total) }}</h5>
+              </span>
+            </p>
           </div>
         </div>
         <div class="total">
