@@ -47,11 +47,10 @@
         <!-- tax -->
         <div class="tax" v-if="cacheArea">
           <p class="text-deep">
-            總稅金 NT${{ $filters.currency(totalTax) }}
+            總稅金 NT${{ $filters.currency(licenseTax(cc) + fuelTax(cc)) }}
           </p>
           <small>
-            (牌照稅${{ $filters.currency(licenseTax) }} +
-            燃料稅${{ $filters.currency(fuelTax) }})
+            (牌照稅${{ $filters.currency(licenseTax(cc)) }} + 燃料稅${{ $filters.currency(fuelTax(cc)) }})
           </small>
         </div>
 
@@ -61,7 +60,6 @@
 </template>
 
 <script>
-import taxMixin from '@/mixins/taxMixin';
 import { mapActions, mapState } from 'pinia';
 import productStore from '@/stores/productStore';
 
@@ -72,14 +70,13 @@ export default {
 
   data() {
     return {
-      cc: '',
       cacheSearch: '',
       cacheArea: '',
     };
   },
 
   computed: {
-    ...mapState(productStore, ['products']),
+    ...mapState(productStore, ['products', 'cc']),
 
     filterSearch() {
       const regex = new RegExp(this.cacheSearch, 'i');
@@ -88,7 +85,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(productStore, ['getProducts']),
+    ...mapActions(productStore, ['getProducts', 'licenseTax', 'fuelTax']),
 
     removeFilterSearch(item) {
       this.cacheArea = item;
@@ -103,7 +100,5 @@ export default {
   created() {
     this.getProducts();
   },
-
-  mixins: [taxMixin],
 };
 </script>
