@@ -20,7 +20,6 @@ export default defineStore('cartStore', {
   actions: {
 
     async addCart(id) {
-      status.isLoadingForStore = true;
       status.cartLoadingItem = id;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
 
@@ -31,7 +30,6 @@ export default defineStore('cartStore', {
 
       try {
         const res = await axios.post(api, { data: cart });
-        status.isLoadingForStore = false;
         status.cartLoadingItem = '';
 
         pushMessageState(res);
@@ -42,12 +40,12 @@ export default defineStore('cartStore', {
     },
 
     async getCartProducts() {
-      status.isLoadingForStore = true;
+      // status.isLoadingForStore = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
 
       try {
         const res = await axios.get(api);
-        status.isLoadingForStore = false;
+        // status.isLoadingForStore = false;
 
         this.cartProducts = res.data.data;
         this.cartProductsData = res.data.data.carts;
