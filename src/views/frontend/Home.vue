@@ -24,7 +24,7 @@
         <div class="text">
           <h3>2023 全球 H.O.G. 大會師</h3>
           <p>H.O.G. 活動是關於騎到目的地、騎回家，以及路途中的所有事物。</p>
-          <a href="#">瞭解更多</a>
+          <a href="#/article/-NcGq-i8_bwwkEsucyVM">瞭解更多</a>
         </div>
       </div>
     </div>
