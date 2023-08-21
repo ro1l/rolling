@@ -20,7 +20,7 @@ export default {
     ...mapState(statusStore, ['isLoadingForStore']),
 
     reversedArticles() {
-      return this.articles.slice(5).reverse();
+      return this.articles.slice(0, 5);
     },
   },
 
@@ -28,7 +28,9 @@ export default {
     ...mapActions(articleStore, ['getArticles']),
 
     getArticle(id) {
-      this.$router.push(`/article/${id}`);
+      setTimeout(() => {
+        this.$router.push(`/article/${id}`);
+      });
     },
   },
 
