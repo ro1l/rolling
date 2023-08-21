@@ -28,7 +28,7 @@
       </div>
       <div class="text">
         <h2 class="text-deep">{{ item.title }}</h2>
-        <p>tag:{{ item.tag }}</p>
+        <p>Tag： {{ item.tag }}</p>
       </div>
     </a>
   </div>
