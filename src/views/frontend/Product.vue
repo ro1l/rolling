@@ -37,6 +37,7 @@
         <li><a>{{ product.title }}</a></li>
       </ul>
     </div>
+
     <!-- product -->
     <div class="product">
       <h1 class="text-deep">{{ product.title }}</h1>
@@ -49,6 +50,7 @@
           加入比較
         </button>
       </div>
+
       <!-- information -->
       <div class="sidebar information"
         v-if="product.content">
@@ -127,6 +129,7 @@
           </div>
         </div>
       </div>
+
       <!-- buy -->
       <div class="buy sidebar">
         <div class="content">
@@ -164,14 +167,14 @@
             <tr>
               <td class="display-td">
                 <button class="add-cart fill-btn"
-                  @click="addCart(product.id)"
-                  :disabled="this.status.loadingItem === product.id">
+                  @click.prevent="addCart(product.id)"
+                  :disabled="cartLoadingItem === product.id">
                   <span class="fill-btn-text"
-                    v-if="this.status.loadingItem !== product.id">
+                    v-if="cartLoadingItem !== product.id">
                     加入購物車
                   </span>
                   <span class="fill-btn-text"
-                    v-if="this.status.loadingItem === product.id">
+                    v-if="cartLoadingItem === product.id">
                     加入中。。。
                   </span>
                 </button>
@@ -210,14 +213,14 @@
         上一頁
       </button>
       <button class="add-cart fill-btn"
-        @click="addCart(product.id)"
-        :disabled="this.status.loadingItem === product.id">
+        @click.prevent="addCart(product.id)"
+        :disabled="cartLoadingItem === product.id">
         <span class="fill-btn-text"
-          v-if="this.status.loadingItem !== product.id">
+          v-if="cartLoadingItem !== product.id">
           加入購物車
         </span>
         <span class="fill-btn-text"
-          v-if="this.status.loadingItem === product.id">
+          v-if="cartLoadingItem === product.id">
           加入中。。。
         </span>
       </button>
@@ -225,7 +228,6 @@
 
   </div>
 
-  <Loading :active="isLoading || isLoadingForStore" />
 </template>
 
 <script>
@@ -259,7 +261,7 @@ export default {
   computed: {
     ...mapState(productStore, ['products', 'product', 'imageUrl', 'imagesUrl', 'cc']),
 
-    ...mapState(statusStore, ['isLoadingForStore']),
+    ...mapState(statusStore, ['isLoadingForStore', 'cartLoadingItem']),
 
     mergedImagesUrl() {
       return this.imagesUrl

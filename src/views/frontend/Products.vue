@@ -93,7 +93,7 @@
     <div class="collapsible-item">
       <div class="box"
         v-for="(item, key) in selectCc" :key="'item' + key">
-        <input class="text-shallow" type="checkbox"
+        <input class="text-deep" type="checkbox"
           :id="'cc_' + item.min + '_' + item.max"
           v-model="selectedCc"
           :value="item">
@@ -113,7 +113,7 @@
     </label>
     <div class="collapsible-item">
       <div class="box" v-for="(item, key) in productsType" :key="'item' + key">
-        <input class="text-shallow" type="checkbox"
+        <input class="text-deep" type="checkbox"
         :id="item"
         v-model="selectedProductsType"
         :value="item">
@@ -139,8 +139,6 @@
       </li> -->
   </div>
   </div>
-
-  <Loading :active="isLoadingForStore" :zIndex="10000" />
 
   <Pagination :pages="pagination" @emit-pages="showCategory" />
 </template>
@@ -182,7 +180,7 @@ export default {
         { min: 501, max: 600 },
         { min: 601, max: 1200 },
         { min: 1201, max: 1800 },
-        { min: 1800, max: 10000 },
+        { min: 1800, max: 2500 },
       ],
       selectedCc: [],
       selectedProductsType: [],
