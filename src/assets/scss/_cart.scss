@@ -11,6 +11,7 @@
       width: 70%;
       display: flex;
       flex-wrap: wrap;
+      margin: 0 2rem;
 
       .total {
         display: flex;
@@ -34,7 +35,9 @@
         display: flex;
         flex-wrap: nowrap;
         border-bottom: 1px solid;
-        padding: 1rem 0 1rem 4rem;
+        padding: 0rem 0 1rem 4rem;
+        margin-bottom: 1rem;
+        
 
         .price-sm {
           display: none;
@@ -84,7 +87,6 @@
           flex-direction: column;
           justify-content: space-between;
           align-items: end;
-          padding-right: 3rem;
 
           a {
             font-size: 0.9rem;
@@ -92,6 +94,14 @@
 
           p {
             font-size: 1.2rem;
+            
+            span {
+              display: flex;
+
+              h5 {
+                padding-left: 1rem;
+              }
+            }
           }
         }
       }

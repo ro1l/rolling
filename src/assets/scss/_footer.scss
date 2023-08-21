@@ -23,11 +23,13 @@ footer {
         font-size: 0.9rem;
       }
 
-      a {
+      p, a {
         width: 100%;
         font-size: 0.8rem;
         display: inline-block;
         line-height: 2rem;
+        margin: 0;
+        padding: 0;
       }
 
       .icon {
