@@ -1,6 +1,7 @@
 <template>
-  <div class="modal fade " id="exampleModal" tabindex="-1"
+  <div class="modal fade" id="exampleModal" tabindex="-1"
     aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-focus="false"
     ref="modal">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-md-down">
       <div class="modal-content bg-gray-white rounded-0 p-0 border-0">
@@ -17,23 +18,37 @@
               <!-- 文章內容編輯 -->
               <div class="col-12">
                 <div class="card border-lg border-bottom border-black px-2 py-4">
-                  <div class="card-header pb-2 mb-0">
+                  <div class="card-header pb-2 mb-0
+                    d-flex justify-content-between align-items-center">
                     <h6 class="mb-0 fs-5 font-family-taipei">文章內容編輯
                       <small class="text-danger font-family-taipei text-xxs">(必填)</small>
                     </h6>
+                    <a href="" class="pe-2"
+                      @click.prevent="getArticle(article.id)">
+                      <ins>前往觀看文章</ins>
+                    </a>
                   </div>
                   <div class="card-body w-100">
                     <Editor api-key="v9qd6mo7pj1ij6ci3z7691b9kd3fjj2bc9km9xgru539dsyt"
                       :init="{
-                      menubar: false,
+                      menubar: 'insert',
                       plugins: [
+                        'table', 'link', 'autolink'
                       ],
+                      auto_focus: true,
+                      anchor_top: false,
+                      anchor_bottom: false,
+                      table_default_attributes: {
+                        border: '0',
+                      },
+                      relative_urls: true,
                       toolbar_mode: 'wrap',
                       toolbar:
                         'undo redo | blocks formatselect fontsize | \
                         bold italic backcolor underline | \
                         alignleft aligncenter alignright alignjustify | \
-                        fontsizeselect bullist numlist outdent indent | removeformat'}"
+                        fontsizeselect bullist numlist outdent indent | \
+                        removeformat | table tabledelete | link '}"
                       v-model="tempArticle.content" />
                   </div>
                 </div>
@@ -213,6 +228,13 @@ export default {
         console.error('Error', error);
       }
       this.isLoading = false;
+    },
+
+    getArticle(id) {
+      const routeUrl = this.$router.resolve({
+        path: `/article/${id}`,
+      });
+      window.open(routeUrl.href, '_blank');
     },
   },
 
