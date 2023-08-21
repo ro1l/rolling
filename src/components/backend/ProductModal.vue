@@ -17,8 +17,13 @@
 
                 <!-- 商品主圖 -->
                 <div class="card border-lg border-bottom border-black px-2 py-4">
-                  <div class="card-header pb-2 mb-0">
+                  <div class="card-header pb-2 mb-0
+                    d-flex justify-content-between align-items-center">
                     <h6 class="mb-0 fs-5 font-family-taipei">商品主圖</h6>
+                    <a href="" class="pe-2"
+                      @click.prevent="getProduct(tempProduct.id)">
+                      <ins>前往觀看產品</ins>
+                    </a>
                   </div>
                   <div class="card-body px-sm-4
                     d-flex justify-content-center align-items-center">
@@ -65,6 +70,7 @@
                         <option value="KTM">KTM</option>
                         <option value="BMW">BMW</option>
                         <option value="Triumph">Triumph</option>
+                        <option value="Vespa">Vespa</option>
                       </select>
                     </div>
                     <div class="mb-4">
@@ -355,6 +361,13 @@ export default {
 
         this.isLoading = false;
       }
+    },
+
+    getProduct(id) {
+      const routeUrl = this.$router.resolve({
+        path: `/product/${id}`,
+      });
+      window.open(routeUrl.href, '_blank');
     },
 
     delImage() {
