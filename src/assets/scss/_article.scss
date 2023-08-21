@@ -42,7 +42,17 @@
       width: 100%;
       margin: 5rem 0;
       padding: 0 20rem;
+
+      span {
+        margin-left: 0;
+      }
+
+      table, th, td {
+      border: 1px solid;
+      padding: 1rem;
     }
+
+  }
 
     .share {
       width: 100%;
