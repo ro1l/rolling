@@ -16,6 +16,7 @@ https://ro1l.github.io/rolling/#/
 ## 使用技術
 - 基礎技術：`HTML5` `CSS3` `JavaScript`  
 - 前端框架：`Vue3.js` `Vue Cli`  
+- 前端路由：`Vue Router`  
 - 編碼風格：`Eslint Airbnb`  
 - 版面設計：`Figma`  
 - 網頁切版：`SCSS` `後台Bootstrap5` `前台手刻RWD`  
@@ -28,15 +29,12 @@ https://ro1l.github.io/rolling/#/
 - 狀態管理工具：`pinia`  
 - 文本編輯器：`TinyMCE`  
 
-## 素材
-
-
 ## 專案設置
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+<!-- ### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
@@ -49,4 +47,4 @@ npm run build
 ### Lints and fixes files
 ```
 npm run lint
-```
+``` -->
