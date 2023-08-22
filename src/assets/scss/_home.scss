@@ -8,6 +8,7 @@
   .scroll-area {
     scroll-snap-align: start;
     height: 100vh;
+    max-height: -webkit-fill-available;
   }
 }
 // banner
