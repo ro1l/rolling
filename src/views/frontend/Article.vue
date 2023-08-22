@@ -8,7 +8,7 @@
         {{ $filters.date(article.create_at) }}
         <span>By&nbsp;{{ article.author }}</span>
       </p>
-      <p class="text-shallow article-description">“{{ article.description }}“</p>
+      <p class="text-shallow article-description">“{{ article.description }}”</p>
       <div class="img-box">
         <img :src="article.image" alt="">
       </div>
