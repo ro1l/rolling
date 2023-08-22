@@ -29,10 +29,10 @@ https://ro1l.github.io/rolling/#/
 - 狀態管理工具：`pinia`  
 - 文本編輯器：`TinyMCE`  
 
-## 專案設置
+<!-- ## 專案設置
 ```
 npm install
-```
+``` -->
 
 <!-- ### Compiles and hot-reloads for development
 ```
