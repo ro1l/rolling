@@ -10,7 +10,7 @@
     <div class="order">
       <Form @submit="payOrder">
         <table class="products order-bg">
-          <caption class="text-deep">商品明細</caption>
+          <caption class="text-shallow">商品明細</caption>
           <thead>
             <tr class="order-bg">
               <th class="order-bg">品名</th>
@@ -27,14 +27,14 @@
           </tbody>
           <tfoot>
             <tr>
-              <th></th>
-              <th>總計</th>
-              <th>NT${{ $filters.currency(order.total) }}</th>
+              <th class="bg-color"></th>
+              <th class="bg-color">總計</th>
+              <th class="bg-color">NT${{ $filters.currency(order.total) }}</th>
             </tr>
           </tfoot>
         </table>
         <table class="user">
-          <caption class="text-deep">訂購人資訊</caption>
+          <caption class="text-shallow">訂購人資訊</caption>
           <tbody>
             <tr class="item-underline">
               <th>姓名</th>
