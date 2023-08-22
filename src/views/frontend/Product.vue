@@ -293,6 +293,7 @@ export default {
     this.getProduct(id);
     this.getProducts();
   },
+
   inject: ['emitter', 'pushMessageState'],
 };
 </script>
