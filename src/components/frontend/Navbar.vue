@@ -88,7 +88,7 @@
   <div class="button-ground bg-color text-deep"
     v-if="productsNavbar">
     <button @click="toggleFilter">
-      <span v-if="isFilterOpen === false">
+      <span class="text-deep" v-if="isFilterOpen === false">
         篩選
       </span>
       <span v-if="isFilterOpen === true">

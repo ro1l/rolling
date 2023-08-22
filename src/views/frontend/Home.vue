@@ -3,7 +3,9 @@
     <!-- banner -->
     <div class="scroll-area special-div" id="banner">
       <div class="home-banner">
-        <video autoplay loop muted plays-inline class="black-video">
+        <video class="black-video"
+          controls preload="auto"
+          autoplay loop muted plays-inline>
           <source src="@/assets/media/moto.mp4" type="video/mp4">
         </video>
         <div class="box">
