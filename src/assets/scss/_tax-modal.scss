@@ -37,6 +37,13 @@
     .search {
       width: 100%;
 
+      p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+      }
+
       .search-bar {
         display: flex;
 

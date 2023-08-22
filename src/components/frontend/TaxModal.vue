@@ -32,6 +32,7 @@
                 @click="removeFilterSearch(item)">
             </label>
           </div>
+          <p v-if="notFoundData">未找到符合的項目</p>
         </div>
 
         <!-- product -->
@@ -72,6 +73,7 @@ export default {
     return {
       cacheSearch: '',
       cacheArea: '',
+      notFoundData: false,
     };
   },
 
@@ -95,6 +97,15 @@ export default {
     delCacheSearch() {
       this.cacheSearch = '';
     },
+
+    updateNotFoundData() {
+      const regex = new RegExp(this.cacheSearch, 'i');
+      this.notFoundData = this.products.filter((item) => item.title.match(regex)).length === 0;
+    },
+  },
+
+  watch: {
+    cacheSearch: 'updateNotFoundData',
   },
 
   created() {
