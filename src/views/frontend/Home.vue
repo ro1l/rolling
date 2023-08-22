@@ -5,7 +5,7 @@
       <div class="home-banner">
         <video class="black-video"
           controls preload="auto"
-          autoplay loop muted plays-inline>
+          autoplay loop muted plays-inline playsinline>
           <source src="@/assets/media/moto.mp4" type="video/mp4">
         </video>
         <div class="box">
