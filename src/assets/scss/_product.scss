@@ -183,6 +183,11 @@
       overflow-y: scroll;
       width: 55%;
       z-index: 100;
+      padding-bottom: 3rem;
+
+      img {
+        padding-bottom: 5rem;
+      }
 
       .add-comparison {
         display: none;
