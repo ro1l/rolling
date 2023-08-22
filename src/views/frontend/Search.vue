@@ -52,6 +52,7 @@ export default {
 
   computed: {
     ...mapState(productStore, ['products']),
+
     filterProductsSearch() {
       const regex = new RegExp(this.cacheProductsSearch, 'i');
       return this.products.filter((item) => item.title.match(regex));
