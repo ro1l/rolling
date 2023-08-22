@@ -37,12 +37,15 @@
 
         <!-- product -->
         <div class="product item-underline" v-if="cacheArea">
-          <div class="img-box">
-            <img :src="cacheArea.imageUrl" alt="">
-          </div>
-          <h2 class="text-deep">{{ cacheArea.category }}</h2>
-          <p>{{ cacheArea.title }}</p>
-          <p>排氣量：{{ cacheArea.content.comparison.cc }}cc</p>
+          <a href="" @click.prevent="getProduct(cacheArea.id)"
+            @click="$emit('close')">
+            <div class="img-box">
+              <img :src="cacheArea.imageUrl" alt="">
+            </div>
+            <h2 class="text-deep">{{ cacheArea.category }}</h2>
+            <p>{{ cacheArea.title }}</p>
+            <p>排氣量：{{ cacheArea.content.comparison.cc }}cc</p>
+          </a>
         </div>
 
         <!-- tax -->
@@ -101,6 +104,13 @@ export default {
     updateNotFoundData() {
       const regex = new RegExp(this.cacheSearch, 'i');
       this.notFoundData = this.products.filter((item) => item.title.match(regex)).length === 0;
+    },
+
+    getProduct(id) {
+      this.$router.push(`/product/${id}`);
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     },
   },
 
