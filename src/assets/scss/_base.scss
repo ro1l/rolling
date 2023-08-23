@@ -169,9 +169,11 @@ video::-webkit-media-controls-play-button {
 
 /* Old shadow dom for play button */
 
-video::-webkit-media-controls-start-playback-button {
-    display: none;
+video::-webkit-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none;
 }
+
 
 *::--webkit-media-controls-play-button {
   display: none!important;
