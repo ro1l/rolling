@@ -156,18 +156,20 @@
     .products-information {
       width: 100%;
       order: 1;
-    }
 
-    .total {
-      p {
-        span {
-          width: 40%;
-        }
+      .total {
+        p {
 
-        &:last-child {
-          font-size: 1.2rem;
+          span {
+            width: 40%;
+          }
+
+          &:last-child {
+            font-size: 1.2rem;
+          }
         }
       }
     }
+
   }
 }

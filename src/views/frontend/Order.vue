@@ -19,10 +19,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in order.products" :key="item.id">
-              <td class="item-underline">{{ item.product.title }}</td>
-              <td class="item-underline">{{ item.qty }}{{ item.product.unit }}</td>
-              <td class="item-underline">NT${{ $filters.currency(item.product.price) }}</td>
+            <tr v-for="item in order.products" :key="item.id" class="item-underline">
+              <td >{{ item.product.title }}</td>
+              <td >{{ item.qty }}{{ item.product.unit }}</td>
+              <td >NT${{ $filters.currency(item.product.price) }}</td>
             </tr>
           </tbody>
           <tfoot>

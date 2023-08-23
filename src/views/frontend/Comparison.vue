@@ -11,42 +11,42 @@
 
       <!-- comparison-title -->
       <table>
-        <tr class="first-tr"><th></th></tr>
+        <tr class="first-tr"><th class="text-shallow"></th></tr>
         <tr class="car-model table-bg">
-          <th>車款</th>
+          <th class="text-shallow">車款</th>
         </tr>
         <tr>
-          <th>售價</th>
+          <th class="text-shallow">售價</th>
         </tr>
         <tr>
-          <th>種類</th>
+          <th class="text-shallow">種類</th>
         </tr>
         <tr>
-          <th>引擎</th>
+          <th class="text-shallow">引擎</th>
         </tr>
         <tr>
-          <th>排氣量</th>
+          <th class="text-shallow">排氣量</th>
         </tr>
         <tr>
-          <th>馬力</th>
+          <th class="text-shallow">馬力</th>
         </tr>
         <tr>
-          <th>扭力</th>
+          <th class="text-shallow">扭力</th>
         </tr>
         <tr>
-          <th>座高</th>
+          <th class="text-shallow">座高</th>
         </tr>
         <tr>
-          <th>重量</th>
+          <th class="text-shallow">重量</th>
         </tr>
         <tr>
-          <th>平均油耗</th>
+          <th class="text-shallow">平均油耗</th>
         </tr>
         <tr>
-          <th>油箱容量</th>
+          <th class="text-shallow">油箱容量</th>
         </tr>
         <tr>
-          <th>稅金</th>
+          <th class="text-shallow">稅金</th>
         </tr>
       </table>
 

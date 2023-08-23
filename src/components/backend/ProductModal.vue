@@ -214,14 +214,14 @@
                     </h6>
                   </div>
                   <div class="card-body px-5
-                    d-flex justify-content-start align-items-center flex-sm-column flex-lg-row
-                    flex-wrap flex-lg-nowrap"
+                    d-flex justify-content-lg-start  align-items-center flex-sm-column flex-lg-row
+                    flex-wrap flex-lg-nowrap justify-content-center"
                     v-if="tempProduct.imagesUrl">
 
                     <!-- v-for 副圖 -->
                     <div class="preview-more rounded-0 cursor-pointer position-relative
                       d-flex justify-content-center align-items-center
-                      border border-1 border-black p-2 me-lg-5"
+                      border border-1 border-black p-2 me-lg-5 mb-4 mb-lg-0"
                       v-for="item in tempProduct.imagesUrl"
                       :key="item" @click.prevent="delImages(item)">
                       <img :src="item" alt="" class="w-100">

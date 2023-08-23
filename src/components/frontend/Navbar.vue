@@ -91,7 +91,7 @@
       <span class="text-deep" v-if="isFilterOpen === false">
         篩選
       </span>
-      <span v-if="isFilterOpen === true">
+      <span class="text-deep" v-if="isFilterOpen === true">
         關 閉
       </span>
     </button>

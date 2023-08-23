@@ -175,10 +175,9 @@
     }
 
     .cart {
-      display: block;
       width: 100%;
-      padding: 0 2rem;
-      margin: 1rem 0;
+      margin: 1rem auto;
+      justify-content: center;
 
       .cart-box {
         width: 100%;
@@ -190,11 +189,13 @@
           margin: 0rem 0 4rem;
           width: 100%;
 
+
           input {
             background: none;
             border: none;
             border-bottom: 1px solid;
             padding: 1rem;
+            border-radius: 0;
 
             &::placeholder {
               font-weight: 300;

@@ -1,8 +1,8 @@
 <template>
-  <div class="modal fade" id="exampleModal" tabindex="-1"
+  <div class="modal fade bg-black bg-opacity-25" id="exampleModal" tabindex="-1"
     aria-labelledby="exampleModalLabel" aria-hidden="true"
     ref="modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content rounded-0 bg-black border-3 border-danger pt-3 ps-4 pe-4 pb-4">
         <div class="modal-header border-0">
           <button type="button" class="btn-close btn-close-white"

@@ -23,34 +23,34 @@
                       <div class="col-lg-12">
                         <h6 class="fs-5 font-family-taipei mb-4">訂購人資訊</h6>
                       </div>
-                      <div class="col-lg-2">
+                      <div class="col-2">
                         <p class="fw-bolder">姓名</p>
                       </div>
-                      <div class="col-lg-10">
+                      <div class="col-10">
                         <p>{{ tempOrder.user.name }}</p>
                       </div>
-                      <div class="col-lg-2">
+                      <div class="col-2">
                         <p class="fw-bolder">email</p>
                       </div>
-                      <div class="col-lg-10">
+                      <div class="col-10">
                         <p>{{ tempOrder.user.email }}</p>
                       </div>
-                      <div class="col-lg-2">
+                      <div class="col-2">
                         <p class="fw-bolder">手機</p>
                       </div>
-                      <div class="col-lg-10">
+                      <div class="col-10">
                         <p>{{ tempOrder.user.tel }}</p>
                       </div>
-                      <div class="col-lg-2">
+                      <div class="col-2">
                         <p class="fw-bolder">地址</p>
                       </div>
-                      <div class="col-lg-10">
+                      <div class="col-10">
                         <p>{{ tempOrder.user.address }}</p>
                       </div>
-                      <div class="col-lg-2">
+                      <div class="col-2">
                         <p class="fw-bolder">備註</p>
                       </div>
-                      <div class="col-lg-10">
+                      <div class="col-10">
                         <p v-if="tempOrder.message">{{ tempOrder.message }}</p>
                         <p v-else>無備註</p>
                       </div>
@@ -68,35 +68,35 @@
                       <div class="col-lg-12">
                         <h6 class="fs-5 font-family-taipei mb-4">訂單資訊</h6>
                       </div>
-                      <div class="col-lg-3">
+                      <div class="col-3">
                         <p class="fw-bolder">訂單編號</p>
                       </div>
-                      <div class="col-lg-9">
+                      <div class="col-9">
                         <p>{{ tempOrder.id }}</p>
                       </div>
-                      <div class="col-lg-3">
+                      <div class="col-3">
                         <p class="fw-bolder">下單時間</p>
                       </div>
-                      <div class="col-lg-9">
+                      <div class="col-9">
                         <p>{{ $filters.date(tempOrder.create_at) }}</p>
                       </div>
-                      <div class="col-lg-3">
+                      <div class="col-3">
                         <p class="fw-bolder">付款時間</p>
                       </div>
-                      <div class="col-lg-9">
+                      <div class="col-9">
                         <p>{{ $filters.date(tempOrder.paid_date) }}</p>
                       </div>
-                      <div class="col-lg-3">
+                      <div class="col-3">
                         <p class="fw-bolder">付款狀態</p>
                       </div>
-                      <div class="col-lg-9">
+                      <div class="col-9">
                         <p v-if="tempOrder.is_paid === true">已付款</p>
                         <p v-else>未付款</p>
                       </div>
-                      <div class="col-lg-3">
+                      <div class="col-3">
                         <p class="fw-bolder">總金額</p>
                       </div>
-                      <div class="col-lg-9">
+                      <div class="col-9">
                         <p>NT${{ $filters.currency(tempOrder.total) }}</p>
                       </div>
                     </div>

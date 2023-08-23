@@ -90,7 +90,9 @@
   }
 
   .text {
-    height: 100%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     text-align: center;
@@ -150,7 +152,7 @@
     height: -webkit-fill-available;
 
     .box {
-      padding-bottom: 6rem;
+      padding-bottom: 8rem;
 
       .scroll-icon {
         margin: 60px auto 0;
