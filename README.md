@@ -1,7 +1,10 @@
 # Rolling 
 
 ## DEMO
-![image](https://i.imgur.com/MT5DVjb.mp4)
+
+https://github.com/ro1l/rolling/assets/129648509/cd471da2-71ec-4f17-93d7-e4f337a6bfd1
+
+
 https://ro1l.github.io/rolling/#/
 
 ## 專案簡介
