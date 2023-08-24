@@ -96,6 +96,8 @@
 
 @media (max-width: 768px) {
   .nav-bar {
+    padding: 0 2rem;
+
     .nav-list {
       width: 50%;
 
@@ -103,11 +105,19 @@
         display: none;
       }
 
+      &.nav-center {
+        text-align-last: left;
+      }
+
       &.nav-right {
-        padding-right: 1rem;
 
         ul {
           li {
+
+            a {
+              padding-right: 0;
+            }
+
             .mode-toggle {
               display: none;
             }
@@ -123,7 +133,7 @@
 
   .nav-button {
     position: fixed;
-    bottom: 1rem;
+    bottom: 1.5rem;
     right: 2rem;
     border: 1px solid;
     z-index: 100;
@@ -152,23 +162,26 @@
     .nav-list {
       width: 100%;
       padding: 0 2rem;
+
       ul {
         display: flex;
         flex-direction: column;
         justify-content: start;
         height: 100%;
-        padding: 8rem 0 0;
+        padding: 7rem 0 0;
+
         li {
           display: flex;
           align-items: center;
           justify-content: flex-end;
-          margin-bottom: 2rem;
+          margin-bottom: 1.5rem;
+
           a {
             padding: 1rem;
             padding-right: 0;
 
             &.search {
-              margin-top: 1rem;
+              margin-top: 1.5rem;
               width: 100%;
               padding: 1rem;
               display: flex;
@@ -189,7 +202,7 @@
 
   .button-ground {
     position: fixed;
-    bottom: 1rem;
+    bottom: 1.5rem;
     left: 5%;
     width: 90%;
     border: 1px solid;

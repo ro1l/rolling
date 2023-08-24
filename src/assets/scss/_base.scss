@@ -7,6 +7,7 @@ $light-border-btn: 1px solid $light-text-deep;
 $light-fill-btn-bg: $light-text-deep;
 $light-fill-btn-text: $light-bg;
 $light-underline: 1px solid $light-text-shallow;
+$dark-bg: #242424;
 
 *,
 ul,
@@ -86,6 +87,10 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.text-white {
+  color: $light-bg;
+}
+
 .text-deep {
   color: $light-text-deep;
 }
@@ -118,6 +123,10 @@ input[type="number"]::-webkit-inner-spin-button {
 .bg-color {
   background: $light-bg;
   transition: background-color 0.2s ease;
+}
+
+.bg-dark-color {
+  background: $dark-bg;
 }
 
 // modal

@@ -34,6 +34,7 @@ body {
     th,
     textarea {
       color: $dark-text;
+      border: none;
     }
 
     .border-btn {
@@ -51,6 +52,10 @@ body {
     .fill-btn {
       background: $dark-fill-btn-bg;
       color: $dark-fill-btn-text;
+    }
+
+    .text-white {
+      color: $dark-bg !important;
     }
 
     .text-deep {
@@ -80,6 +85,10 @@ body {
 
     .bg-color {
       background: $dark-bg;
+    }
+
+    .bg-dark-color {
+      background: $light-bg;
     }
 
     .carousel-dark .carousel-indicators [data-bs-target] {

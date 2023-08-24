@@ -35,7 +35,7 @@
     </div>
 
     <!-- 中間（Logo） -->
-    <div class="nav-list">
+    <div class="nav-list nav-center">
       <router-link :to="{ name: 'home' }" class="logo" >
         Rolling
       </router-link>
@@ -71,37 +71,37 @@
   </nav>
 
   <!-- RWD導覽列按鈕 -->
-  <button class="nav-button bg-color text-deep"
+  <button class="nav-button bg-dark-color text-white"
     @click="toggleOffcanvas"
     v-if="showNav">
     <i class="bi bi-list" v-if="isMenuOpen === false"></i>
     <i class="bi bi-x-lg" v-if="isMenuOpen === true"></i>
-    <span v-if="isMenuOpen === false">
+    <span class="text-white" v-if="isMenuOpen === false">
       導覽列
     </span>
-    <span v-if="isMenuOpen === true">
+    <span class="text-white" v-if="isMenuOpen === true">
       關 閉
     </span>
   </button>
 
   <!-- RWD導覽列以及篩選按鈕 -->
-  <div class="button-ground bg-color text-deep"
+  <div class="button-ground bg-dark-color text-white"
     v-if="productsNavbar">
     <button @click="toggleFilter">
-      <span class="text-deep" v-if="isFilterOpen === false">
+      <span class="text-white" v-if="isFilterOpen === false">
         篩選
       </span>
-      <span class="text-deep" v-if="isFilterOpen === true">
+      <span class="text-white" v-if="isFilterOpen === true">
         關 閉
       </span>
     </button>
-    <button class="text-deep" @click="toggleOffcanvas">
+    <button class="text-white" @click="toggleOffcanvas">
       <i class="bi bi-list" v-if="isMenuOpen === false"></i>
       <i class="bi bi-x-lg" v-if="isMenuOpen === true"></i>
-      <span v-if="isMenuOpen === false">
+      <span class="text-white" v-if="isMenuOpen === false">
         導覽列
       </span>
-      <span v-if="isMenuOpen === true">
+      <span class="text-white" v-if="isMenuOpen === true">
         關 閉
       </span>
     </button>
