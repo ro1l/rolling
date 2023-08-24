@@ -1,6 +1,6 @@
 <template>
   <div id="carouselExampleDark" class="carousel carousel-dark slide"
-  data-ride="carousel"  data-bs-touch="true" data-interval="5000">
+  data-bs-ride="carousel"  data-bs-touch="true" data-interval="5000">
     <div class="carousel-indicators">
       <button v-for="(item, index) in mergedImagesUrl" :key="index" type="button"
         :data-bs-target="'#carouselExampleDark'"
