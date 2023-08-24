@@ -1,6 +1,7 @@
 <template>
   <div id="carouselExampleDark" class="carousel carousel-dark slide"
-  data-bs-ride="carousel"  data-bs-touch="true" data-interval="5000">
+  data-bs-ride="carousel"  data-bs-touch="true" data-bs-interval="5000"
+  ref="carousel">
     <div class="carousel-indicators">
       <button v-for="(item, index) in mergedImagesUrl" :key="index" type="button"
         :data-bs-target="'#carouselExampleDark'"
@@ -22,14 +23,25 @@
 </template>
 
 <script>
-import carousel from 'bootstrap/js/dist/carousel';
+import Carousel from 'bootstrap/js/dist/carousel';
 
 export default {
-  name: carousel,
+  // name: carousel,
+
+  data() {
+    return {
+      carousel: {},
+    };
+  },
+
   props: {
     mergedImagesUrl: {
       typeof: Array,
     },
+  },
+
+  mounted() {
+    this.carousel = new Carousel(this.$refs.carousel);
   },
 };
 </script>
