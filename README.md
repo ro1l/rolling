@@ -18,6 +18,10 @@ https://github.com/ro1l/rolling/assets/129648509/31aea5c0-f3d2-46f0-be91-2b89042
 ## 專案功能
 ### 前台
 - 購車
+<img width="1440" alt="products_desktop" src="https://github.com/ro1l/rolling/assets/129648509/da0d1adf-1df0-48d5-afc2-91d252bb00b7">
+<img width="1440" alt="products_desktop_dark_mode" src="https://github.com/ro1l/rolling/assets/129648509/2ee465f9-4e5d-4067-ad58-127f243e791c">
+
+
 - 車款比較
 - 文章
 - 搜尋
