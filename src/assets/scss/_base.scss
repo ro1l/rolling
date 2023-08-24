@@ -6,7 +6,6 @@ $light-toggle-bg: #dadada;
 $light-border-btn: 1px solid $light-text-deep;
 $light-fill-btn-bg: $light-text-deep;
 $light-fill-btn-text: $light-bg;
-$light-underline: 1px solid $light-text-shallow;
 $dark-bg: #242424;
 
 *,
@@ -104,11 +103,11 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .item-underline {
-  border-bottom: $light-underline;
+  border-bottom: 1px solid $light-text-shallow;
 }
 
 .item-top-line {
-  border-top: $light-underline;
+  border-top: 1px solid $light-text-shallow;
 }
 
 .table-bg {
