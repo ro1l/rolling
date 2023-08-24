@@ -23,6 +23,7 @@
         </button>
       </div>
       <div v-if="cacheProductsSearch">
+
         <!-- 產品 -->
         <label v-for="(item, key) in filterProductsSearch.splice(0, 3)" :key="item + key">
           <p>{{ item.title }}</p>
