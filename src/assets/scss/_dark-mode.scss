@@ -37,6 +37,11 @@ body {
       border: none;
     }
 
+  .logo {
+    border: 1px solid $dark-text;
+    color: $dark-text;
+  }
+
     .border-btn {
       border: $dark-border-btn;
     }

@@ -22,7 +22,10 @@
 </template>
 
 <script>
+import carousel from 'bootstrap/js/dist/carousel';
+
 export default {
+  name: carousel,
   props: {
     mergedImagesUrl: {
       typeof: Array,
