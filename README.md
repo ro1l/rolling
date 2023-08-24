@@ -2,13 +2,14 @@
 
 ## DEMO
 
-
+### 桌面版
 https://github.com/ro1l/rolling/assets/129648509/db246956-5925-42db-91e4-83d80465dd38
 
-
-
+### 手機版
+https://github.com/ro1l/rolling/assets/129648509/0ba7faa9-a7aa-4d1b-825e-211e831ce314
 
 https://ro1l.github.io/rolling/#/
+
 
 ## 專案簡介
 以Vue3 Cli為架構的重機SPA動態網站
