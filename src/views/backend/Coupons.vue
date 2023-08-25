@@ -16,7 +16,7 @@
       </div>
 
       <DashboardSkeleton
-      v-if="isLoadingForSkeleton"/>
+        v-if="isLoadingForSkeleton"/>
 
       <div class="col-12">
         <div class="card mb-4 bg-gray-white">

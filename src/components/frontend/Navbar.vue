@@ -27,8 +27,7 @@
           </a>
           <teleport to='body'>
             <TaxModal :show="showTaxModal"
-              @close="showTaxModal = false">
-            </TaxModal>
+              @close="showTaxModal = false" />
           </teleport>
         </li>
       </ul>
@@ -145,8 +144,7 @@
           </a>
           <teleport to='body'>
             <TaxModal :show="showTaxModal"
-              @close="closeModal">
-            </TaxModal>
+              @close="closeModal" />
           </teleport>
         </li>
         <li>

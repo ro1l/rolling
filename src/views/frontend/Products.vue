@@ -124,7 +124,8 @@
   </div>
   </div>
 
-  <Pagination :pages="pagination" @emit-pages="showCategory" />
+  <Pagination :pages="pagination"
+    @emit-pages="showCategory" />
 </template>
 
 <script>

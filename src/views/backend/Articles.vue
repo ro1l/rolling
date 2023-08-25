@@ -16,10 +16,10 @@
       </div>
 
       <DashboardSkeleton
-      v-if="isLoadingForStore"/>
+        v-if="isLoadingForStore"/>
 
       <div class="col-12"
-      v-if="!isLoadingForStore">
+        v-if="!isLoadingForStore">
         <div class="card mb-4 bg-gray-white">
           <div class="card-body pt-lg-4 mt-lg-3 py-0 px-lg-5">
             <div class="table-responsive p-0 d-flex">
@@ -53,7 +53,9 @@
             </div>
           </div>
 
-          <Pagination :pages="pagination" @emit-pages="getArticles" />
+          <Pagination :pages="pagination"
+            @emit-pages="getArticles" />
+
         </div>
       </div>
     </div>
