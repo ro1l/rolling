@@ -8,7 +8,7 @@
           type="button" data-bs-toggle="collapse"
           data-bs-target="#collapseExample" aria-expanded="false"
           aria-controls="collapseExample"
-          @click="toggleOffcanvas">
+          @click.prevent="toggleOffcanvas">
           <i class="bi bi-list fs-2" v-if="isMenuOpen === false"></i>
           <i class="bi bi-x-lg fs-2" v-if="isMenuOpen === true"></i>
         </button>
@@ -33,7 +33,7 @@
             </router-link>
           </li>
           <li class="nav-item mb-4">
-            <router-link  :to="{ name: '訂單' }"
+            <router-link :to="{ name: '訂單' }"
               class="nav-link text-white d-flex align-items-center fs-5 p-0 m-0 font-family-taipei">
               訂單
             </router-link>

@@ -7,7 +7,8 @@
           <h1 class="page-title">Coupons</h1>
           <button class="btn btn-outline-dark border-1 rounded-0
             me-lg-3 mb-0 px-lg-5 py-lg-2"
-            @click="openModal(true)">
+            type="button"
+            @click.prevent="openModal(true)">
             <i class="bi bi-plus-lg"></i>
             新增優惠券
           </button>
@@ -35,7 +36,7 @@
                 </thead>
                 <tbody>
                   <tr class="cursor-pointer"
-                    @click="openModal(false, coupon)"
+                    @click.prevent="openModal(false, coupon)"
                     v-for="coupon in coupons" :key="coupon.id">
                     <td>{{ coupon.title }}</td>
                     <td>{{ coupon.code }}</td>

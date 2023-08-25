@@ -5,12 +5,11 @@
 
   <div class="articles-box">
     <template v-if="isLoadingForStore">
-      <a href="" class="skeleton-item"
-      v-for="(item, index) in skeletonNum" :key="index">
+      <a href="#" class="skeleton-item"
+      v-for="(item, key) in skeletonNum" :key="key">
         <div class="img-box load"></div>
         <div class="text">
           <h2 class="load"></h2>
-          <p class="load"></p>
         </div>
       </a>
     </template>
@@ -19,7 +18,7 @@
       @click.prevent="getArticle(item.id)">
       <div class="img-box"
         v-if="item.image">
-        <img :src="item.image" alt="">
+        <img :src="item.image" :alt="item.title">
       </div>
       <div class="img-box" v-else>
         <div class="no-image">
@@ -28,7 +27,6 @@
       </div>
       <div class="text">
         <h2 class="text-deep">{{ item.title }}</h2>
-        <p>Tag： {{ item.tag }}</p>
       </div>
     </a>
   </div>

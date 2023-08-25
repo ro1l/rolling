@@ -53,7 +53,7 @@
           <router-link :to="{ name: '購物車' }" class="border-btn text-deep">
             上一步
           </router-link>
-          <button class="fill-btn">結帳去</button>
+          <button type="button" class="fill-btn">結帳去</button>
         </div>
       </Form>
     </div>
@@ -64,7 +64,7 @@
         <div class="product-item"
           v-for="item in cartProducts.carts" :key="item.id">
           <div class="img-box">
-            <img :src="item.product.imageUrl" alt="">
+            <img :src="item.product.imageUrl" :alt="item.product.title">
           </div>
           <div class="content">
             <p>{{ item.product.category }}</p>

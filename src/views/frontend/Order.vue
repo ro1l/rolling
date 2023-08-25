@@ -70,11 +70,11 @@
         </table>
         <div class="button-box"
           v-if="order.is_paid === false">
-          <button class="pay fill-btn">確認付款</button>
+          <button type="button" class="pay fill-btn">確認付款</button>
         </div>
         <div class="button-box"
           v-else>
-          <button class="home">
+          <button type="button" class="home">
             <router-link :to="{ name: 'home' }" class="border-btn" >
               回首頁
             </router-link>

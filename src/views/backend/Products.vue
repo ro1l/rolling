@@ -7,7 +7,8 @@
           <h1 class="page-title">Products</h1>
           <button class="btn btn-outline-dark border-1 rounded-0
             me-lg-3 mb-0 px-lg-5 py-lg-2"
-            @click="openModal(true)">
+            type="button"
+            @click.prevent="openModal(true)">
             <i class="bi bi-plus-lg"></i>
             新增商品
           </button>
@@ -45,7 +46,7 @@
                     <td class="">{{ item.title }}</td>
                     <td>NT${{ $filters.currency(item.price) }}</td>
                     <td class="text-center">
-                      <img class="img-30" :src="item.imageUrl" alt="">
+                      <img class="img-30" :src="item.imageUrl" :alt="item.title">
                     </td>
                     <td class="text-center">
                       <span v-if="item.is_enabled === 1">

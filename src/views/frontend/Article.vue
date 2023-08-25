@@ -10,16 +10,16 @@
       </p>
       <p class="text-shallow article-description">“{{ article.description }}”</p>
       <div class="img-box">
-        <img :src="article.image" alt="">
+        <img :src="article.image" :alt="article.title">
       </div>
       <article class="article-content"
         v-html="article.content">
       </article>
       <div class="share">
         <p>分享於</p>
-        <a href="">FB</a>
-        <a href="">IG</a>
-        <a href="">twitter</a>
+        <a href="https://www.facebook.com/">FB</a>
+        <a href="https://www.instagram.com/">IG</a>
+        <a href="https://twitter.com/home">X</a>
       </div>
     </div>
 

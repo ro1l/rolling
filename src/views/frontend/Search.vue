@@ -4,7 +4,8 @@
     <!-- title -->
     <div class="title">
       <h1>搜尋</h1>
-      <button @click="goBack">
+      <button @click.prevent="goBack"
+        type="button">
         <i class="bi bi-x text-deep">
         </i>
       </button>
@@ -18,7 +19,8 @@
           v-model="cacheProductsSearch">
         <button class="text-deep"
           v-if="!cacheProductsSearch.length < 1"
-          @click="delCacheProductSearch">
+          @click.prevent="delCacheProductSearch"
+          type="button">
           移除
         </button>
       </div>
@@ -29,7 +31,7 @@
           <p>{{ item.title }}</p>
           <input type="radio"
             :checked="cacheProductArea.title === item.title"
-            @click="getProduct(item.id)">
+            @click.prevent="getProduct(item.id)">
         </label>
       </div>
       <p v-if="notFoundData">未找到符合的項目</p>

@@ -14,20 +14,20 @@
         <div class="cart-item"
           v-for="item in cartProducts.carts" :key="item.id">
           <div class="price-sm text-deep">
-            <a href="" class="text-deep"
+            <a href="#" class="text-deep"
               @click.prevent="delProduct(item.id)"
               :disabled="item.id === cartLoadingItem.loadingItem">
-              移除購物車
+              <ins>移除購物車</ins>
             </a>
           </div>
           <div class="img-box">
-            <img :src="item.product.imageUrl" alt="  ">
+            <img :src="item.product.imageUrl" :alt="item.product.title">
           </div>
           <div class="content text-deep">
             <p>{{ item.product.category }}</p>
             <p>{{ item.product.title }}</p>
             <div class="control">
-              <button
+              <button type="button"
                 @click.prevent="updateCart(item, item.qty - 1)"
                 :disabled="item.qty === 1 && item.id === cartLoadingItem.loadingItem">
                 <i class="bi bi-dash text-deep"></i>
@@ -36,7 +36,8 @@
                 v-model.number="item.qty"
                 @change="updateCart(item, item.qty)"
                 :disabled="item.id === cartLoadingItem.loadingItem">
-              <button @click.prevent="updateCart(item, item.qty + 1)">
+              <button type="button"
+                @click.prevent="updateCart(item, item.qty + 1)">
                 <i class="bi bi-plus text-deep"></i>
               </button>
             </div>
@@ -45,10 +46,10 @@
             </small>
           </div>
           <div class="price text-deep">
-            <a href="" class="text-deep"
+            <a href="#" class="text-deep"
               @click.prevent="delProduct(item.id)"
               :disabled="item.id === cartLoadingItem.loadingItem">
-              移除購物車
+              <ins>移除購物車</ins>
             </a>
             <p>
               <span v-if="!item.coupon">NT${{ $filters.currency(item.total) }}</span>

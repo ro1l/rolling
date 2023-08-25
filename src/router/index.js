@@ -10,7 +10,6 @@ const routes = [
         name: 'home',
         component: () => import('../views/frontend/Home.vue'),
         meta: {
-          // hideComponent: true,
           hideFooter: true,
         },
       },
@@ -69,11 +68,6 @@ const routes = [
           hideComponent: true,
         },
       },
-      {
-        path: '/:pathMath(.*)*',
-        name: '404',
-        component: () => import('../views/frontend/NotFound.vue'),
-      },
     ],
   },
   {
@@ -107,6 +101,11 @@ const routes = [
         component: () => import('../views/backend/Articles.vue'),
       },
     ],
+  },
+  {
+    path: '/:pathMath(.*)*',
+    name: '404',
+    component: () => import('../views/frontend/NotFound.vue'),
   },
 ];
 

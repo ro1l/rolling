@@ -88,10 +88,10 @@
           <button type="button" class="btn btn-outline-dark rounded-5
             me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
             v-if="isNew === false"
-            @click="$emit('del-coupon', tempCoupon)">刪除</button>
+            @click.prevent="$emit('del-coupon', tempCoupon)">刪除</button>
           <p></p>
           <button type="button" class="btn btn-dark rounded-5 me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
-            @click="$emit('update-coupon', tempCoupon)">確認</button>
+            @click.prevent="$emit('update-coupon', tempCoupon)">確認</button>
         </div>
       </div>
     </div>

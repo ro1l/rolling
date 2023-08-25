@@ -57,23 +57,21 @@
           <td>
             <div>
               <button class="text-deep"
-                @click.prevent="delProduct(item.id)">
+                @click.prevent="delProduct(item.id)"
+                type="button">
                 移除
               </button>
             </div>
           </td>
         </tr>
-        <a href=""
+        <a href="#"
           @click.prevent="getProduct(item.id)">
           <tr class="img-box table-bg">
             <td>
               <div class="img">
-                <img :src="item.imageUrl" alt="">
-                <p>
-                  <strong>{{ item.category }}</strong>
-                  <br>
-                  {{ item.title }}
-                </p>
+                <img :src="item.imageUrl" :alt="item.title">
+                <p><strong>{{ item.category }}</strong></p>
+                <p>{{ item.title }}</p>
               </div>
             </td>
           </tr>
@@ -149,12 +147,9 @@
           </div>
           <div class="item">
             <div class="example-box">
-              <img src="@/assets/media/methods-2.png" alt="">
-              <p>
-                <b>YAMAHA</b>
-                <br>
-                MT-07
-              </p>
+              <img src="@/assets/media/methods-2.png" :alt="車款比較示意圖">
+              <p><b>YAMAHA</b></p>
+              <p>MT-07</p>
             </div>
             <p>
               <strong>2. </strong>

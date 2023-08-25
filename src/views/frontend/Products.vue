@@ -36,7 +36,7 @@
     <div class="products-box"
       v-if="isLoadingForStore">
       <div class="products-item"
-        v-for="(item, index) in skeletonNum" :key="index">
+        v-for="(item, key) in skeletonNum" :key="key">
 
         <ProductsSkeleton :skeleton="item" />
 
@@ -81,62 +81,46 @@
     </div>
     </li>
   </div>
-  <li class="text-deep filter-title">篩選</li>
+    <li class="text-deep filter-title">篩選</li>
 
-  <!-- 排氣量 -->
-  <li>
-    <input type="checkbox" name="" id="cc" checked>
-    <label for="cc" class="text-shallow title">
-      <i class="bi bi-chevron-right"></i>
-      <h5>排氣量</h5>
-    </label>
-    <div class="collapsible-item">
-      <div class="box"
-        v-for="(item, key) in selectCc" :key="'item' + key">
-        <input class="text-deep" type="checkbox"
-          :id="'cc_' + item.min + '_' + item.max"
-          v-model="selectedCc"
+    <!-- 排氣量 -->
+    <li>
+      <input type="checkbox" name="" id="cc" checked>
+      <label for="cc" class="text-shallow title">
+        <i class="bi bi-chevron-right"></i>
+        <h5>排氣量</h5>
+      </label>
+      <div class="collapsible-item">
+        <div class="box"
+          v-for="(item, key) in selectCc" :key="'item' + key">
+          <input class="text-deep" type="checkbox"
+            :id="'cc_' + item.min + '_' + item.max"
+            v-model="selectedCc"
+            :value="item">
+          <label :for="'cc_' + item.min + '_' + item.max">
+            {{ formatRange(item) }}
+          </label>
+        </div>
+      </div>
+    </li>
+
+    <!-- 種類 -->
+    <li>
+      <input type="checkbox" name="" id="type" checked>
+      <label for="type" class="text-shallow title">
+        <i class="bi bi-chevron-right"></i>
+        <h5>種類</h5>
+      </label>
+      <div class="collapsible-item">
+        <div class="box" v-for="(item, key) in productsType" :key="'item' + key">
+          <input class="text-deep" type="checkbox"
+          :id="item"
+          v-model="selectedProductsType"
           :value="item">
-        <label :for="'cc_' + item.min + '_' + item.max">
-          {{ formatRange(item) }}
-        </label>
+          <label :for="item">{{ item }}</label>
+        </div>
       </div>
-    </div>
-  </li>
-
-  <!-- 種類 -->
-  <li>
-    <input type="checkbox" name="" id="type" checked>
-    <label for="type" class="text-shallow title">
-      <i class="bi bi-chevron-right"></i>
-      <h5>種類</h5>
-    </label>
-    <div class="collapsible-item">
-      <div class="box" v-for="(item, key) in productsType" :key="'item' + key">
-        <input class="text-deep" type="checkbox"
-        :id="item"
-        v-model="selectedProductsType"
-        :value="item">
-        <label :for="item">{{ item }}</label>
-      </div>
-    </div>
-  </li>
-
-  <!-- 車牌 -->
-  <!-- <li>
-        <input type="checkbox" name="" id="licensePlateColor" checked>
-        <label for="licensePlateColor" class="text-shallow">
-          <i class="bi bi-chevron-right"></i>
-          <h5>車牌</h5>
-        </label>
-        <div class="collapsible-item">
-          <div class="box" v-for="(item, key) in selectLicensePlateColor" :key="'item' + key">
-            <input class="text-shallow" type="checkbox"
-            :id="item" v-model="selectedLicensePlateColor" :value="item">
-            <label :for="item">{{ item }}</label>
-          </div>
-      </div>
-      </li> -->
+    </li>
   </div>
   </div>
 
@@ -186,11 +170,6 @@ export default {
       selectedProductsType: [],
       isFilterOpen: false,
       skeletonNum: 9,
-      // selectLicensePlateColor: [
-      //   '黃牌', '紅牌',
-      // ],
-      // selectedLicensePlateColor: [],
-      // productsType: [],
     };
   },
 
@@ -215,20 +194,6 @@ export default {
           (item) => item.content.comparison.type?.match(this.selectedProductsType),
         );
       }
-
-      // 黃牌紅牌篩選
-      // if (this.selectedLicensePlateColor.length > 0) {
-      //   categoryProduct = categoryProduct.filter((item) => {
-      //     const productCc = parseInt(item.content.comparison.cc, 10);
-      //     if (this.selectedLicensePlateColor.includes('黃牌')) {
-      //       return productCc >= 250 && productCc <= 550;
-      //     }
-      //     if (this.selectedLicensePlateColor.includes('紅牌')) {
-      //       return productCc >= 550 && productCc <= 10000;
-      //     }
-      //     return false;
-      //   });
-      // }
 
       return categoryProduct;
     },

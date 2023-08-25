@@ -1,5 +1,6 @@
 <template>
   <div class="scroll-container" id="scroll-container">
+
     <!-- banner -->
     <div class="scroll-area special-div" id="banner">
       <div class="home-banner">

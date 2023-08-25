@@ -2,7 +2,7 @@
   <div class="reversed-articles-box"
     v-for="article in reversedArticles" :key="article.id">
     <a href="#"
-      @click="getArticle(article.id)">
+      @click.prevent="getArticle(article.id)">
       {{ article.title }}
       <i class="bi bi-arrow-right"></i>
     </a>

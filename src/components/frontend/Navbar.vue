@@ -21,8 +21,8 @@
           </router-link>
         </li>
         <li>
-          <a id="show-modal"
-            @click="showTaxModal = true">
+          <a href="#" id="show-modal"
+            @click.prevent="showTaxModal = true">
             稅金試算
           </a>
           <teleport to='body'>
@@ -51,7 +51,7 @@
         </li>
         <li>
           <div class="mode-toggle"
-            @click="modeToggle"
+            @click.prevent="modeToggle"
             :class="{ 'darkDark': true }">
             <div class="toggle">
               <div class="dark-mode" type="checkbox"></div>
@@ -72,7 +72,8 @@
 
   <!-- RWD導覽列按鈕 -->
   <button class="nav-button bg-dark-color text-white"
-    @click="toggleOffcanvas"
+    type="button"
+    @click.prevent="toggleOffcanvas"
     v-if="showNav">
     <i class="bi bi-list" v-if="isMenuOpen === false"></i>
     <i class="bi bi-x-lg" v-if="isMenuOpen === true"></i>
@@ -87,7 +88,9 @@
   <!-- RWD導覽列以及篩選按鈕 -->
   <div class="button-ground bg-dark-color text-white"
     v-if="productsNavbar">
-    <button @click="toggleFilter">
+    <button @click.prevent="toggleFilter"
+      type="button"
+      >
       <span class="text-white" v-if="isFilterOpen === false">
         篩選
       </span>
@@ -95,7 +98,8 @@
         關 閉
       </span>
     </button>
-    <button class="text-white" @click="toggleOffcanvas">
+    <button class="text-white" @click.prevent="toggleOffcanvas"
+      type="button">
       <i class="bi bi-list" v-if="isMenuOpen === false"></i>
       <i class="bi bi-x-lg" v-if="isMenuOpen === true"></i>
       <span class="text-white" v-if="isMenuOpen === false">
@@ -113,7 +117,7 @@
       <ul>
         <li>
           <div class="mode-toggle"
-            @click="modeToggle"
+            @click.prevent="modeToggle"
             :class="{ 'darkDark': true }">
             <div class="toggle">
               <div class="dark-mode" type="checkbox"></div>
@@ -136,7 +140,7 @@
           </router-link>
         </li>
         <li>
-          <a id="show-modal" @click="showTaxModal = true">
+          <a href="#" id="show-modal" @click.prevent="showTaxModal = true">
             稅金試算
           </a>
           <teleport to='body'>

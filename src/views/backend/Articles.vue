@@ -7,7 +7,8 @@
           <h1 class="page-title">Articles</h1>
           <button class="btn btn-outline-dark border-1 rounded-0
             me-lg-3 mb-0 px-lg-5 py-lg-2"
-            @click="openModal(true)">
+            type="button"
+            @click.prevent="openModal(true)">
             <i class="bi bi-plus-lg"></i>
             新增文章
           </button>
@@ -35,7 +36,7 @@
                 </thead>
                 <tbody>
                   <tr class="cursor-pointer"
-                    @click="openModal(false, article)"
+                    @click.prevent="openModal(false, article)"
                     v-for="article in articles"
                     :key=article.id>
                     <td>{{ article.title }}</td>

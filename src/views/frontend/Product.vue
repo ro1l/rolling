@@ -46,6 +46,7 @@
         <Swiper :mergedImagesUrl="mergedImagesUrl" />
 
         <button class="add-comparison text-deep"
+          type="button"
           @click.prevent="addComparison">
           加入比較
         </button>
@@ -122,10 +123,10 @@
       <!-- img -->
       <div class="img-box">
         <div class="img-item">
-          <img :src="product.imageUrl" alt="">
+          <img :src="product.imageUrl" :alt="product.title">
           <div class="attached"
             v-for="(attached, key) in product.imagesUrl" :key="key + 1">
-            <img :src="attached" alt="">
+            <img :src="attached" :alt="product.title">
           </div>
         </div>
       </div>
@@ -150,7 +151,7 @@
               <th class="text-deep">售價</th>
             </tr>
             <tr>
-              <td>NT$ {{ $filters.currency(product.price) }} <br>
+              <td>NT$ {{ $filters.currency(product.price) }}
               </td>
             </tr>
             <tr>
@@ -168,6 +169,7 @@
               <td class="display-td">
                 <button class="add-cart fill-btn"
                   @click.prevent="addCart(product.id)"
+                  type="button"
                   :disabled="cartLoadingItem === product.id">
                   <span class="fill-btn-text"
                     v-if="cartLoadingItem !== product.id">
@@ -183,7 +185,8 @@
             <tr>
               <td class="display-td">
                 <button class="add-comparison text-deep"
-                  @click.prevent="addComparison">
+                  @click.prevent="addComparison"
+                  type="button">
                   加入比較
                 </button>
               </td>
@@ -209,7 +212,7 @@
 
     <div class="buy-control bg-color text-deep">
       <button class="pre-page text-deep"
-        @click="goBack">
+        @click.prevent="goBack">
         上一頁
       </button>
       <button class="add-cart fill-btn"

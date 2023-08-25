@@ -23,7 +23,7 @@
                     <h6 class="mb-0 fs-5 font-family-taipei">文章內容編輯
                       <small class="text-danger font-family-taipei text-xxs">(必填)</small>
                     </h6>
-                    <a href="" class="pe-2"
+                    <a href="#" class="pe-2"
                       @click.prevent="getArticle(article.id)">
                       <ins>前往觀看文章</ins>
                     </a>
@@ -71,7 +71,7 @@
                         d-flex justify-content-center align-items-center
                         position-relative"
                         v-if="tempArticle.image !== undefined">
-                        <img class="w-100" :src="tempArticle.image" alt="">
+                        <img class="w-100" :src="tempArticle.image" :alt="tempArticle.title">
                         <div class="position-absolute bg-opacity-50 bg-black p-2
                         w-100 bottom-0 start-0 text-center text-white">編輯</div>
                       </div>
@@ -166,11 +166,11 @@
           p-lg-5 border-top border-black p-3 bg-sm-color">
           <button type="button" class="btn btn-outline-dark rounded-5
             me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2" v-if="isNew === false"
-            @click="$emit('del-article', tempArticle)">刪除</button>
+            @click.prevent="$emit('del-article', tempArticle)">刪除</button>
           <p></p>
           <button type="button" class="btn btn-dark rounded-5
           me-3 mb-0 px-lg-5 py-lg-3 px-4 py-2"
-          @click="$emit('update-article', tempArticle)">確認</button>
+          @click.prevent="$emit('update-article', tempArticle)">確認</button>
         </div>
       </div>
     </div>

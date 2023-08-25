@@ -13,7 +13,7 @@
         </div>
         <div class="modal-footer border-0 d-flex justify-content-end p-2">
           <button type="button" class="btn btn-danger rounded-5 me-3 mb-0 px-5 py-3"
-          @click="$emit('del-item')">非常確定</button>
+          @click.prevent="$emit('del-item')">非常確定</button>
         </div>
       </div>
     </div>

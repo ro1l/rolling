@@ -7,7 +7,8 @@
         <div class="title">
           <h1>稅金試算</h1>
           <button class="modal-default-button"
-            @click="$emit('close')">
+            @click.prevent="$emit('close')"
+            type="button">
             <i class="bi bi-x text-deep"></i>
           </button>
         </div>
@@ -19,8 +20,9 @@
               type="text" id="search" placeholder="請輸入車款"
               v-model="cacheSearch">
             <button class="text-deep"
+              type="button"
               v-if="!cacheSearch.length < 1"
-              @click="delCacheSearch">
+              @click.prevent="delCacheSearch">
               移除
             </button>
           </div>
@@ -29,7 +31,7 @@
               <p>{{ item.title }}</p>
               <input type="radio"
                 :checked="cacheArea.title === item.title"
-                @click="removeFilterSearch(item)">
+                @click.prevent="removeFilterSearch(item)">
             </label>
           </div>
           <p v-if="notFoundData">未找到符合的項目</p>
@@ -37,10 +39,10 @@
 
         <!-- product -->
         <div class="product item-underline" v-if="cacheArea">
-          <a href="" @click.prevent="getProduct(cacheArea.id)"
+          <a href="#" @click.prevent="getProduct(cacheArea.id)"
             @click="$emit('close')">
             <div class="img-box">
-              <img :src="cacheArea.imageUrl" alt="">
+              <img :src="cacheArea.imageUrl" :alt="cacheArea.title">
             </div>
             <h2 class="text-deep">{{ cacheArea.category }}</h2>
             <p>{{ cacheArea.title }}</p>
