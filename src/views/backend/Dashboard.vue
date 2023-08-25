@@ -32,12 +32,6 @@ export default {
     NavbarLg,
   },
 
-  data() {
-    return {
-      isMenuOpen: false,
-    };
-  },
-
   methods: {
     async LogOut() {
       try {
@@ -54,23 +48,6 @@ export default {
         this.isLoading = false;
       }
       this.isLoading = false;
-    },
-
-    toggleOffcanvas() {
-      this.isMenuOpen = !this.isMenuOpen;
-      this.isOffcanvasOpen = !this.isOffcanvasOpen;
-      if (this.isOffcanvasOpen) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = 'auto';
-      }
-    },
-  },
-
-  watch: {
-    $route() {
-      this.isMenuOpen = false;
-      document.body.style.overflow = 'auto';
     },
   },
 
@@ -94,6 +71,7 @@ export default {
   provide() {
     return {
       emitter,
+
       pushMessageState,
     };
   },

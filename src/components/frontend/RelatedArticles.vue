@@ -1,6 +1,6 @@
 <template>
-  <div class="reversed-articles-box"
-    v-for="article in reversedArticles" :key="article.id">
+  <div class="related-articles-box"
+    v-for="article in relatedArticles" :key="article.id">
     <a href="#"
       @click.prevent="getArticle(article.id)">
       {{ article.title }}
@@ -19,7 +19,7 @@ export default {
     ...mapState(articleStore, ['articles', 'pagination']),
     ...mapState(statusStore, ['isLoadingForStore']),
 
-    reversedArticles() {
+    relatedArticles() {
       return this.articles.slice(0, 5);
     },
   },

@@ -1,9 +1,9 @@
 <template>
-  <div class="scroll-container" id="scroll-container">
+  <div class="scroll-container">
 
     <!-- banner -->
-    <div class="scroll-area special-div" id="banner">
-      <div class="home-banner">
+    <div class="scroll-area">
+      <div class="banner">
         <video class="black-video"
           autoplay loop muted playsinline>
           <source src="@/assets/media/moto.mp4" type="video/mp4">
@@ -21,8 +21,8 @@
     </div>
 
     <!-- activity -->
-    <div class="scroll-area" id="activity">
-      <div class="home-activity">
+    <div class="scroll-area">
+      <div class="activity">
         <div class="text">
           <h3>2023 全球 H.O.G. 大會師</h3>
           <p>H.O.G. 活動是關於騎到目的地、騎回家，以及路途中的所有事物。</p>

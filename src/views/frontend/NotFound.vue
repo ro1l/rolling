@@ -1,6 +1,6 @@
 <template>
   <div class="not-found-box">
-    <div class="not-found">
+    <div class="not-found-item">
       <h1 class="text-deep">404</h1>
       <p>
         很抱歉，此頁面已消失，將在

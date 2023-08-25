@@ -13,7 +13,7 @@
       flex-wrap: wrap;
       margin: 0 2rem;
 
-      .total {
+      .total-box {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -203,7 +203,7 @@
           }
         }
 
-        .total {
+        .total-box {
           margin-top: 1rem;
 
           span {

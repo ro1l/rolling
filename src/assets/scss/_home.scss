@@ -9,114 +9,155 @@
     scroll-snap-align: start;
     height: 100vh;
   }
-}
-// banner
-.home-banner {
-  padding: 0;
-  margin: 0 auto;
-  position: relative;
-  height: 100vh;
 
-  .black-video {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
-    filter: brightness(0.7);
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .box {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    padding-bottom: 30px;
-    background: -webkit-linear-gradient(
-      -180deg,
-      rgba(255, 255, 255, 0),
-      rgb(0, 0, 0)
-    );
-    background: linear-gradient(-180deg, rgba(255, 255, 255, 0), rgb(0, 0, 0));
-
-    a {
-      font-size: 3rem;
-      color: $light;
-      font-weight: 500;
+  .banner {
+    padding: 0;
+    margin: 0 auto;
+    position: relative;
+    height: 100vh;
+  
+    .black-video {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+      filter: brightness(0.7);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-
-    .scroll-icon {
-      margin: 90px auto 0;
-      position: relative;
-      width: 1.7rem;
-      height: 2.6rem;
-      border: 0.1rem solid $light;
-      border-radius: 2rem;
-
-      .wheel {
-        position: absolute;
-        left: 50%;
-        top: 18%;
-        width: 0.5rem;
-        height: 0.5rem;
-        background: $light;
-        transform: translate(-50%, 0);
-        border-radius: 50%;
-        animation: wheel 1.3s ease-in-out infinite;
+  
+    .box {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding-bottom: 30px;
+      background: -webkit-linear-gradient(
+        -180deg,
+        rgba(255, 255, 255, 0),
+        rgb(0, 0, 0)
+      );
+      background: linear-gradient(-180deg, rgba(255, 255, 255, 0), rgb(0, 0, 0));
+  
+      a {
+        font-size: 3rem;
+        color: $light;
+        font-weight: 500;
+      }
+  
+      .scroll-icon {
+        margin: 90px auto 0;
+        position: relative;
+        width: 1.7rem;
+        height: 2.6rem;
+        border: 0.1rem solid $light;
+        border-radius: 2rem;
+  
+        .wheel {
+          position: absolute;
+          left: 50%;
+          top: 18%;
+          width: 0.5rem;
+          height: 0.5rem;
+          background: $light;
+          transform: translate(-50%, 0);
+          border-radius: 50%;
+          animation: wheel 1.3s ease-in-out infinite;
+        }
+      }
+    }
+  }
+  
+  .activity {
+    position: relative;
+    height: 100vh;
+  
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url(@/assets/media/activity.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      filter: brightness(0.4);
+      z-index: -100;
+    }
+  
+    .text {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      text-align: center;
+      align-content: end;
+      z-index: 1;
+      color: $light;
+      padding-bottom: 50px;
+  
+      h3 {
+        width: 100%;
+        font-size: 2rem;
+      }
+  
+      p {
+        width: 100%;
+        line-height: 3rem;
+      }
+  
+      a {
+        font-size: 1rem;
+        text-decoration: underline;
+        width: 100%;
+        display: inline-block;
+        color: $light;
       }
     }
   }
 }
 
-// activity
-.home-activity {
-  position: relative;
-  height: 100vh;
+@media (max-width: 768px) {
+  .scroll-container {
+    height: -webkit-fill-available;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(@/assets/media/activity.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    filter: brightness(0.4);
-    z-index: -100;
-  }
-
-  .text {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    align-content: end;
-    z-index: 1;
-    color: $light;
-    padding-bottom: 50px;
-
-    h3 {
-      width: 100%;
-      font-size: 2rem;
+    .scroll-area {
+      height: -webkit-fill-available;
+    }
+    .banner {
+      height: -webkit-fill-available;
+  
+      .box {
+        padding-bottom: 8rem;
+  
+        .scroll-icon {
+          margin: 60px auto 0;
+        }
+      }
     }
 
-    p {
-      width: 100%;
-      line-height: 3rem;
-    }
-
-    a {
-      font-size: 1rem;
-      text-decoration: underline;
-      width: 100%;
-      display: inline-block;
-      color: $light;
+    .activity {
+      height: -webkit-fill-available;
+  
+      .text {
+        padding: 2rem 2rem 7rem;
+  
+        h3 {
+          font-size: 1.8rem;
+        }
+  
+        p {
+          line-height: 1.8rem;
+          margin-top: 1rem;
+        }
+  
+        a {
+          margin-top: 1rem;
+        }
+      }
     }
   }
 }
@@ -136,47 +177,5 @@
   100% {
     transform: translate(-50%, 150%);
     opacity: 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .scroll-container {
-    height: -webkit-fill-available;
-
-    .scroll-area {
-      height: -webkit-fill-available;
-    }
-  }
-
-  .home-banner {
-    height: -webkit-fill-available;
-
-    .box {
-      padding-bottom: 8rem;
-
-      .scroll-icon {
-        margin: 60px auto 0;
-      }
-    }
-  }
-  .home-activity {
-    height: -webkit-fill-available;
-
-    .text {
-      padding: 2rem 2rem 7rem;
-
-      h3 {
-        font-size: 1.8rem;
-      }
-
-      p {
-        line-height: 1.8rem;
-        margin-top: 1rem;
-      }
-
-      a {
-        margin-top: 1rem;
-      }
-    }
   }
 }

@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
 
-  .not-found {
+  .not-found-item {
     border: 1px solid;
     padding: 4rem 8rem;
     display: flex;
@@ -31,7 +31,7 @@
   .not-found-box {
     height: auto;
 
-    .not-found {
+    .not-found-item {
       width: 90%;
       padding: 2rem 0rem;
       margin: 5rem auto 0;

@@ -41,7 +41,7 @@
     <!-- product -->
     <div class="product">
       <h1 class="text-deep">{{ product.title }}</h1>
-      <div class="img-boz-sm">
+      <div class="img-box-sm">
 
         <Swiper :mergedImagesUrl="mergedImagesUrl" />
 
@@ -120,13 +120,14 @@
           </table>
         </div>
       </div>
+
       <!-- img -->
       <div class="img-box">
         <div class="img-item">
           <img :src="product.imageUrl" :alt="product.title">
-          <div class="attached"
-            v-for="(attached, key) in product.imagesUrl" :key="key + 1">
-            <img :src="attached" :alt="product.title">
+          <div class="imgs-item"
+            v-for="(item, key) in product.imagesUrl" :key="key + 1">
+            <img :src="item" :alt="product.title">
           </div>
         </div>
       </div>
@@ -166,7 +167,7 @@
               </td>
             </tr>
             <tr>
-              <td class="display-td">
+              <td class="display-sm-td">
                 <button class="add-cart fill-btn"
                   @click.prevent="addCart(product.id)"
                   type="button"
@@ -183,7 +184,7 @@
               </td>
             </tr>
             <tr>
-              <td class="display-td">
+              <td class="display-sm-td">
                 <button class="add-comparison text-deep"
                   @click.prevent="addComparison"
                   type="button">
@@ -198,19 +199,15 @@
 
     <div class="related-articles">
       <p>最新文章</p>
-
       <RelatedArticles />
-
     </div>
 
     <div class="media-scroll">
       <p>你可能會喜歡</p>
-
       <MediaScroll :products="products" />
-
     </div>
 
-    <div class="buy-control bg-color text-deep">
+    <div class="buy-sm-control bg-color text-deep">
       <button class="pre-page text-deep"
         @click.prevent="goBack">
         上一頁

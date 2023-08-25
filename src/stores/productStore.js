@@ -20,8 +20,8 @@ export default defineStore('productStore', {
     cc: 0,
 
     // comp
-    lgCompProd: [],
-    smCompProd: [],
+    lgProducts: [],
+    smProducts: [],
 
   }),
 
@@ -113,11 +113,11 @@ export default defineStore('productStore', {
     },
 
     setLgCompProd(product) {
-      this.updateProductArray(this.lgCompProd, product, 4);
+      this.updateProductArray(this.lgProducts, product, 4);
     },
 
     setSmCompProd(product) {
-      this.updateProductArray(this.smCompProd, product, 2);
+      this.updateProductArray(this.smProducts, product, 2);
     },
 
     updateProductArray(array, product, limit) {

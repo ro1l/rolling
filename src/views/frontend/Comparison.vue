@@ -124,7 +124,7 @@
       <!-- add-data -->
       <div class="add-data"
         v-if="(isSmallSize === true
-        ? smCompProd.length < 2 : lgCompProd.length < 4)">
+        ? smProducts.length < 2 : lgProducts.length < 4)">
         <router-link :to="{ name: '所有產品' }" class="text-deep" >
           + 加入車款
         </router-link>
@@ -193,10 +193,10 @@ export default {
   },
 
   computed: {
-    ...mapState(productStore, ['lgCompProd', 'smCompProd']),
+    ...mapState(productStore, ['lgProducts', 'smProducts']),
 
     displayedArray() {
-      return this.isSmallSize ? this.smCompProd : this.lgCompProd;
+      return this.isSmallSize ? this.smProducts : this.lgProducts;
     },
   },
 
@@ -204,14 +204,14 @@ export default {
     ...mapActions(productStore, ['licenseTax', 'fuelTax']),
 
     delProduct(id) {
-      const lgIndex = this.lgCompProd.findIndex((item) => item.id === id);
-      const smIndex = this.smCompProd.findIndex((item) => item.id === id);
+      const lgIndex = this.lgProducts.findIndex((item) => item.id === id);
+      const smIndex = this.smProducts.findIndex((item) => item.id === id);
 
       if (lgIndex !== -1) {
-        this.lgCompProd.splice(lgIndex, 1);
+        this.lgProducts.splice(lgIndex, 1);
       }
       if (smIndex !== -1) {
-        this.smCompProd.splice(smIndex, 1);
+        this.smProducts.splice(smIndex, 1);
       }
     },
 

@@ -60,7 +60,7 @@
             </p>
           </div>
         </div>
-        <div class="total">
+        <div class="total-box">
           <p>
             總金額
             <span>NT${{ $filters.currency(cartProducts.total) }}</span>

@@ -63,11 +63,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      isMenuOpen: false,
-    };
-  },
 
   methods: {
     LogOut() {
@@ -81,24 +76,6 @@ export default {
           }
         });
     },
-
-    toggleOffcanvas() {
-      this.isMenuOpen = !this.isMenuOpen;
-      this.isOffcanvasOpen = !this.isOffcanvasOpen;
-      if (this.isOffcanvasOpen) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = 'auto';
-      }
-    },
   },
-
-  watch: {
-    $route() {
-      this.isMenuOpen = false;
-      document.body.style.overflow = 'auto';
-    },
-  },
-
 };
 </script>

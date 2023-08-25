@@ -50,8 +50,7 @@
         </li>
         <li>
           <div class="mode-toggle"
-            @click.prevent="modeToggle"
-            :class="{ 'darkDark': true }">
+            @click.prevent="modeToggle">
             <div class="toggle">
               <div class="dark-mode" type="checkbox"></div>
             </div>
@@ -72,7 +71,7 @@
   <!-- RWD導覽列按鈕 -->
   <button class="nav-button bg-dark-color text-white"
     type="button"
-    @click.prevent="toggleOffcanvas"
+    @click.prevent="toggleMenu"
     v-if="showNav">
     <i class="bi bi-list" v-if="isMenuOpen === false"></i>
     <i class="bi bi-x-lg" v-if="isMenuOpen === true"></i>
@@ -97,7 +96,7 @@
         關 閉
       </span>
     </button>
-    <button class="text-white" @click.prevent="toggleOffcanvas"
+    <button class="text-white" @click.prevent="toggleMenu"
       type="button">
       <i class="bi bi-list" v-if="isMenuOpen === false"></i>
       <i class="bi bi-x-lg" v-if="isMenuOpen === true"></i>
@@ -116,8 +115,7 @@
       <ul>
         <li>
           <div class="mode-toggle"
-            @click.prevent="modeToggle"
-            :class="{ 'darkDark': true }">
+            @click.prevent="modeToggle">
             <div class="toggle">
               <div class="dark-mode" type="checkbox"></div>
             </div>
@@ -187,10 +185,6 @@ export default {
   computed: {
     ...mapState(cartStore, ['cartProductsData']),
 
-    darkDark() {
-      return this.darkMode && 'darkmode-toggled';
-    },
-
     cartsNum() {
       let cartNum = 0;
       this.cartProductsData.forEach((e) => {
@@ -223,7 +217,7 @@ export default {
       }
     },
 
-    toggleOffcanvas() {
+    toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
       if (this.isMenuOpen) {
         document.body.style.overflow = 'hidden';
@@ -297,6 +291,7 @@ export default {
     emitter.on('updateCart', () => {
       this.getCartProducts();
     });
+
     emitter.on('sendCategory', (data) => {
       this.productsCategory = data;
     });

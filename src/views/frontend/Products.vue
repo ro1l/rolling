@@ -26,102 +26,104 @@
       </li>
     </div>
     </li>
-  </div>
-
-  <!-- products -->
-  <div class="products">
-    <Breadcrumb :title="title"
-      :content="`${filteredProductsLength}項商品`"
-      v-if="!isLoadingForStore" />
-    <div class="products-box"
-      v-if="isLoadingForStore">
-      <div class="products-item"
-        v-for="(item, key) in skeletonNum" :key="key">
-
-        <ProductsSkeleton :skeleton="item" />
-
-      </div>
     </div>
-    <div class="products-box" id="infinite-list"
-      v-if="productByCategory.length > 0">
-      <div class="products-item"
-        v-for="item in productByCategory" :key="item.id">
 
-        <ProductsCard :product="item"
-          @click.prevent="getProduct(item.id)" />
+    <!-- products -->
+    <div class="products">
 
+      <Breadcrumb :title="title"
+        :content="`${filteredProductsLength}項商品`"
+        v-if="!isLoadingForStore" />
+
+      <div class="products-box"
+        v-if="isLoadingForStore">
+        <div class="products-item"
+          v-for="(item, key) in skeletonNum" :key="key">
+
+          <ProductsSkeleton :skeleton="item" />
+
+        </div>
       </div>
+      <div class="products-box" id="infinite-list"
+        v-if="productByCategory.length > 0">
+        <div class="products-item"
+          v-for="item in productByCategory" :key="item.id">
+
+          <ProductsCard :product="item"
+            @click.prevent="getProduct(item.id)" />
+
+        </div>
+      </div>
+      <h4 v-else>暫無商品</h4>
     </div>
-    <h4 v-else>暫無商品</h4>
-  </div>
 
   <!-- filter -->
-  <div class="filter sidebar bg-color"
-    v-if="isFilterOpen">
-    <h4 class="text-deep">篩選</h4>
-    <div class="category">
-      <li>
-        <router-link :to="{ name: '所有產品' }"  class="text-deep">
-          所有商品
-        </router-link>
-      </li>
-      <li>
-        <input type="checkbox" name="" id="collapsible-title2" checked>
-        <label for="collapsible-title2" class="text-shallow title">
-          <i class="bi bi-chevron-right"></i>
-          <h5>車款廠牌</h5>
-        </label>
-        <div class="collapsible-item">
-      <li v-for="(item, key) in productsCategory" :key="key">
-        <a class="text-deep" href="#"
-          @click.prevent="changeCategory(item)">
-          {{ item }}
-        </a>
+    <div class="filter sidebar bg-color"
+      v-if="isFilterOpen">
+      <h4 class="text-deep">篩選</h4>
+      <div class="category">
+        <li>
+          <router-link :to="{ name: '所有產品' }"  class="text-deep">
+            所有商品
+          </router-link>
+        </li>
+        <li>
+          <input type="checkbox" name="" id="collapsible-sm-title" checked>
+          <label for="collapsible-sm-title" class="text-shallow title">
+            <i class="bi bi-chevron-right"></i>
+            <h5>車款廠牌</h5>
+          </label>
+          <div class="collapsible-item">
+        <li v-for="(item, key) in productsCategory" :key="key">
+          <a class="text-deep" href="#"
+            @click.prevent="changeCategory(item)">
+            {{ item }}
+          </a>
+        </li>
+      </div>
       </li>
     </div>
-    </li>
-  </div>
-    <li class="text-deep filter-title">篩選</li>
+      <li class="text-deep filter-title">篩選</li>
 
-    <!-- 排氣量 -->
-    <li>
-      <input type="checkbox" name="" id="cc" checked>
-      <label for="cc" class="text-shallow title">
-        <i class="bi bi-chevron-right"></i>
-        <h5>排氣量</h5>
-      </label>
-      <div class="collapsible-item">
-        <div class="box"
-          v-for="(item, key) in selectCc" :key="'item' + key">
-          <input class="text-deep" type="checkbox"
-            :id="'cc_' + item.min + '_' + item.max"
-            v-model="selectedCc"
+      <!-- 排氣量 -->
+      <li>
+        <input type="checkbox" name="" id="cc" checked>
+        <label for="cc" class="text-shallow title">
+          <i class="bi bi-chevron-right"></i>
+          <h5>排氣量</h5>
+        </label>
+        <div class="collapsible-item">
+          <div class="box"
+            v-for="(item, key) in selectCc" :key="'item' + key">
+            <input class="text-deep" type="checkbox"
+              :id="'cc_' + item.min + '_' + item.max"
+              v-model="selectedCc"
+              :value="item">
+            <label :for="'cc_' + item.min + '_' + item.max">
+              {{ formatRange(item) }}
+            </label>
+          </div>
+        </div>
+      </li>
+
+      <!-- 種類 -->
+      <li>
+        <input type="checkbox" name="" id="type" checked>
+        <label for="type" class="text-shallow title">
+          <i class="bi bi-chevron-right"></i>
+          <h5>種類</h5>
+        </label>
+        <div class="collapsible-item">
+          <div class="box" v-for="(item, key) in productsType" :key="'item' + key">
+            <input class="text-deep" type="checkbox"
+            :id="item"
+            v-model="selectedProductsType"
             :value="item">
-          <label :for="'cc_' + item.min + '_' + item.max">
-            {{ formatRange(item) }}
-          </label>
+            <label :for="item">{{ item }}</label>
+          </div>
         </div>
-      </div>
-    </li>
-
-    <!-- 種類 -->
-    <li>
-      <input type="checkbox" name="" id="type" checked>
-      <label for="type" class="text-shallow title">
-        <i class="bi bi-chevron-right"></i>
-        <h5>種類</h5>
-      </label>
-      <div class="collapsible-item">
-        <div class="box" v-for="(item, key) in productsType" :key="'item' + key">
-          <input class="text-deep" type="checkbox"
-          :id="item"
-          v-model="selectedProductsType"
-          :value="item">
-          <label :for="item">{{ item }}</label>
-        </div>
-      </div>
-    </li>
-  </div>
+      </li>
+    </div>
   </div>
 
   <Pagination :pages="pagination"
@@ -176,6 +178,7 @@ export default {
 
   computed: {
     ...mapState(productStore, ['products', 'productsCategory', 'productsType']),
+
     ...mapState(statusStore, ['isLoadingForStore']),
 
     categoryProduct() {

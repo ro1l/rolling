@@ -78,7 +78,7 @@
     display: flex;
     position: relative;
 
-    .img-boz-sm {
+    .img-box-sm {
       display: none;
     }
 
@@ -93,6 +93,7 @@
       width: calc(45% / 2);
       font-size: 0.9rem;
       display: flex;
+
       table {
         width: 100%;
         display: inline-block;
@@ -236,7 +237,7 @@
     padding-left: 5rem;
   }
 
-  .buy-control {
+  .buy-sm-control {
     display: none;
   }
 }
@@ -251,7 +252,7 @@
       flex-direction: column;
       padding: 0 2rem;
 
-      .img-boz-sm {
+      .img-box-sm {
         display: block;
 
         .add-comparison {
@@ -325,7 +326,7 @@
 
         table {
           td {
-            &.display-td {
+            &.display-sm-td {
               display: none;
             }
           }
@@ -341,7 +342,7 @@
       padding: 0 2rem;
     }
 
-    .buy-control {
+    .buy-sm-control {
       border-top: 1px solid;
       display: flex;
       position: fixed;

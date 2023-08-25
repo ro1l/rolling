@@ -76,7 +76,7 @@
           </div>
         </div>
       </div>
-      <div class="total">
+      <div class="total-box">
         <p>
           商品總計
           <span>NT${{ $filters.currency(cartProducts.final_total) }}</span>
@@ -120,7 +120,6 @@ export default {
           address: '',
         },
         message: '',
-        // isLoading: false,
       },
     };
   },

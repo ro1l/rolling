@@ -8,7 +8,7 @@
           type="button" data-bs-toggle="collapse"
           data-bs-target="#collapseExample" aria-expanded="false"
           aria-controls="collapseExample"
-          @click.prevent="toggleOffcanvas">
+          @click.prevent="toggleMenu">
           <i class="bi bi-list fs-2" v-if="isMenuOpen === false"></i>
           <i class="bi bi-x-lg fs-2" v-if="isMenuOpen === true"></i>
         </button>
@@ -84,14 +84,8 @@ export default {
         });
     },
 
-    toggleOffcanvas() {
+    toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
-      this.isOffcanvasOpen = !this.isOffcanvasOpen;
-      if (this.isOffcanvasOpen) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = 'auto';
-      }
     },
   },
 

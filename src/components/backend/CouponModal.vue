@@ -107,6 +107,7 @@ export default {
       type: Object,
       default() { return {}; },
     },
+
     isNew: {
       type: Boolean,
       required: true,
