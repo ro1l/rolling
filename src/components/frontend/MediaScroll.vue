@@ -1,7 +1,7 @@
 <template>
   <div class="media-scrolled">
     <div class="media-element" v-for="product in reversedProducts" :key="product.id">
-      <a href="#" @click.prevent="getProduct(product.id)">
+      <a href="#" @click="getProduct(product.id)">
         <div class="img-box">
           <img :src="product.imageUrl" :alt="product.title">
         </div>

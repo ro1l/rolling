@@ -2,7 +2,7 @@
   <div class="related-articles-box"
     v-for="article in relatedArticles" :key="article.id">
     <a href="#"
-      @click.prevent="getArticle(article.id)">
+      @click="getArticle(article.id)">
       {{ article.title }}
       <i class="bi bi-arrow-right"></i>
     </a>
