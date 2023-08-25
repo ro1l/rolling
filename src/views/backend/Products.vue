@@ -146,7 +146,6 @@ export default {
 
     async updateProduct(item) {
       try {
-        this.isLoadingForStore = true;
         this.tempProduct = item;
         let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
         let httpMethod = 'post';
@@ -163,7 +162,6 @@ export default {
       } catch (error) {
         console.error('Error 找不到資料:', error);
       } finally {
-        this.isLoadingForStore = false;
         this.$refs.productModal.hideModal();
         this.getProductsPage();
       }
@@ -177,18 +175,20 @@ export default {
     },
 
     async delProduct() {
-      try {
-        this.isLoading = true;
-        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`;
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`;
+      let res;
 
-        const res = await axios.delete(api);
+      try {
+        res = await axios.delete(api);
         this.isLoading = false;
         this.$refs.delModal.hideModal();
         this.getProductsPage();
-        this.pushMessageState(res);
         this.$refs.productModal.hideModal();
       } catch (error) {
         console.error('Error', error);
+      } finally {
+        this.pushMessageState(res);
       }
     },
 
