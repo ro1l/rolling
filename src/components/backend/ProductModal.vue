@@ -222,7 +222,7 @@
                       border border-1 border-black p-2 me-lg-5 mb-4 mb-lg-0"
                       v-for="item in tempProduct.imagesUrl"
                       :key="item" @click.prevent="delImages(item)">
-                      <img :src="item" alt="副圖" class="w-100">
+                      <img :src="item" alt="'副圖'" class="w-100">
                       <div class="position-absolute
                         bg-opacity-50 bg-danger p-1 text-xxs
                         w-100 bottom-0 start-0 text-center">移除</div>

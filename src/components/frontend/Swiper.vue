@@ -16,7 +16,7 @@
         :key="key"
         :class="{ 'carousel-item': true, active: key === 0 }"
         :data-bs-interval="10000">
-        <img :src="item" class="d-block w-100" :alt="副圖">
+        <img :src="item" class="d-block w-100" :alt="'副圖'">
       </div>
     </div>
   </div>
