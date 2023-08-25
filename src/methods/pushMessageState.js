@@ -1,7 +1,6 @@
 import emitter from '@/methods/emitter';
 
-// eslint-disable-next-line func-names
-export default function (res, title = '更新') {
+export default ((res, title = '更新') => {
   const message = typeof res.data.message === 'string' ? [res.data.message] : res.data.message;
   if (res.data.success) {
     emitter.emit('push-message', {
@@ -16,4 +15,4 @@ export default function (res, title = '更新') {
       content: message.join('、'),
     });
   }
-}
+});
