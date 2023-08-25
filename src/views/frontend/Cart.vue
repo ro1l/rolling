@@ -7,6 +7,9 @@
       <div class="cart-box">
         <div class="coupon">
           <label for="coupon" class="text-deep">優惠代碼</label>
+          <small class="text-danger py-2">
+            新人禮：輸入rolling打99折
+          </small>
           <input type="text" name="" id="coupon" placeholder="請輸入優惠券代碼"
             v-model="couponCode"
             @change="addCouponCode(couponCode)">
@@ -83,6 +86,9 @@
       <div class="checkout">
         <div class="coupon">
           <label for="coupon" class="text-deep">優惠代碼</label>
+          <small class="text-danger py-2">
+            新人禮：輸入rolling打99折
+          </small>
           <input type="text" name="" id="coupon" placeholder="請輸入優惠券代碼"
             v-model="couponCode"
             @change="addCouponCode(couponCode)">
