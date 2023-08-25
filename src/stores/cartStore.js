@@ -40,12 +40,10 @@ export default defineStore('cartStore', {
     },
 
     async getCartProducts() {
-      // status.isLoadingForStore = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
 
       try {
         const res = await axios.get(api);
-        // status.isLoadingForStore = false;
 
         this.cartProducts = res.data.data;
         this.cartProductsData = res.data.data.carts;
@@ -103,14 +101,17 @@ export default defineStore('cartStore', {
         code: couponCode,
       };
 
+      let res;
+
       try {
-        const res = await axios.post(api, { data: coupon });
+        res = await axios.post(api, { data: coupon });
         status.isLoadingForStore = false;
 
         this.getCartProducts();
-        pushMessageState(res);
       } catch (error) {
         console.error('Error 找不到資料', error);
+      } finally {
+        pushMessageState(res);
       }
     },
 
