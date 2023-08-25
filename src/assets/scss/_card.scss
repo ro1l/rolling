@@ -123,10 +123,6 @@
   color: var(--#{$prefix}card-cap-color);
   background-color: var(--#{$prefix}card-cap-bg);
   border-top: var(--#{$prefix}card-border-width) solid var(--#{$prefix}card-border-color);
-
-  &:last-child {
-    // @include border-radius(0 0 var(--#{$prefix}card-inner-border-radius) var(--#{$prefix}card-inner-border-radius));
-  }
 }
 
 
