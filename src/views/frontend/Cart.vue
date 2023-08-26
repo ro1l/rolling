@@ -2,65 +2,53 @@
   <PageTitle :title="'購物車'" />
 
   <div class="cart-box">
-    <div class="cart"
-      v-if="cartProducts.total !== 0">
-      <div class="cart-box">
-        <div class="coupon">
-          <label for="coupon" class="text-deep">優惠代碼</label>
-          <small class="text-danger py-2">
-            新人禮：輸入rolling打99折
-          </small>
-          <input type="text" name="" id="coupon" placeholder="請輸入優惠券代碼"
-            v-model="couponCode"
-            @change="addCouponCode(couponCode)">
-        </div>
+    <template v-if="cartProducts.total !== 0">
+      <!-- 車款資訊 -->
+      <div class="cart-info">
         <div class="cart-item"
           v-for="item in cartProducts.carts" :key="item.id">
-          <div class="price-sm text-deep">
-            <a href="#" class="text-deep"
-              @click.prevent="delProduct(item.id)"
-              :disabled="item.id === cartLoadingItem.loadingItem">
-              <ins>移除購物車</ins>
-            </a>
-          </div>
-          <div class="img-box">
+          <!-- 產品照片 -->
+          <div class="item1 img-box">
             <img :src="item.product.imageUrl" :alt="item.product.title">
           </div>
-          <div class="content text-deep">
+          <!-- 廠牌、名稱 -->
+          <div class="item2">
             <p>{{ item.product.category }}</p>
             <p>{{ item.product.title }}</p>
-            <div class="control">
-              <button type="button"
-                @click.prevent="updateCart(item, item.qty - 1)"
-                :disabled="item.qty === 1 && item.id === cartLoadingItem.loadingItem">
-                <i class="bi bi-dash text-deep"></i>
-              </button>
-              <input type="number" name="" id="qty" min="1"
-                v-model.number="item.qty"
-                @change="updateCart(item, item.qty)"
-                :disabled="item.id === cartLoadingItem.loadingItem">
-              <button type="button"
-                @click.prevent="updateCart(item, item.qty + 1)">
-                <i class="bi bi-plus text-deep"></i>
-              </button>
-            </div>
-            <small v-if="item.coupon">
-              <em>已套用{{ item.coupon.code }}優惠券</em>
-            </small>
           </div>
-          <div class="price text-deep">
-            <a href="#" class="text-deep"
-              @click.prevent="delProduct(item.id)"
+          <!-- 數量控制 -->
+          <div class="item3 control-num">
+            <button type="button"
+              @click.prevent="updateCart(item, item.qty - 1)"
+              :disabled="item.qty === 1 && item.id === cartLoadingItem.loadingItem">
+              <i class="bi bi-dash text-deep"></i>
+            </button>
+            <input type="number" name="" id="qty" min="1"
+              v-model.number="item.qty"
+              @change="updateCart(item, item.qty)"
               :disabled="item.id === cartLoadingItem.loadingItem">
-              <ins>移除購物車</ins>
-            </a>
-            <p>
-              <span v-if="!item.coupon">NT${{ $filters.currency(item.total) }}</span>
-              <span v-else>
-                <del>NT${{ $filters.currency(item.total) }}</del>
-                <h5>NT${{ $filters.currency(item.final_total) }}</h5>
-              </span>
-            </p>
+            <button type="button"
+              @click.prevent="updateCart(item, item.qty + 1)">
+              <i class="bi bi-plus text-deep"></i>
+            </button>
+          </div>
+          <!-- 已套用惠券 -->
+          <p class="item4" v-if="item.coupon">
+            "已套用{{ item.coupon.code }}優惠券"
+          </p>
+          <!-- 移除購物車 -->
+          <a href="#" class="item5 text-deep"
+            @click.prevent="delProduct(item.id)"
+            :disabled="item.id === cartLoadingItem.loadingItem">
+            <ins>移除購物車</ins>
+          </a>
+          <!-- 總金額 -->
+          <div class="item6">
+            <h5 v-if="!item.coupon">NT${{ $filters.currency(item.total) }}</h5>
+            <h5 v-else>
+              <del>NT${{ $filters.currency(item.total) }}</del>
+              NT${{ $filters.currency(item.final_total) }}
+            </h5>
           </div>
         </div>
         <div class="total-box">
@@ -83,33 +71,29 @@
           </p>
         </div>
       </div>
-      <div class="checkout">
-        <div class="coupon">
-          <label for="coupon" class="text-deep">優惠代碼</label>
-          <small class="text-danger py-2">
-            新人禮：輸入rolling打99折
-          </small>
-          <input type="text" name="" id="coupon" placeholder="請輸入優惠券代碼"
-            v-model="couponCode"
-            @change="addCouponCode(couponCode)">
-        </div>
-        <router-link :to="{ name: '訂單填寫' }" class="border-btn text-deep">
-          訪客結帳
-        </router-link>
-      </div>
-    </div>
 
+      <!-- 優惠券、結帳 -->
+      <div class="checkout">
+      <div class="coupon">
+        <label for="coupon" class="text-deep">優惠代碼</label>
+        <small class="text-danger py-2">
+          新人禮：輸入rolling打99折
+        </small>
+        <input type="text" name="" id="coupon" placeholder="請輸入優惠券代碼"
+          v-model="couponCode"
+          @change="addCouponCode(couponCode)">
+      </div>
+      <router-link :to="{ name: '訂單填寫' }" class="border-btn">
+        訪客結帳
+      </router-link>
+      </div>
+    </template>
+
+    <!-- 無商品 -->
     <div class="cart-no-data" v-else>
       <h2>購物車暫無商品</h2>
       <router-link :to="{ name: '所有產品' }" class="border-btn text-deep">
         前往選購
-      </router-link>
-    </div>
-
-    <div class="check-box bg-color"
-      v-if="cartProducts.total !== 0">
-      <router-link :to="{ name: '訂單填寫' }" class="border-btn text-deep">
-        訪客結帳
       </router-link>
     </div>
   </div>

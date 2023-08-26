@@ -1,138 +1,143 @@
 .cart-box {
-  .check-box {
-    display: none;
-  }
-  .cart {
-    display: flex;
-    width: 90%;
-    margin: 3rem auto;
+  display: flex;
+  width: 90%;
+  margin: 3rem auto;
 
-    .cart-box {
-      width: 70%;
-      display: flex;
-      flex-wrap: wrap;
-      margin: 0 2rem;
+  .cart-info {
+    width: 70%;
 
-      .total-box {
+    .cart-item {
+      padding: 0 2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: grid;
+      column-gap: 3rem;
+      row-gap: .5rem;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, auto);
+      grid-template-areas: 
+        "item1 item2 item5"
+        "item1 item3 ."
+        "item1 item4 item6";
+      border-bottom: 1px solid;
+
+      .item1 { 
+        grid-area: item1; // 產品照片
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .item2 {
+        grid-area: item2; // 廠牌、名稱
+
+        p {
+
+          &:first-child {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+
+      .item3 {
+        grid-area: item3; // 數量控制
         display: flex;
-        flex-direction: column;
-        width: 100%;
+
+        button {
+          background: none;
+          border: none;
+          font-size: 1.5rem;
+        }
+
+        input {
+          background: none;
+          border: none;
+          text-align: center;
+          width: 20%;
+          text-decoration: underline;
+        }
+      }
+
+      .item4 {
+        grid-area: item4;  // 已套用優惠券
+        padding: 0;
+        margin: 0;
+        font-style: italic;
+        font-size: 0.9rem;
+        align-self: end;
+      }
+
+      .item5 {
+        grid-area: item5; // 移除購物車
         text-align: right;
-        margin-top: 2rem;
-
-        span {
-          text-align: right;
-          width: 15%;
-          display: inline-block;
-        }
+        font-size: 0.9rem;
       }
+      
+      .item6 {
+        grid-area: item6; //  商品總金額
+        text-align: right;
+        align-self: end;
 
-      .coupon {
-        display: none;
-      }
+        h5 {
+          margin: 0;
+          padding: 0;
 
-      .cart-item {
-        display: flex;
-        flex-wrap: nowrap;
-        border-bottom: 1px solid;
-        padding: 0rem 0 1rem 4rem;
-        margin-bottom: 1rem;
-        
-
-        .price-sm {
-          display: none;
-        }
-
-        .img-box {
-          width: 30%;
-
-          img {
-            width: 100%;
-          }
-        }
-
-        .content {
-          padding: 0 3rem;
-          width: 40%;
-          align-self: center;
-
-          p {
-            &:first-child {
-              font-weight: 700;
-            }
-          }
-
-          .control {
-            display: flex;
-
-            button {
-              background: none;
-              border: none;
-              font-size: 1.5rem;
-            }
-
-            input {
-              background: none;
-              border: none;
-              text-align: center;
-              width: 20%;
-              text-decoration: underline;
-            }
-          }
-        }
-
-        .price {
-          width: 40%;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: end;
-
-          a {
-            font-size: 0.9rem;
-          }
-
-          p {
-            font-size: 1.2rem;
-            
-            span {
-              display: flex;
-
-              h5 {
-                padding-left: 1rem;
-              }
-            }
+          del {
+            font-size: 1rem;
+            font-weight: lighter;
+            padding-right: 1rem;
           }
         }
       }
     }
 
-    .checkout {
-      width: 30%;
-      padding: 0rem 4rem;
+    .total-box {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      text-align: right;
+      margin-top: 2rem;
+      padding: 0 2rem;
 
-      .coupon {
-        display: flex;
-        flex-direction: column;
-        margin: 0rem 0 2rem;
+      p {
+        font-size: 1rem;
+        padding-bottom: .5rem;
 
-        input {
-          background: none;
-          border: none;
-          border-bottom: 1px solid;
-          padding: 1rem;
-
-          &::placeholder {
-            font-weight: 300;
-          }
+        span {
+          text-align: right;
+          width: 20%;
+          display: inline-block;
         }
       }
+    }
+  }
 
-      a {
-        display: inline-block;
-        text-align: center;
-        width: 100%;
+  .checkout {
+    width: 30%;
+    padding: 0rem 4rem;
+
+    .coupon {
+      display: flex;
+      flex-direction: column;
+      margin: 0rem 0 2rem;
+
+      input {
+        background: none;
+        border: none;
+        border-bottom: 1px solid;
+        padding: 1rem;
+
+        &::placeholder {
+          font-weight: 300;
+        }
       }
+    }
+
+    a {
+      display: inline-block;
+      text-align: center;
+      width: 100%;
     }
   }
 
@@ -160,95 +165,92 @@
 
 @media (max-width: 768px) {
   .cart-box {
-    .check-box {
-      display: flex;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 0.8rem 2rem;
-      justify-content: flex-end;
+    width: 100%;
+    padding: 0 2rem;
+    flex-wrap: wrap;
 
-      a {
-        padding: 0.6rem 2.2rem;
+    .cart-info {
+      width: 100%;
+      order: 2;
+
+      .cart-item {
+        padding: 0 0 1rem;
+        margin-bottom: 1rem;
+        column-gap: 0rem;
+        row-gap: 0rem;
+        grid-template-columns: 65% 35%;
+        grid-template-rows: repeat(5, auto);
+        grid-template-areas: 
+          "item5 ."
+          "item1 item2"
+          "item1 item3"
+          "item6 item6"
+          "item4 item4";
+        
+        .item1 { 
+          padding-right: 1rem;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .item2 {
+          align-self: center;
+
+          p {
+            margin-bottom: 0;
+
+            &:first-child {
+              font-weight: 700;
+              margin-bottom: 0.5rem;
+            }
+          }
+        }
+
+        .item3 {
+          display: flex;
+        }
+
+        .item4 {
+          text-align: right;
+          align-self: center;
+          padding-top: 0.5rem;
+        }
+
+        .item5 {
+          text-align-last: left;
+        }
+        
+        .item6 {
+          padding: 1rem 0 0;
+
+          h5 {
+
+            del {
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
+
+      .total-box {
+        padding: 0;
+
+        p {
+
+          span {
+            width: 40%;
+          }
+        }
       }
     }
 
-    .cart {
+    .checkout {
       width: 100%;
-      margin: 1rem auto;
-      justify-content: center;
-
-      .cart-box {
-        width: 100%;
-        padding-top: 2rem;
-
-        .coupon {
-          display: flex;
-          flex-direction: column;
-          margin: 0rem 0 4rem;
-          width: 100%;
-
-
-          input {
-            background: none;
-            border: none;
-            border-bottom: 1px solid;
-            padding: 1rem;
-            border-radius: 0;
-
-            &::placeholder {
-              font-weight: 300;
-            }
-          }
-        }
-
-        .total-box {
-          margin-top: 1rem;
-
-          span {
-            width: 45%;
-          }
-        }
-
-        .cart-item {
-          padding: 0;
-          flex-wrap: wrap;
-          margin-bottom: 1rem;
-
-          .price-sm {
-            width: 100%;
-            display: block;
-          }
-
-          .img-box {
-            width: 60%;
-          }
-
-          .content {
-            padding: 0 0 0 1rem;
-            align-self: stretch;
-          }
-
-          .price {
-            width: 100%;
-            padding: 0;
-            padding-top: 1rem;
-
-            a {
-              display: none;
-            }
-
-            p {
-              font-size: 1.3rem;
-            }
-          }
-        }
-      }
-
-      .checkout {
-        display: none;
-      }
+      padding: 0;
+      order: 1;
+      margin: 1rem 0 3rem;
     }
   }
 }
