@@ -177,7 +177,7 @@ export default {
       productsNavbar: false,
       productsCategory: [],
       showNav: true,
-      routesWithoutNav: ['單一產品', '所有產品', '購物車'],
+      routesWithoutNav: ['單一產品', '所有產品'],
       taxStatus: false,
     };
   },
