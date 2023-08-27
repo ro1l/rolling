@@ -53,7 +53,7 @@
           <router-link :to="{ name: '購物車' }" class="border-btn text-deep">
             上一步
           </router-link>
-          <button type="button" class="fill-btn">結帳去</button>
+          <button class="fill-btn">結帳去</button>
         </div>
       </Form>
     </div>
