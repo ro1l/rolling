@@ -234,7 +234,7 @@ export default {
         has_next: page < allPage,
       };
       this.productByCategory = tempProductCategory.splice((page - 1) * 9, page * 9);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0 });
     },
 
     checkRoute() {
