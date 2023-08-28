@@ -281,6 +281,9 @@ export default {
   mounted() {
     this.getProducts();
     this.checkRoute();
+    this.$nextTick(() => {
+      window.scrollTo(0, 0);
+    });
   },
 
   inject: ['emitter', 'pushMessageState'],
