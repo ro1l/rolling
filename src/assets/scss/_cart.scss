@@ -56,7 +56,6 @@
           text-align: center;
           width: 20%;
           text-decoration: underline;
-          border-radius: 0;
         }
       }
 
@@ -128,6 +127,7 @@
         border: none;
         border-bottom: 1px solid;
         padding: 1rem;
+        border-radius: 0;
 
         &::placeholder {
           font-weight: 300;
