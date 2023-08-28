@@ -39,6 +39,7 @@ export default {
   methods: {
     updatePage(page) {
       this.$emit('emit-pages', page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
 };
