@@ -37,6 +37,7 @@ export default defineStore('productStore', {
         this.products = res.data.products;
         this.updateProductsCategoryAndType();
         this.scrollToTop();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } catch (error) {
         console.error('Error 找不到資料:', error);
       }

@@ -199,7 +199,6 @@ export default {
         );
       }
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
       return categoryProduct;
     },
 
@@ -277,7 +276,6 @@ export default {
       this.isFilterOpen = data;
     });
     this.getProducts();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   },
 
   mounted() {
