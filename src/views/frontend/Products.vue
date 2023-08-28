@@ -267,6 +267,7 @@ export default {
 
     categoryProduct() {
       this.showCategory();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
 
@@ -281,6 +282,7 @@ export default {
   mounted() {
     this.getProducts();
     this.checkRoute();
+    // window.scrollTo({ top: 0, behavior: 'smooth' });
   },
 
   inject: ['emitter', 'pushMessageState'],
