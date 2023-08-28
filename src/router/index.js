@@ -115,17 +115,16 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.path.startsWith('/dashboard') || to.path === '/r') {
+  if (to.path.startsWith('/dashboard')) {
+    document.body.style.backgroundColor = '#e7e6e6';
+    router.options.linkActiveClass = 'active-nav-item';
+  } else if (to.path === '/r') {
     document.body.style.backgroundColor = '#e7e6e6';
   } else {
     document.body.style.backgroundColor = '';
   }
-
-  next();
-});
-
-router.afterEach(() => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  next();
 });
 
 export default router;
