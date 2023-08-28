@@ -39,7 +39,9 @@ export default {
   methods: {
     updatePage(page) {
       this.$emit('emit-pages', page);
-      window.scrollTo({ top: 0 });
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      });
     },
   },
 };

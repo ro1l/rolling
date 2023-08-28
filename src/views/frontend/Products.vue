@@ -234,7 +234,9 @@ export default {
         has_next: page < allPage,
       };
       this.productByCategory = tempProductCategory.splice((page - 1) * 9, page * 9);
-      window.scrollTo({ top: 0 });
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 0);
     },
 
     checkRoute() {
@@ -276,14 +278,12 @@ export default {
       this.isFilterOpen = data;
     });
     this.getProducts();
+    window.scrollTo(0, 0);
   },
 
   mounted() {
     this.getProducts();
     this.checkRoute();
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 0);
   },
 
   inject: ['emitter', 'pushMessageState'],

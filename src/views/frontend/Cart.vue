@@ -131,6 +131,7 @@ export default {
 
   created() {
     this.getCartProducts();
+    window.scrollTo(0, 0);
   },
 
   inject: ['emitter', 'pushMessageState'],
