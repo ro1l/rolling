@@ -148,8 +148,11 @@
           <div class="item">
             <div class="example-box">
               <img src="@/assets/media/methods-2.png" :alt="'車款比較示意圖'">
-              <p><b>YAMAHA</b></p>
-              <p>MT-07</p>
+              <p>
+                <b>YAMAHA</b>
+                <br>
+                MT-07
+              </p>
             </div>
             <p>
               <strong>2. </strong>

@@ -168,7 +168,6 @@
               display: inline-block;
 
               &:nth-child(2) {
-                // text-align-last: center;
                 text-align: left;
                 width: 100%;
                 justify-self: start;
@@ -177,20 +176,6 @@
               }
             }
           }
-
-          // &::after {
-          //   content: '';
-          //   background-image: url(@/assets/cursor.png);
-          //   width: 20px;
-          //   height: 30px;
-          //   background-position: center;
-          //   background-size: cover;
-          //   position: absolute;
-          //   object-fit: cover;
-          //   right: 5rem;
-          //   bottom: 8rem;
-          //   animation: arrow 1s infinite alternate;
-          // }
 
           p {
             height: 20%;
@@ -208,16 +193,6 @@
           }
         }
       }
-    }
-  }
-
-  @keyframes arrow {
-    0% {
-      transform: translate(0, 50%);
-    }
-
-    100% {
-      transform: translate(-40%, 30%);
     }
   }
 }
