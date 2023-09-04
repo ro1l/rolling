@@ -70,7 +70,7 @@
         </table>
         <div class="button-box"
           v-if="order.is_paid === false">
-          <button type="button" class="pay fill-btn">確認付款</button>
+          <button class="pay fill-btn">確認付款</button>
         </div>
         <div class="button-box"
           v-else>
