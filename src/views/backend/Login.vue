@@ -64,7 +64,6 @@ export default {
           this.$router.push('/dashboard/products');
           pushMessageState(res);
         }
-        pushMessageState(res);
       } catch (error) {
         console.error('Login Error:', error);
         this.isLoading = false;
